@@ -1,0 +1,48 @@
+id,part,qty,make_buy,category,subsystem,material_spec,supplier,part_number,shared_with_robot,mirror_for_left,status,notes
+GL-001,palm_plate_j3_glove,1,make,structure,palm,ABS or PETG,3D print,,no,yes,in CAD,Glove palm plate; kinematics match palm_plate_j3_robot
+GL-002,backplate_j4,1,make,structure,palm,ABS or PETG,3D print,,no,yes,in CAD,Back of hand plate
+GL-003,link1_index_j3,1,make,structure,index,ABS or PETG,3D print,,no,yes,in CAD,Proximal link
+GL-004,index_tip_glove_j3,1,make,structure,index,ABS or PETG,3D print,,no,yes,in CAD,Distal link / contact surface
+GL-005,link1_middle_j4,1,make,structure,middle,ABS or PETG,3D print,,no,yes,in CAD,Proximal link
+GL-006,middle_tip_glove_j3,1,make,structure,middle,ABS or PETG,3D print,,no,yes,in CAD,Distal link / contact surface
+GL-007,link1_pinkyring_j3,1,make,structure,pinky-ring,ABS or PETG,3D print,,no,yes,in CAD,Combined ring+pinky proximal link
+GL-008,pinkyring_tip_glove,1,make,structure,pinky-ring,ABS or PETG,3D print,,no,yes,in CAD,Combined ring+pinky distal link
+GL-009,thumb_link1_encoder_inner_glove,1,make,structure,thumb,ABS or PETG,3D print,,no,yes,in CAD,Thumb link 1 with integrated encoder seat
+GL-010,thumb_tip_glove_j3,1,make,structure,thumb,ABS or PETG,3D print,,no,yes,in CAD,Thumb distal link / contact surface
+GL-011,encoder_case_index_proxy,2,make,encoder housing,index / middle,ABS or PETG,3D print,,no,yes,in CAD,2 in assembly: used on index and middle
+GL-012,encoder_case_index_distal,2,make,encoder housing,index / middle,ABS or PETG,3D print,,no,yes,in CAD,2 in assembly: used on index and middle
+GL-013,encoder_case_index_distal_pin,1,make,encoder housing,index,ABS or PETG,3D print,,no,yes,in CAD,
+GL-014,encoder_case_pinkyring_distal_pin,1,make,encoder housing,pinky-ring,ABS or PETG,3D print,,no,yes,in CAD,
+GL-015,distal_encoder_lid,5,make,encoder housing,all fingers,ABS or PETG,3D print,,no,no,in CAD,"5 lids: index proxy/distal, middle proxy/distal, pinky-ring (confirm). The remaining 3 pots are secured with hot glue instead of a lid"
+GL-016,index_proxy_hinge_pin,1,make,pin,index,ABS or PETG,3D print,,no,no,in CAD,"Printed hinge pin. Plain printed hinge, no bearing"
+GL-017,index_proxy_encoder_pin,1,make,pin,index,ABS or PETG,3D print,,no,no,in CAD,Printed pin coupling joint to pot shaft
+GL-018,index_tip_hinge_pin,3,make,pin,index / middle / pinky-ring,ABS or PETG,3D print,,no,no,in CAD,"3 in assembly: reused across fingertips. Plain printed hinge, no bearing"
+GL-019,index_tip_encoder_pin,1,make,pin,index,ABS or PETG,3D print,,no,no,in CAD,
+GL-020,middle_proxy_hinge_pin,1,make,pin,middle,ABS or PETG,3D print,,no,no,in CAD,"Plain printed hinge, no bearing"
+GL-021,middle_proxy_encoder_pin3,1,make,pin,middle,ABS or PETG,3D print,,no,no,in CAD,Rename: drop numeric suffix
+GL-022,middle_tip_encoder_pin,1,make,pin,middle,ABS or PETG,3D print,,no,no,in CAD,
+GL-023,pinkyring_proxy_hinge_pin,1,make,pin,pinky-ring,ABS or PETG,3D print,,no,no,in CAD,"Plain printed hinge, no bearing"
+GL-024,pinkyring_proxy_encoder_pin,1,make,pin,pinky-ring,ABS or PETG,3D print,,no,no,in CAD,
+GL-025,pinkyring_distal_hinge_pin,1,make,pin,pinky-ring,ABS or PETG,3D print,,no,no,in CAD,"Plain printed hinge, no bearing"
+GL-026,pinkyring_tip_encoder_pin,1,make,pin,pinky-ring,ABS or PETG,3D print,,no,no,in CAD,
+GL-027,thumb_pin2,1,make,pin,thumb,ABS or PETG,3D print,,no,no,in CAD,Rename: drop numeric suffix
+GL-028,thumb_encoder_pin2,1,make,pin,thumb,ABS or PETG,3D print,,no,no,in CAD,Rename: drop numeric suffix
+GL-029,thumb_tip_encoder_pin,1,make,pin,thumb,ABS or PETG,3D print,,no,no,in CAD,
+GL-030,electronics_box1,1,make,enclosure,electronics,ABS or PETG,3D print,,yes,no,in CAD,Shared with robot hand; houses ESP32 Feather
+GL-031,electronics_box1_lid,1,make,enclosure,electronics,ABS or PETG,3D print,,yes,no,in CAD,Shared with robot hand
+GL-032,camera_mount_v2,1,make,camera,camera,ABS or PETG,3D print,,yes,yes,in CAD,Shared with robot hand; identical camera pose
+GL-033,camera_adaptor_v2,1,make,camera,camera,ABS or PETG,3D print,,yes,yes,in CAD,Shared with robot hand
+GL-034,Controller Adapter_right,1,make,tracking,tracking,ABS or PETG,3D print,,yes,yes,in CAD,Quest controller cradle (right); derived (minor edits) from udCap VR glove adapter files - see bom/THIRD_PARTY.md
+GL-035,Controller Adapter UP_right,1,make,tracking,tracking,ABS or PETG,3D print,,yes,yes,in CAD,Quest controller cradle upper half (right); derived (minor edits) from udCap VR glove adapter files - see bom/THIRD_PARTY.md
+GL-101,Bourns 3382G-2-103G rotary position sensor (10 kOhm),8,buy,sensor,fingers,"3382G series, 9 mm, single-turn, 10 kOhm, linear taper",Bourns / DigiKey / Mouser,3382G-2-103G,no,no,in CAD,"One per joint (2 per finger group). CAD model is 3382g-001-xxx. 5 pots held by printed lids (GL-015), 3 by hot glue"
+GL-102,Adafruit HUZZAH32 ESP32 Feather,1,buy,electronics,electronics,"ESP32-WROOM-32, CP2104 USB-serial, LiPo charger",Adafruit,3405,no,no,in CAD,Identified from PCB component sub-assembly (CP2104; MCP73831; ESP32_WROOM32; JST-PH). Confirm exact variant (Feather vs Feather V2)
+GL-103,USB camera module 2 MP,1,buy,camera,camera,"2 MP, USB 2.0 UVC",TODO,TODO,yes,no,in CAD,Same module and pose as robot hand
+GL-104,Meta Quest Touch Plus controller (right),1,buy,tracking,tracking,"Quest 3 / 3S Touch Plus, right hand",Meta,TODO,yes,no,in CAD,Rigidly mounted via printed adapters; provides 6-DOF pose
+GL-201,LiPo battery for Feather,1,buy,electronics,electronics,"TODO: 3.7 V, capacity, JST-PH 2-pin",TODO,TODO,no,no,TODO,Not in CAD; only if glove runs untethered (else USB power)
+GL-202,Encoder wiring harness,8,buy,electronics,wiring,3 wires per pot (VCC/GND/signal) to ESP32 ADC; wire gauge TODO,Generic,TODO,no,no,TODO,Not in CAD; count assumes one harness per pot
+GL-203,USB cable for camera,1,buy,electronics,wiring,TODO,TODO,TODO,yes,no,TODO,Not in CAD
+GL-204,USB cable for ESP32 Feather (data/power),1,buy,electronics,wiring,Micro-USB,Generic,TODO,no,no,TODO,Not in CAD
+GL-205,Finger / hand straps,TODO,buy,wearable,fingers,"TODO: velcro straps, elastic, finger loops",Generic,TODO,no,no,TODO,Not in CAD; how the glove attaches to the operator hand
+GL-206,Structural screws and heat-set inserts,TODO,buy,fastener,fasteners,"TODO: sizes (M2/M2.5/M3), lengths, insert type",Generic,TODO,no,no,TODO,Not in CAD; encoder cases; palm plate; camera mount; electronics box
+GL-207,Potentiometer mounting hardware,8,buy,fastener,fasteners,TODO: pot nut/washer or press fit,Generic,TODO,no,no,remove?,Not in CAD. Pots are held by printed lids or hot glue - likely no dedicated hardware; delete this row if so
+GL-208,Fingertip friction / contact material,TODO,buy,contact,fingers,TODO: match robot hand,TODO,TODO,yes,no,TODO,Not in CAD; only if contact surfaces are covered

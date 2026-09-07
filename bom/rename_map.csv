@@ -1,0 +1,49 @@
+bom_id,current_cad_name,proposed_name,group,note
+RH-001,palm_plate_j3_robot,rh_palm_plate,robot hand,
+RH-002,robot_glove_backplate_j3,rh_backplate,robot hand,
+RH-003,index_proxy_link,rh_index_proximal_link,robot hand,
+RH-004,index_tip_robot_j3,rh_index_tip,robot hand,
+RH-005,middle_proxy_link_j4,rh_middle_proximal_link,robot hand,
+RH-006,middle_tip_robot_j3,rh_middle_tip,robot hand,
+RH-007,pinkyring_proxy_link,rh_pinkyring_proximal_link,robot hand,
+RH-008,pinkyring_tip_robot,rh_pinkyring_tip,robot hand,
+RH-009,thumb_link1_test,rh_thumb_link1,robot hand,drop _test
+RH-010,thumb_link1_support_rod,rh_thumb_link1_support_rod,robot hand,
+RH-011,thumb_pin,rh_thumb_pin,robot hand,
+RH-012,thumb_tip_robot_j3,rh_thumb_tip,robot hand,
+RH-013,OpenArm_adaptor,rh_openarm_adaptor,robot hand,
+RH-014 / GL-030,electronics_box1,cm_electronics_box,common,shared part - one file used by both assemblies
+RH-015 / GL-031,electronics_box1_lid,cm_electronics_box_lid,common,shared
+RH-016 / GL-032,camera_mount_v2,cm_camera_mount,common,shared
+RH-017 / GL-033,camera_adaptor_v2,cm_camera_adaptor,common,shared
+RH-018 / GL-034,Controller Adapter_right,cm_quest_adapter_lower,common,shared; third-party derived (udCap)
+RH-019 / GL-035,Controller Adapter UP_right,cm_quest_adapter_upper,common,shared; third-party derived (udCap)
+GL-001,palm_plate_j3_glove,gl_palm_plate,glove,
+GL-002,backplate_j4,gl_backplate,glove,
+GL-003,link1_index_j3,gl_index_proximal_link,glove,align with robot naming (link1 -> proximal_link)
+GL-004,index_tip_glove_j3,gl_index_tip,glove,
+GL-005,link1_middle_j4,gl_middle_proximal_link,glove,
+GL-006,middle_tip_glove_j3,gl_middle_tip,glove,
+GL-007,link1_pinkyring_j3,gl_pinkyring_proximal_link,glove,
+GL-008,pinkyring_tip_glove,gl_pinkyring_tip,glove,
+GL-009,thumb_link1_encoder_inner_glove,gl_thumb_link1,glove,
+GL-010,thumb_tip_glove_j3,gl_thumb_tip,glove,
+GL-011,encoder_case_index_proxy,gl_encoder_case_proximal,glove,used on index AND middle - drop finger from name
+GL-012,encoder_case_index_distal,gl_encoder_case_distal,glove,used on index AND middle
+GL-013,encoder_case_index_distal_pin,gl_index_encoder_case_pin,glove,
+GL-014,encoder_case_pinkyring_distal_pin,gl_pinkyring_encoder_case_pin,glove,
+GL-015,distal_encoder_lid,gl_encoder_lid,glove,used on proximal and distal joints
+GL-016,index_proxy_hinge_pin,gl_index_proximal_hinge_pin,glove,
+GL-017,index_proxy_encoder_pin,gl_index_proximal_encoder_pin,glove,
+GL-018,index_tip_hinge_pin,gl_tip_hinge_pin,glove,used on 3 fingers - drop finger from name
+GL-019,index_tip_encoder_pin,gl_index_tip_encoder_pin,glove,
+GL-020,middle_proxy_hinge_pin,gl_middle_proximal_hinge_pin,glove,
+GL-021,middle_proxy_encoder_pin3,gl_middle_proximal_encoder_pin,glove,drop 3
+GL-022,middle_tip_encoder_pin,gl_middle_tip_encoder_pin,glove,
+GL-023,pinkyring_proxy_hinge_pin,gl_pinkyring_proximal_hinge_pin,glove,
+GL-024,pinkyring_proxy_encoder_pin,gl_pinkyring_proximal_encoder_pin,glove,
+GL-025,pinkyring_distal_hinge_pin,gl_pinkyring_tip_hinge_pin,glove,distal -> tip for consistency
+GL-026,pinkyring_tip_encoder_pin,gl_pinkyring_tip_encoder_pin,glove,
+GL-027,thumb_pin2,gl_thumb_pin,glove,drop 2
+GL-028,thumb_encoder_pin2,gl_thumb_encoder_pin,glove,drop 2
+GL-029,thumb_tip_encoder_pin,gl_thumb_tip_encoder_pin,glove,

@@ -1,0 +1,14 @@
+# SolidWorks temp/backup
+~$*
+*.swp.bak
+*.bak
+*.SLDPRT.*.bak
+# Python
+__pycache__/
+*.pyc
+.venv/
+# OS
+.DS_Store
+Thumbs.db
+# local export scratch
+/export/

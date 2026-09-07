@@ -1,0 +1,32 @@
+id,part,qty,make_buy,category,subsystem,material_spec,supplier,part_number,shared_with_glove,mirror_for_left,status,notes
+RH-001,palm_plate_j3_robot,1,make,structure,palm,ABS or PETG,3D print,,no,yes,in CAD,Main palm plate; servo mounting
+RH-002,robot_glove_backplate_j3,1,make,structure,palm,ABS or PETG,3D print,,no,yes,in CAD,Back of hand plate
+RH-003,index_proxy_link,1,make,structure,index,ABS or PETG,3D print,,no,yes,in CAD,Proximal link
+RH-004,index_tip_robot_j3,1,make,structure,index,ABS or PETG,3D print,,no,yes,in CAD,Distal link / fingertip contact surface
+RH-005,middle_proxy_link_j4,1,make,structure,middle,ABS or PETG,3D print,,no,yes,in CAD,Proximal link
+RH-006,middle_tip_robot_j3,1,make,structure,middle,ABS or PETG,3D print,,no,yes,in CAD,Distal link / fingertip contact surface
+RH-007,pinkyring_proxy_link,1,make,structure,pinky-ring,ABS or PETG,3D print,,no,yes,in CAD,Combined ring+pinky proximal link
+RH-008,pinkyring_tip_robot,1,make,structure,pinky-ring,ABS or PETG,3D print,,no,yes,in CAD,Combined ring+pinky distal link
+RH-009,thumb_link1_test,1,make,structure,thumb,ABS or PETG,3D print,,no,yes,in CAD,Thumb link 1 (rename: drop _test suffix)
+RH-010,thumb_link1_support_rod,1,make,structure,thumb,ABS or PETG,3D print,,no,yes,in CAD,Printed support rod for thumb link 1
+RH-011,thumb_pin,1,make,structure,thumb,ABS or PETG,3D print,,no,yes,in CAD,Printed pin; runs in MR105ZZ bearing
+RH-012,thumb_tip_robot_j3,1,make,structure,thumb,ABS or PETG,3D print,,no,yes,in CAD,Thumb distal link / contact surface
+RH-013,OpenArm_adaptor,1,make,structure,wrist,ABS or PETG,3D print,,no,yes,in CAD,Wrist flange adaptor to OpenArm
+RH-014,electronics_box1,1,make,enclosure,electronics,ABS or PETG,3D print,,yes,no,in CAD,Shared with glove
+RH-015,electronics_box1_lid,1,make,enclosure,electronics,ABS or PETG,3D print,,yes,no,in CAD,Shared with glove
+RH-016,camera_mount_v2,1,make,camera,camera,ABS or PETG,3D print,,yes,yes,in CAD,Shared with glove; identical camera pose on both
+RH-017,camera_adaptor_v2,1,make,camera,camera,ABS or PETG,3D print,,yes,yes,in CAD,Shared with glove
+RH-018,Controller Adapter_right,1,make,tracking,tracking,ABS or PETG,3D print,,yes,yes,in CAD,Quest controller cradle (right); derived (minor edits) from udCap VR glove adapter files - see bom/THIRD_PARTY.md
+RH-019,Controller Adapter UP_right,1,make,tracking,tracking,ABS or PETG,3D print,,yes,yes,in CAD,Quest controller cradle upper half (right); derived (minor edits) from udCap VR glove adapter files - see bom/THIRD_PARTY.md
+RH-101,Feetech HLS3606 dual-shaft serial bus servo,8,buy,actuator,fingers,"HLS3606, dual shaft, serial bus",Feetech / AliExpress,HLS3606,no,no,in CAD,2 per finger group (index; middle; pinky-ring; thumb). CAD model is Feetech HL_3606_C002
+RH-102,Ball bearing MR105ZZ 5x10x4 mm,1,buy,hardware,thumb,"5 mm ID x 10 mm OD x 4 mm, shielded",Generic,MR105ZZ,no,no,in CAD,Thumb pin bearing; the only bearing in the design - all other joints rotate directly on the servo dual-shaft output
+RH-103,USB camera module 2 MP,1,buy,camera,camera,"2 MP, USB 2.0 UVC",TODO,TODO,yes,no,in CAD,Same module and pose on glove. Fill in exact module (sensor; lens FOV; board size)
+RH-104,Meta Quest Touch Plus controller (right),1,buy,tracking,tracking,"Quest 3 / 3S Touch Plus, right hand",Meta,TODO,yes,no,in CAD,Rigidly mounted via printed adapters; provides 6-DOF pose
+RH-201,Serial bus servo driver board,1,buy,electronics,electronics,TTL serial bus servo adapter (e.g. Feetech FE-URT-1 or Waveshare Bus Servo Adapter),TODO,TODO,no,no,TODO,Not in CAD. Confirm which board is used and whether it fits electronics_box1
+RH-202,Servo power supply,1,buy,electronics,electronics,TODO: voltage/current (HLS3606 nominal V; ~8 servos peak),TODO,TODO,no,no,TODO,Not in CAD
+RH-203,Servo daisy-chain cables,8,buy,electronics,wiring,"3-pin servo bus cables, length TODO",Feetech,TODO,no,no,TODO,Not in CAD; count assumes one cable per servo
+RH-204,USB cable for camera,1,buy,electronics,wiring,TODO,TODO,TODO,yes,no,TODO,Not in CAD
+RH-205,Servo mounting screws,TODO,buy,fastener,fasteners,TODO: e.g. M2 x L self-tapping / machine,Generic,TODO,no,no,TODO,Not in CAD; count per servo x 8
+RH-206,Servo horn / output screws,TODO,buy,fastener,fasteners,TODO: typically supplied with servo,Feetech,TODO,no,no,TODO,Not in CAD
+RH-207,Structural screws and heat-set inserts,TODO,buy,fastener,fasteners,"TODO: sizes (M2/M2.5/M3), lengths, insert type",Generic,TODO,no,no,TODO,Not in CAD; palm plate; backplate; camera mount; electronics box; OpenArm flange
+RH-208,Fingertip friction / contact material,TODO,buy,contact,fingers,"TODO: e.g. TPU pad, silicone, grip tape",TODO,TODO,yes,no,TODO,Not in CAD; only if contact surfaces are covered on both hand and glove
