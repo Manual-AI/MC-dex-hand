@@ -35,16 +35,29 @@ and `"dynamics_validated": false`.
 | MuJoCo 3.6.0 | Clean launcher-managed Python 3.11 environment | Passed; final readback error 0 rad | EGL screenshot generated and inspected |
 | Genesis 1.0.0 | Clean launcher-managed Python 3.11, Torch 2.12.0; CPU backend | Passed; final error < 6 × 10⁻⁹ rad | Headless raster screenshot generated and inspected |
 | SuperDex 1.0.0 | Clean launcher-managed Python 3.12 environment | Passed; final error ≈ 0.00104 rad | Headless test does not exercise debugger rendering |
-| Isaac Sim 5.1.0 | Existing Python 3.11 installation with previously accepted EULA | Passed; final error < 6 × 10⁻⁹ rad | GUI and screenshot startup failed in NVIDIA's renderer before robot import |
+| Isaac Sim 5.1.0 | Clean launcher-managed Python 3.11 environment; existing installation also tested | Passed; final error < 6 × 10⁻⁹ rad | Screenshot startup failed in both environments; GUI startup also failed in the existing environment |
 
-The Genesis GPU backend is provided but was not exercised in this record. Isaac Sim's
-fresh multi-gigabyte package installation was not repeated; validation reused an installed
-5.1.0 environment without modifying it. No new license agreement was accepted during tests.
+The Genesis GPU backend is provided but was not exercised in this record. Initial Isaac
+tests reused an existing, already-accepted installation without modifying it. After
+explicit user approval of NVIDIA's EULA, the complete one-command installer was also
+tested in a new `build/simulation/envs/isaacsim/` environment:
+
+```bash
+python3 simulation/run.py isaacsim --accept-isaac-eula --headless --steps 1200
+```
+
+The fresh installation and 1,200-step run passed. Its resolved stack includes Python
+3.11.15, Isaac Sim 5.1.0.0, NumPy 1.26.0 and Torch 2.7.0. All 140 installed packages
+passed `uv pip check`. Existing environments, system Python and GPU drivers were not
+modified. The isolated environment is a fresh install, not a cold-cache download test;
+the installer may reuse locally cached package wheels.
+
 SuperDex's debugger connected successfully but remained in its default paused state;
 the full-duration validation above used headless mode, not interactive playback.
 
 The Isaac renderer failure was a segmentation fault in `librtx.scenedb.plugin.so` during
-startup. The exact driver/runtime cause has not been established. Numerical headless
+startup. The screenshot crash was reproduced in the fresh installation as well as the
+existing one. The exact driver/runtime cause has not been established. Numerical headless
 operation works with rendering disabled; adding `--screenshot` re-enables the failing
 path on this machine. The example and tutorial retain the normal rendered path for a
 compatible installation, but it is not presented as locally verified.

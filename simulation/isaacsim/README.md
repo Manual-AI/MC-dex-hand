@@ -48,9 +48,10 @@ On a working rendering stack, request an image with:
 python3 simulation/run.py isaacsim --accept-isaac-eula --headless --steps 240 --screenshot
 ```
 
-`--screenshot` deliberately enables the renderer. **Local validation passed the numerical
-test, but both GUI and screenshot startup crashed in NVIDIA's renderer before model
-import on the test machine.** Rendering is therefore not claimed as verified here.
+`--screenshot` deliberately enables the renderer. **The fresh one-command installation
+and numerical test passed. Screenshot startup still crashed in NVIDIA's renderer before
+model import; the existing installation also failed GUI and screenshot startup.**
+Rendering is therefore not claimed as verified here.
 See [the validation record](../VALIDATION.md) for hardware and driver details.
 
 ## 3. How the import and connection work
