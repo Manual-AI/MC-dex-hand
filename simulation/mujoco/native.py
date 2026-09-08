@@ -16,8 +16,7 @@ def fmt(values):
     return " ".join(map(str, values))
 
 
-def main():
-    args = arguments("MuJoCo")
+def build_model():
     tree = ET.parse(NATIVE / "robot.xml").getroot()
     tree.set("model", "Manual-Dex native MuJoCo tabletop drive demo")
     option = tree.find("option")
@@ -26,6 +25,8 @@ def main():
     option.set("gravity", fmt(SPEC["gravity_m_s2"]))
     option.set("timestep", str(DT))
     option.set("integrator", "implicitfast")
+    option.set("cone", "elliptic")
+    option.set("iterations", "80")
     visual = tree.find("visual")
     if visual is None:
         visual = ET.SubElement(tree, "visual")
@@ -74,6 +75,13 @@ def main():
         ET.SubElement(actuator, "position", name=name, joint=name, kp=str(SPEC[f"{kind}_kp"]),
             kv=str(SPEC[f"{kind}_kd"]), forcerange="-5 5" if kind == "hand" else "-150 150")
     model = mujoco.MjModel.from_xml_string(ET.tostring(tree, encoding="unicode"))
+    model.geom_friction[:, 0] = SPEC["contact_friction"]
+    return model
+
+
+def main():
+    args = arguments("MuJoCo")
+    model = build_model()
     data = mujoco.MjData(model)
     # Set only the initial state; every subsequent robot pose comes from dynamics.
     for name, value in targets(0).items():
@@ -89,9 +97,17 @@ def main():
             data.ctrl[:] = [target[name] for name in JOINTS]
             mujoco.mj_step(model, data)
             mujoco.mj_forward(model, data)
+            contacts = {}
+            for index, contact in enumerate(data.contact[:data.ncon]):
+                if cube_geom not in (contact.geom1, contact.geom2):
+                    continue
+                other = contact.geom2 if contact.geom1 == cube_geom else contact.geom1
+                name = model.geom(other).name or model.body(model.geom_bodyid[other]).name
+                force = np.zeros(6)
+                mujoco.mj_contactForce(model, data, index, force)
+                contacts[name] = contacts.get(name, 0.) + np.linalg.norm(force[:3])
             evidence.record(step, {name: data.joint(name).qpos[0] for name in JOINTS},
-                data.body("free_cube").xpos,
-                any(c.geom1 == cube_geom or c.geom2 == cube_geom for c in data.contact[:data.ncon]))
+                data.body("free_cube").xpos, contacts)
             if args.preview or step % STRIDE == STRIDE-1:
                 if not args.no_render:
                     renderer.update_scene(data, camera="inspection", scene_option=vis)

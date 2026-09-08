@@ -14,23 +14,28 @@ def main():
     args = arguments("Genesis")
     gs.init(backend=gs.cpu, logging_level="warning")
     scene = gs.Scene(sim_options=gs.options.SimOptions(dt=DT, gravity=tuple(SPEC["gravity_m_s2"])),
-        rigid_options=gs.options.RigidOptions(enable_collision=True, enable_self_collision=False),
+        rigid_options=gs.options.RigidOptions(enable_collision=True, enable_self_collision=False,
+                                              integrator=gs.integrator.implicitfast, iterations=80),
         vis_options=gs.options.VisOptions(ambient_light=(.4, .4, .4), background_color=(.88, .91, .94)),
         show_viewer=False)
     robot = scene.add_entity(gs.morphs.URDF(file=str(NATIVE / "robot.urdf"), fixed=True,
-        merge_fixed_links=False, collision=True))
+        merge_fixed_links=False, collision=True, default_armature=0.),
+        material=gs.materials.Rigid(friction=SPEC["contact_friction"]))
     scene.add_entity(gs.morphs.Plane(pos=(0, 0, -.77)), surface=gs.surfaces.Default(color=(.78, .81, .85)))
-    for _, pos, size, color in boxes():
-        scene.add_entity(gs.morphs.Box(pos=tuple(pos), size=tuple(size), fixed=True),
-                         surface=gs.surfaces.Default(color=tuple(color)), material=gs.materials.Rigid(friction=.7))
+    contact_names = {link.idx: link.name for link in robot.links}
+    for name, pos, size, color in boxes():
+        entity = scene.add_entity(gs.morphs.Box(pos=tuple(pos), size=tuple(size), fixed=True),
+                         surface=gs.surfaces.Default(color=tuple(color)), material=gs.materials.Rigid(friction=SPEC["contact_friction"]))
+        contact_names.update({link.idx: name for link in entity.links})
     cube_spec = SPEC["cube"]
     cube = scene.add_entity(gs.morphs.Box(pos=tuple(cube_spec["center"]), size=tuple(cube_spec["size"])),
-        material=gs.materials.Rigid(rho=cube_spec["mass_kg"]/np.prod(cube_spec["size"]), friction=.7),
+        material=gs.materials.Rigid(rho=cube_spec["mass_kg"]/np.prod(cube_spec["size"]), friction=SPEC["contact_friction"]),
         surface=gs.surfaces.Default(color=tuple(cube_spec["color"])))
     camera = scene.add_camera(res=(580, 460), pos=tuple(SPEC["camera"]["eye"]),
         lookat=tuple(SPEC["camera"]["target"]), fov=SPEC["camera"]["fov_deg"], GUI=False)
     scene.build()
     dofs = [robot.get_joint(n).dofs_idx_local[0] for n in JOINTS]
+    robot.set_dofs_armature(np.array([.01]*7+[.001]*8), dofs_idx_local=dofs)
     robot.set_dofs_kp(np.array([SPEC["arm_kp"]]*7+[SPEC["hand_kp"]]*8), dofs_idx_local=dofs)
     robot.set_dofs_kv(np.array([SPEC["arm_kd"]]*7+[SPEC["hand_kd"]]*8), dofs_idx_local=dofs)
     force = np.array([150.]*7+[5.]*8)
@@ -44,8 +49,12 @@ def main():
             scene.step()
             values = robot.get_dofs_position(dofs_idx_local=dofs).cpu().numpy().reshape(-1)
             position = cube.get_pos().cpu().numpy().reshape(-1)
-            contacts = cube.get_contacts()
-            evidence.record(step, dict(zip(JOINTS, values)), position, len(contacts["link_a"]) > 0)
+            raw = cube.get_contacts()
+            contacts = {}
+            for a,b,f in zip(raw["link_a"].cpu().numpy(), raw["link_b"].cpu().numpy(), raw["force_a"].cpu().numpy()):
+                name = contact_names.get(int(a), contact_names.get(int(b), "floor"))
+                contacts[name] = contacts.get(name, 0.) + float(np.linalg.norm(f))
+            evidence.record(step, dict(zip(JOINTS, values)), position, contacts)
             if args.preview or step % STRIDE == STRIDE-1:
                 if not args.no_render:
                     rgb, *_ = camera.render(rgb=True)

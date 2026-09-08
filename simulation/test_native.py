@@ -1,5 +1,6 @@
 """Offline checks for scene/control contracts and genuine native capture publishing."""
 import ast
+import copy
 import json
 import math
 import os
@@ -20,8 +21,16 @@ class NativeContracts(unittest.TestCase):
         for name in nc.JOINTS:
             values = [s[name] for s in samples]
             self.assertTrue(all(math.isfinite(v) for v in values))
-            self.assertGreater(max(values)-min(values), .1)
-            self.assertAlmostEqual(nc.targets(0)[name], nc.targets(5)[name])
+        self.assertGreater(max(s["md_middle_distal"] for s in samples), .8)
+        self.assertEqual(nc.targets(-1), nc.targets(0))
+        self.assertEqual(nc.targets(6), nc.targets(5))
+        self.assertEqual(nc.phase(1.5), "close")
+        self.assertEqual(nc.phase(2.6), "transport")
+        self.assertEqual(nc.phase(4.1), "release")
+        for point in nc.POLICY["waypoints"]:
+            self.assertEqual(len(point["q_rad"]), 15)
+            for n, q in zip(nc.JOINTS, point["q_rad"]):
+                self.assertAlmostEqual(nc.targets(point["t_s"])[n], q)
 
     def test_no_cross_engine_renderer(self):
         for engine in ("genesis", "superdex", "isaacsim"):
@@ -40,9 +49,9 @@ class NativeContracts(unittest.TestCase):
     def test_table_and_initial_cube_geometry(self):
         table = nc.SPEC["table"]
         self.assertAlmostEqual(table["center"][2]+table["size"][2]/2, 0)
-        self.assertGreater(nc.SPEC["cube"]["center"][2], .2)
+        self.assertLess(abs(nc.SPEC["cube"]["center"][2]-nc.SPEC["cube"]["size"][2]/2), .001)
         self.assertEqual(nc.SPEC["gravity_m_s2"], [0, 0, -9.81])
-        self.assertEqual(len(list(nc.boxes())), 5)
+        self.assertEqual(len(list(nc.boxes())), 13)
 
     def test_evidence_rejects_missing_motion_contact_or_frames(self):
         with tempfile.TemporaryDirectory() as tmp, patch.object(nc, "NATIVE", Path(tmp)):
@@ -52,17 +61,78 @@ class NativeContracts(unittest.TestCase):
                 evidence.finish("test")
             for i in range(nc.STEPS):
                 z = .27 if i < 60 else .03
-                evidence.record(i, nc.targets(i*nc.DT), [0, 0, z], i >= 60)
+                evidence.record(i, nc.targets(i*nc.DT), [0, 0, z], {"table": .8} if i >= 60 else {})
             evidence.frames = 100
             evidence.contact_steps = 0
-            with self.assertRaisesRegex(RuntimeError, "contact"):
+            with self.assertRaisesRegex(RuntimeError, "start at rest"):
                 evidence.finish("test")
             evidence.contact_steps = 1140
             for s in evidence.states:
-                s["joints"][nc.JOINTS[0]] = 0
+                for name in nc.JOINTS:
+                    s["joints"][name] = 0
             with self.assertRaisesRegex(RuntimeError, "did not move"):
                 evidence.finish("test")
             self.assertFalse((Path(tmp) / "test.json").exists())
+
+    def pick_place_fixture(self):
+        samples = []
+        for step in range(nc.STEPS):
+            t = (step+1)*nc.DT
+            u = min(1., max(0., (t-2.4)/.85))
+            z = .025 + .12*min(1., max(0., (t-1.8)/.6), max(0., (3.9-t)/.65))
+            contacts = ({"md_middle_distal": 2., "md_thumb_distal": 2.} if 1.5 < t < 4.3 else {})
+            if z <= .025001:
+                contacts["table"] = .8
+            samples.append({"step": step, "joints": nc.targets(t), "cube_xyz_m": [.43, -.1+.2*u, z],
+                            "cube_contacts_N": contacts, "phase": nc.phase(t)})
+        return samples
+
+    def test_pick_place_requires_opposing_finger_contact_and_transport(self):
+        good = self.pick_place_fixture()
+        self.assertTrue(nc.validate_pick_place(good)["passed"])
+        drop = copy.deepcopy(good)
+        for s in drop:
+            s["cube_xyz_m"] = [.43, -.1, .025]
+            s["cube_contacts_N"] = {"table": .8}
+        with self.assertRaisesRegex(RuntimeError, "grasp not sustained"):
+            nc.validate_pick_place(drop)
+        unsupported = copy.deepcopy(good)
+        for s in unsupported:
+            s["cube_contacts_N"].pop("md_thumb_distal", None)
+        with self.assertRaisesRegex(RuntimeError, "grasp not sustained"):
+            nc.validate_pick_place(unsupported)
+        no_transport = copy.deepcopy(good)
+        for s in no_transport:
+            s["cube_xyz_m"][1] = -.1
+        with self.assertRaisesRegex(RuntimeError, "not transported"):
+            nc.validate_pick_place(no_transport)
+
+    def test_pick_place_requires_target_placement_and_release(self):
+        for case in ("wrong_target", "unreleased", "moving"):
+            samples = self.pick_place_fixture()
+            for s in samples[1116:]:
+                if case == "wrong_target":
+                    s["cube_xyz_m"][0] += .05
+                elif case == "unreleased":
+                    s["cube_contacts_N"]["md_middle_distal"] = .5
+                else:
+                    s["cube_xyz_m"][0] += .001*(s["step"] % 2)
+            with self.subTest(case=case), self.assertRaises(RuntimeError):
+                nc.validate_pick_place(samples)
+
+    def test_protocol_digest_changes_with_scene_or_policy(self):
+        before = nc.protocol_hash()
+        with patch.dict(nc.SPEC, {"contact_friction": 2.}):
+            self.assertNotEqual(nc.protocol_hash(), before)
+        with patch.dict(nc.POLICY, {"controller": "modified"}):
+            self.assertNotEqual(nc.protocol_hash(), before)
+
+    def test_pick_place_rejects_nonfinite_readbacks(self):
+        for field, key in (("cube_xyz_m", 0), ("joints", nc.JOINTS[0]), ("cube_contacts_N", "table")):
+            samples = self.pick_place_fixture()
+            samples[0][field][key] = float("nan")
+            with self.subTest(field=field), self.assertRaisesRegex(RuntimeError, "Invalid"):
+                nc.validate_pick_place(samples)
 
     def test_all_published_gifs_meet_byte_and_duration_budgets(self):
         from PIL import Image

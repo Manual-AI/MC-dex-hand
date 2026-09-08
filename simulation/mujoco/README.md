@@ -7,9 +7,10 @@ python3 simulation/run.py mujoco --native --headless
 ```
 
 This one command prepares the robot and runs [`native.py`](native.py): native MuJoCo
-position actuators move all 15 joints with gravity and table contacts enabled, while
-the EGL renderer captures 100 frames over five seconds. The loose cube falls onto
-the table; the hand opens and closes during an arm sweep. No desktop window is opened.
+position actuators run a [scripted pick and place](../PICK_PLACE.md), with gravity and
+finger/cube/table contacts enabled. The EGL renderer captures 100 frames over five seconds.
+The cube is grasped, lifted, carried and released; it is never attached or teleported.
+No desktop window is opened.
 
 The initial pose is set once. Each subsequent step writes `data.ctrl`, calls `mj_step`,
 reads actual joint/cube states and renders that same `MjData`. The capture and JSON

@@ -17,7 +17,9 @@ python3 simulation/run.py superdex --native --headless
 Then run Isaac with `--native --headless` and an already-accepted installation or
 the explicit EULA flag after user agreement. The [native comparison guide](COMPARISON.md)
 defines the scene and publishing command. Require the fresh native result, 100 PNGs,
-all 15 moving joints and cube/table contact. A numerical-only success cannot substitute
+finite states for all 15 joints and the [grasp/transport/release checks](PICK_PLACE.md).
+A falling-only cube or contact with the table alone is not a pick-and-place success.
+A numerical-only success cannot substitute
 for a rendered capture. Never render another engine's result in MuJoCo and label it native.
 Do not alter host drivers or interrupt unrelated GPU processes to obtain a capture.
 

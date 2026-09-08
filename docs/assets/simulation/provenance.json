@@ -14,14 +14,14 @@
     ],
     "camera": {
       "eye": [
-        1.25,
-        -1.25,
-        0.95
+        0.8,
+        -0.65,
+        0.55
       ],
       "target": [
-        0.16,
+        0.25,
         0,
-        0.28
+        0.19
       ],
       "fov_deg": 42
     },
@@ -44,14 +44,14 @@
     },
     "cube": {
       "center": [
-        0.38,
-        -0.23,
-        0.28
+        0.43,
+        -0.1,
+        0.0255
       ],
       "size": [
-        0.06,
-        0.06,
-        0.06
+        0.05,
+        0.05,
+        0.05
       ],
       "mass_kg": 0.08,
       "color": [
@@ -60,16 +60,221 @@
         0.1
       ]
     },
-    "arm_kp": 400,
-    "arm_kd": 35,
-    "hand_kp": 3,
-    "hand_kd": 0.12,
+    "place_center_m": [
+      0.43,
+      0.1,
+      0.025
+    ],
+    "placement_tolerance_m": 0.03,
+    "minimum_lift_m": 0.06,
+    "contact_friction": 1.0,
+    "arm_kp": 1500,
+    "arm_kd": 80,
+    "hand_kp": 5,
+    "hand_kd": 0.15,
     "hand_link_mass_kg": 0.08,
     "hand_link_diagonal_inertia_kg_m2": 4e-05,
     "hand_frame_mass_kg": 0.4,
-    "note": "Illustrative simulated masses and drive gains, not measured hardware parameters. Native gravity/contact/drive demo; no grasp is claimed."
+    "note": "Scripted contact-driven pick and place, not a learned policy. Illustrative simulated masses, friction and drive gains, not measured hardware parameters."
   },
-  "grasp_demonstrated": false,
+  "controller": {
+    "controller": "scripted joint-space waypoints with native position/force drives",
+    "learned": false,
+    "notes": "Scene-specific automated pick and place. Joint targets only; the free cube is never attached, teleported or externally forced. Joint coordinates follow native_common.JOINTS. Changes require new native physics validation.",
+    "waypoints": [
+      {
+        "t_s": 0,
+        "phase": "settle",
+        "q_rad": [
+          1.22676319015404,
+          -0.4392526924974558,
+          -1.5687999841605538,
+          1.3316841189792787,
+          -1.5687999999999998,
+          -0.30310762814352976,
+          -0.23957606838564088,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "t_s": 0.35,
+        "phase": "approach",
+        "q_rad": [
+          1.2267653710264916,
+          -0.4392565690290021,
+          -1.5687999843329354,
+          1.3316869497442718,
+          -1.5687999998492095,
+          -0.30310403745932374,
+          -0.239576787924705,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "t_s": 1.1,
+        "phase": "close",
+        "q_rad": [
+          1.2267694985466162,
+          -0.6190785773553107,
+          -1.5687998156600464,
+          1.5578814637350824,
+          -1.5687999999999998,
+          0.10315802245438685,
+          -0.24026971713050693,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "t_s": 1.8,
+        "phase": "lift",
+        "q_rad": [
+          1.226770564058458,
+          -0.6190791550543981,
+          -1.5687998193661845,
+          1.557881335757469,
+          -1.568799999849945,
+          0.10315807346372688,
+          -0.2402692960188865,
+          0.4,
+          0.9,
+          0.4,
+          0.9,
+          0.4,
+          0.9,
+          0,
+          0.5
+        ]
+      },
+      {
+        "t_s": 2.4,
+        "phase": "transport",
+        "q_rad": [
+          1.2267052397574512,
+          -0.42457336179456084,
+          -1.5687909841939074,
+          1.2590097716194277,
+          -1.5687999999999998,
+          -0.39049576147613735,
+          -0.23942233344241287,
+          0.4,
+          0.9,
+          0.4,
+          0.9,
+          0.4,
+          0.9,
+          0,
+          0.5
+        ]
+      },
+      {
+        "t_s": 3.25,
+        "phase": "lower",
+        "q_rad": [
+          1.6079664674123262,
+          -0.43389815821465666,
+          -1.1993812194598577,
+          1.2382017571595854,
+          -1.5165968557909728,
+          -0.408664643243311,
+          0.4240898611505596,
+          0.4,
+          0.9,
+          0.4,
+          0.9,
+          0.4,
+          0.9,
+          0,
+          0.5
+        ]
+      },
+      {
+        "t_s": 3.9,
+        "phase": "release",
+        "q_rad": [
+          1.8372506122421537,
+          -0.5879459842822495,
+          -1.5468673676344764,
+          1.5523433240633855,
+          -1.4404271524310885,
+          0.06389853875337195,
+          0.24780265518815175,
+          0.4,
+          0.9,
+          0.4,
+          0.9,
+          0.4,
+          0.9,
+          0,
+          0.5
+        ]
+      },
+      {
+        "t_s": 4.4,
+        "phase": "retreat",
+        "q_rad": [
+          1.8372501175649838,
+          -0.58794119289978,
+          -1.5468671030617807,
+          1.5523629872716578,
+          -1.4404332366078745,
+          0.0639228716759009,
+          0.2477977837727541,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "t_s": 5,
+        "phase": "done",
+        "q_rad": [
+          1.8528633340476366,
+          -0.4267210417358092,
+          -1.5687750771985682,
+          1.3145782793013745,
+          -1.4228729842467984,
+          -0.3321325005544933,
+          0.2964733982172452,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "grasp_demonstrated": true,
+  "learned_policy": false,
   "dynamics_calibrated_to_hardware": false,
   "engines": {
     "mujoco": {
@@ -77,11 +282,25 @@
       "version": "3.6.0",
       "renderer": "MuJoCo OpenGL/EGL",
       "status": "passed",
-      "run_id": "8a2060d1474143ba8e14b192c012b31b",
+      "run_id": "1a9ab44b3ad745beade94c88237b4241",
       "native_physics": true,
       "native_rendering": true,
-      "mode": "joint drives, gravity and free-cube table contact",
-      "grasp_demonstrated": false,
+      "mode": "scripted physics-driven pick and place",
+      "grasp_demonstrated": true,
+      "learned_policy": false,
+      "object_attachment": false,
+      "object_pose_overwrite": false,
+      "external_object_force": false,
+      "protocol_sha256": "4b36266d244ca28cc5051657b446499ad29ecb4e602dae47b307ab3c50b9c33e",
+      "pick_place": {
+        "passed": true,
+        "maximum_lift_m": 0.11074311120928951,
+        "opposing_contact_transport_fraction": 0.9722222222222222,
+        "transport_distance_m": 0.18689516400000955,
+        "final_xy_error_m": 0.008738142820644834,
+        "final_max_speed_m_s": 1.3315878546769977e-07,
+        "released_and_table_supported": true
+      },
       "state_overwrite_during_playback": false,
       "dynamics_calibrated_to_hardware": false,
       "self_collision": false,
@@ -93,20 +312,35 @@
       "dt_s": 0.004166666666666667,
       "frames": 100,
       "fps": 20,
-      "contact_steps": 1147,
-      "capture_sha256": "9b22a64d703ab059bc83c966bd90f373f40cab7d8ed5498d89c035f57dd428ed",
-      "physics_states_sha256": "d6e83d5fedb94947fb1c327f2687da17a981991385092356cd35916aaf6e3628"
+      "contact_steps": 1199,
+      "capture_sha256": "80dc4d24f77336add71022046227ee81445494f0c2f7f544e4298690eb88b796",
+      "physics_states_sha256": "d80ecf30b55a062bafa79e31e3897ea3628c0b30d4702bfaa638b098b95e1e2c",
+      "full_physics_sha256": "fd91e898e70b550e48c76f2713eb23f96f38b759809e801072a86ca8db4be359"
     },
     "genesis": {
       "engine": "genesis",
       "version": "1.0.0",
       "renderer": "Genesis native rasterizer",
       "status": "passed",
-      "run_id": "c0ff61e6e5264416865becfa3ec4466c",
+      "run_id": "91b2accba5ed45438ab4de58120b8e82",
       "native_physics": true,
       "native_rendering": true,
-      "mode": "joint drives, gravity and free-cube table contact",
-      "grasp_demonstrated": false,
+      "mode": "scripted physics-driven pick and place",
+      "grasp_demonstrated": true,
+      "learned_policy": false,
+      "object_attachment": false,
+      "object_pose_overwrite": false,
+      "external_object_force": false,
+      "protocol_sha256": "4b36266d244ca28cc5051657b446499ad29ecb4e602dae47b307ab3c50b9c33e",
+      "pick_place": {
+        "passed": true,
+        "maximum_lift_m": 0.1127318948507309,
+        "opposing_contact_transport_fraction": 0.9444444444444444,
+        "transport_distance_m": 0.1813485654473249,
+        "final_xy_error_m": 0.0031168963001174965,
+        "final_max_speed_m_s": 0.0002539948712600924,
+        "released_and_table_supported": true
+      },
       "state_overwrite_during_playback": false,
       "dynamics_calibrated_to_hardware": false,
       "self_collision": false,
@@ -118,20 +352,35 @@
       "dt_s": 0.004166666666666667,
       "frames": 100,
       "fps": 20,
-      "contact_steps": 1146,
-      "capture_sha256": "ca3a1d68b9e4f011e6f6e5dfbd27df44c56130d99c9a8935fb4318e78b8f2310",
-      "physics_states_sha256": "81914a13c4bc486b53c4ad2699a7f220a616b3398bee5ae9f6d592eed5201bc1"
+      "contact_steps": 1196,
+      "capture_sha256": "9700763c5256036872d1153f90a59adaf08f405dc5d22f9007b42502cd55129d",
+      "physics_states_sha256": "c7aab5e9a3626fe4248d981f2123c60a30dc48d655d72241580fdb64ccf291e9",
+      "full_physics_sha256": "69b1b48774081e963398b1439fa751c0a075e2cfe3e3548f3def3eb3d72a6221"
     },
     "superdex": {
       "engine": "superdex",
       "version": "1.0.0",
       "renderer": "SuperDex SDK offscreen viewer (Polyscope)",
       "status": "passed",
-      "run_id": "71accfef38df41cb9e9ae46c9bc414f8",
+      "run_id": "6747d86abdd848afb26f34f6d1f1f4ab",
       "native_physics": true,
       "native_rendering": true,
-      "mode": "joint drives, gravity and free-cube table contact",
-      "grasp_demonstrated": false,
+      "mode": "scripted physics-driven pick and place",
+      "grasp_demonstrated": true,
+      "learned_policy": false,
+      "object_attachment": false,
+      "object_pose_overwrite": false,
+      "external_object_force": false,
+      "protocol_sha256": "4b36266d244ca28cc5051657b446499ad29ecb4e602dae47b307ab3c50b9c33e",
+      "pick_place": {
+        "passed": true,
+        "maximum_lift_m": 0.12112902700901032,
+        "opposing_contact_transport_fraction": 1.0,
+        "transport_distance_m": 0.1863838682367241,
+        "final_xy_error_m": 0.011246065859933227,
+        "final_max_speed_m_s": 8.985288996506533e-06,
+        "released_and_table_supported": true
+      },
       "state_overwrite_during_playback": false,
       "dynamics_calibrated_to_hardware": false,
       "self_collision": false,
@@ -143,20 +392,35 @@
       "dt_s": 0.004166666666666667,
       "frames": 100,
       "fps": 20,
-      "contact_steps": 1147,
-      "capture_sha256": "23d583c972a3cdd8d1d57bb198537acf5de46c65793d0253556f4a460abc4082",
-      "physics_states_sha256": "ea3a8a5435b1ce903c3380d416e793a5576d1a20052a3e425d7ef954ee9da918"
+      "contact_steps": 1200,
+      "capture_sha256": "1bf4a1f93474f9581a8037680ade42c5f289667e2d4a94bbe47c2cff46f9c763",
+      "physics_states_sha256": "22b2265ad49a60850f4f9d618bb2a29ff7fbe758fab7a4dec20667838a6b6976",
+      "full_physics_sha256": "129ab66726a44e9593609bbaf61f02e821cb557ac38d3b341a5e649d5b6e0e1b"
     },
     "isaacsim": {
       "engine": "isaacsim",
       "version": "6.0.1.0",
       "renderer": "Isaac Sim RTX / Replicator RGB",
       "status": "passed",
-      "run_id": "99902d9084b547f2aa329960e3f78ff8",
+      "run_id": "df4de7cf3730470f95d2e14fec4fff85",
       "native_physics": true,
       "native_rendering": true,
-      "mode": "joint drives, gravity and free-cube table contact",
-      "grasp_demonstrated": false,
+      "mode": "scripted physics-driven pick and place",
+      "grasp_demonstrated": true,
+      "learned_policy": false,
+      "object_attachment": false,
+      "object_pose_overwrite": false,
+      "external_object_force": false,
+      "protocol_sha256": "4b36266d244ca28cc5051657b446499ad29ecb4e602dae47b307ab3c50b9c33e",
+      "pick_place": {
+        "passed": true,
+        "maximum_lift_m": 0.1010567605495453,
+        "opposing_contact_transport_fraction": 1.0,
+        "transport_distance_m": 0.1799933466034171,
+        "final_xy_error_m": 0.011218171465157734,
+        "final_max_speed_m_s": 3.581025281708485e-05,
+        "released_and_table_supported": true
+      },
       "state_overwrite_during_playback": false,
       "dynamics_calibrated_to_hardware": false,
       "self_collision": false,
@@ -168,11 +432,12 @@
       "dt_s": 0.004166666666666667,
       "frames": 100,
       "fps": 20,
-      "contact_steps": 1149,
+      "contact_steps": 1199,
       "simulated_time_s": 5.000000260770321,
       "anti_aliasing": "DLAA (native resolution)",
-      "capture_sha256": "50dbf05986c0dabe2745a90e4c80e1b06e90b3c7e0baa8d053d7d5dc43499472",
-      "physics_states_sha256": "6a345a33d055406c604c56ccc2b57e8dcd125d9d3d34fbfa2fc01fccb1c37868"
+      "capture_sha256": "e25a206c4e868f08d7848c7f8b99cc1c5f70ebaf4468d6e60ce8c4d8ad58b6b6",
+      "physics_states_sha256": "e7405cd3dc89c4a8363948f81dde49837a215d73a1076cf66d79b7c162792543",
+      "full_physics_sha256": "28b69b3097770de3c2ef12d6792a2c8240601429e0f34ad9b6d5ca78ca95da7f"
     }
   }
 }

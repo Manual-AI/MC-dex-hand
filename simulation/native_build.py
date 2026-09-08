@@ -5,7 +5,7 @@ import shutil
 import xml.etree.ElementTree as ET
 
 import mujoco
-from native_common import ROOT, NATIVE, SPEC
+from native_common import ROOT, NATIVE, SPEC, POLICY, JOINTS
 
 
 def write_xml(tree, path):
@@ -35,6 +35,13 @@ def main():
             joint.find("dynamics").set("damping", ".01" if hand else ".1")
     write_xml(tree, NATIVE / "robot.urdf")
     model = mujoco.MjModel.from_xml_path(str(NATIVE / "robot.urdf"))
+    for point in POLICY["waypoints"]:
+        if len(point["q_rad"]) != len(JOINTS):
+            raise ValueError("Pick-and-place waypoint must contain all 15 named joints")
+        for name, q in zip(JOINTS, point["q_rad"]):
+            lower, upper = model.joint(name).range
+            if not lower <= q <= upper:
+                raise ValueError(f"Pick-and-place waypoint exceeds {name} range: {q}")
     mujoco.mj_saveLastXML(str(NATIVE / "robot.xml"), model)
     # Keep the public engine interchange file standard URDF. Genesis adds its own
     # parser settings and otherwise duplicates this optional MuJoCo extension.

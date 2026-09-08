@@ -28,7 +28,7 @@ def main():
         import numpy as np
         import carb.settings
         import omni.usd
-        from pxr import Usd, UsdPhysics, UsdLux, UsdGeom, Gf, PhysxSchema
+        from pxr import Usd, UsdPhysics, UsdLux, UsdGeom, UsdShade, Gf, PhysxSchema
         from isaacsim.core.api import World
         from isaacsim.core.api.objects import FixedCuboid, DynamicCuboid
         from isaacsim.core.api.materials import PhysicsMaterial
@@ -77,14 +77,25 @@ def main():
                 drive = UsdPhysics.DriveAPI.Get(prim, "angular")
                 drive.CreateTypeAttr("force")
                 drive.CreateMaxForceAttr(5. if prim.GetName().startswith("md_") else 150.)
-        material = PhysicsMaterial("/World/Friction", static_friction=.7, dynamic_friction=.7, restitution=0.)
+        material = PhysicsMaterial("/World/Friction", static_friction=SPEC["contact_friction"],
+                                   dynamic_friction=SPEC["contact_friction"], restitution=0.)
+        contact_prims = {}
+        for prim in stage.Traverse():
+            if str(prim.GetPath()).startswith("/World/Robot"):
+                if prim.HasAPI(UsdPhysics.RigidBodyAPI):
+                    contact_prims[prim.GetName()] = str(prim.GetPath())
+                if prim.HasAPI(UsdPhysics.CollisionAPI):
+                    UsdShade.MaterialBindingAPI.Apply(prim).Bind(UsdShade.Material(stage.GetPrimAtPath("/World/Friction")),
+                                                               materialPurpose="physics")
         for name, pos, size, color in [("floor", [0, 0, -.82], [200, 200, .1], [.78, .81, .85]), *boxes()]:
             world.scene.add(FixedCuboid(prim_path=f"/World/{name}", name=name, position=np.array(pos),
                 scale=np.array(size), size=1., color=np.array(color)**2.2, physics_material=material))
+            contact_prims[name] = f"/World/{name}"
         c = SPEC["cube"]
         world.scene.add(DynamicCuboid(prim_path="/World/cube", name="cube", position=np.array(c["center"]),
             scale=np.array(c["size"]), size=1., color=np.array(c["color"])**2.2, mass=c["mass_kg"], physics_material=material))
-        cube = world.scene.add(RigidPrim(prim_paths_expr="/World/cube", name="cube_contact", track_contact_forces=True))
+        cube = world.scene.add(RigidPrim(prim_paths_expr="/World/cube", name="cube_contact", track_contact_forces=True,
+            contact_filter_prim_paths_expr=list(contact_prims.values()), max_contact_count=256))
         # USD materials use linear color. Approximate sRGB decoding above and
         # moderate lighting keep the shared gray table / orange cube recognizable.
         UsdLux.DomeLight.Define(stage, "/World/Ambient").CreateIntensityAttr(300.)
@@ -132,8 +143,9 @@ def main():
             control.apply_action(ArticulationAction(joint_positions=np.array(list(targets(step*DT).values())), joint_indices=dofs))
             world.step(render=False)
             pos, _ = cube.get_world_poses()
-            evidence.record(step, dict(zip(JOINTS, robot.get_joint_positions(joint_indices=dofs))), pos[0],
-                np.linalg.norm(cube.get_net_contact_forces()) > 1e-6)
+            forces = cube.get_contact_force_matrix(dt=DT)[0]
+            contacts = {name: float(np.linalg.norm(force)) for name, force in zip(contact_prims, forces)}
+            evidence.record(step, dict(zip(JOINTS, robot.get_joint_positions(joint_indices=dofs))), pos[0], contacts)
             if args.preview or step % STRIDE == STRIDE - 1:
                 if rgb:
                     world.render()

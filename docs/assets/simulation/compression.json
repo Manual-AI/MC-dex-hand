@@ -1,8 +1,8 @@
 {
   "mujoco": {
     "bytes_before": 4235019,
-    "bytes_after": 497395,
-    "fraction": 0.11744811534493706,
+    "bytes_after": 1131984,
+    "fraction": 0.267291362801442,
     "size": [
       414,
       393
@@ -13,8 +13,8 @@
   },
   "genesis": {
     "bytes_before": 4228288,
-    "bytes_after": 391067,
-    "fraction": 0.09248826002391512,
+    "bytes_after": 973259,
+    "fraction": 0.2301780295003557,
     "size": [
       414,
       393
@@ -25,8 +25,8 @@
   },
   "superdex": {
     "bytes_before": 4238112,
-    "bytes_after": 413386,
-    "fraction": 0.09754013107723439,
+    "bytes_after": 929101,
+    "fraction": 0.2192252116036575,
     "size": [
       414,
       393
@@ -37,8 +37,8 @@
   },
   "isaacsim": {
     "bytes_before": 4239447,
-    "bytes_after": 1727367,
-    "fraction": 0.4074510189654453,
+    "bytes_after": 1848307,
+    "fraction": 0.43597832453147783,
     "size": [
       322,
       306
@@ -49,8 +49,8 @@
   },
   "all-engines": {
     "bytes_before": 15329215,
-    "bytes_after": 4221903,
-    "fraction": 0.27541547300367303,
+    "bytes_after": 6022729,
+    "fraction": 0.3928921996331841,
     "size": [
       829,
       786

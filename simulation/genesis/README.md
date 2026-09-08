@@ -11,8 +11,11 @@ Genesis, with gravity, contacts and native PD drives. It uses Genesis's own offs
 raster camera, not MuJoCo. After initialization, `control_dofs_position` supplies
 targets and `scene.step` evolves the state; joint positions are not overwritten.
 
-The five-second CPU-physics demo captures 100 native frames and verifies joint motion
-and cube/table contact. The fixed camera and geometry match the other engines through
+The five-second CPU-physics demo captures 100 native frames of a
+[scripted pick and place](../PICK_PLACE.md), requiring opposing finger contact during
+lift/transport and a released cube at the target. Explicit joint armatures and the
+implicit-fast integrator avoid the loader's oversized default finger inertia.
+The fixed camera and geometry match the other engines through
 [`native_scene.json`](../native_scene.json). Outputs are in `build/simulation/native/`;
 see [capture validation and GIF publishing](../COMPARISON.md). EGL graphics support is
 required even though no window is opened. The gains/inertias are illustrative, not

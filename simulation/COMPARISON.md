@@ -1,6 +1,6 @@
 # Native four-engine simulation
 
-<img src="../docs/assets/simulation/all-engines.gif" alt="Synchronized native MuJoCo, Genesis, SuperDex and Isaac Sim tabletop simulations" width="1160">
+<img src="../docs/assets/simulation/all-engines.gif" alt="Synchronized native MuJoCo, Genesis, SuperDex and Isaac Sim pick-and-place simulations" width="1160">
 
 | MuJoCo | Genesis |
 |---|---|
@@ -15,10 +15,13 @@ it never re-poses another engine's states in MuJoCo.
 ## Scene and motion
 
 The common [scene specification](native_scene.json) defines metres, gravity, camera,
-table dimensions, a loose 60 mm cube, joint-drive gains and a five-second target cycle.
+table dimensions, a free 50 mm cube, joint-drive gains and source/destination markers.
 All engines use 1,200 physics steps at 240 Hz and capture 100 frames at 20 fps.
-The arm reaches through a gentle sweep while all eight finger joints open and close.
-The cube falls under gravity and settles on the table. **This is not a grasp demonstration.**
+The [scripted pick-and-place controller](PICK_PLACE.md) approaches the cube, closes the
+hand, lifts it, carries it from the blue square to the green square, lowers it, releases,
+and withdraws. This is an automated physics-driven controller, **not a learned policy**.
+The cube starts on the table and moves through gravity/contact only; it is never
+attached to the hand, teleported, or externally forced.
 
 | Engine | Physics/control | Native capture |
 |---|---|---|
@@ -33,9 +36,9 @@ at every step. Robot/environment contacts are enabled; robot self-collisions are
 disabled. Lighting and material response differ between native renderers, while
 geometry, camera pose/field of view, scene layout and target timing are matched.
 
-Illustrative hand masses, inertias and gains are explicit in the specification;
-friction/contact settings are set in each engine's `native.py`.
-They are not measured hardware parameters or evidence of payload, grasp stability,
+Illustrative hand masses, inertias, friction and gains are explicit in the specification;
+engine-specific integration/contact settings are in each engine's `native.py`.
+They are not measured hardware parameters or evidence of real payload capacity,
 servo performance or safe physical operation. The generated dynamic-demo package
 is separate from the released CAD-derived models and the older zero-gravity playback examples.
 
@@ -69,16 +72,20 @@ a compatible NVIDIA RTX runtime. The [engine tutorials](README.md) cover depende
 ## Evidence and reproducibility
 
 A successful launcher run must have a fresh run ID, exactly 100 native PNG frames,
-100 post-step state samples, finite positions for all 15 joints, motion on every
-commanded joint, a falling cube, and measured cube/table contact with a settled final height.
+100 post-step frame samples and 1,200 physics readbacks, finite positions for all 15 joints,
+opposing thumb/finger contact during an unsupported lift and transport, and a released,
+stationary cube at the destination. [Exact acceptance thresholds](PICK_PLACE.md#what-counts-as-success)
+reject falling-only, pushing-only, dropped-in-transit and unreleased demonstrations.
 Captures and full state records stay under `build/simulation/native/captures/<engine>/<run-id>/`.
 The current successful manifest is `build/simulation/native/<engine>.json`.
 Preview/physics-only diagnostic runs cannot replace it.
 
 [`comparison.py`](comparison.py) checks manifest identity, joint names, timestep,
-frame dimensions and sample indices before publishing. It uses PIL for labels and
+frame dimensions and sample indices, reruns grasp/place validation, and rejects an old
+scene/controller hash before publishing. It uses PIL for phase labels and
 image composition, not a simulator. [Provenance](../docs/assets/simulation/provenance.json)
-records engine versions, renderer names, run IDs, frame/state hashes and scene parameters.
+records engine versions, renderer names, run IDs, frame/full-physics hashes, controller
+waypoints, measured grasp/place metrics and scene parameters.
 The montage has one synchronized clock; separate README GIFs can start loading independently.
 
 All seven repository GIFs have an enforced byte budget of **at most half their previous size**.

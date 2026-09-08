@@ -22,9 +22,10 @@ the native articulation controller. Gravity and table contacts remain enabled. A
 RTX camera captures the scene through Replicator RGB: no MuJoCo rendering, desktop
 capture or external viewer is used.
 
-The same five-second arm sweep, opening/closing hand, table and falling cube appear
-in all engines. Native capture success requires 100 frames, all 15 moving joints and
-measured cube/table contact. Outputs are in `build/simulation/native/`; see
+The same five-second [scripted pick and place](../PICK_PLACE.md) runs in all engines.
+Native capture success requires 100 frames, opposing finger contact during unsupported
+lift/transport, and a released cube at the green destination. PhysX contact filters
+identify each cube-contact counterpart. Outputs are in `build/simulation/native/`; see
 [scene parameters, evidence checks and GIF publishing](../COMPARISON.md). Replicator
 capture uses zero simulation-time increments so camera capture does not advance physics.
 The illustrative gains/inertias are not a calibrated grasp or hardware-control test.

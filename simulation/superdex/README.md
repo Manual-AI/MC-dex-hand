@@ -16,8 +16,10 @@ SDK visual-model registry. SuperDex's actual link transforms drive those visuals
 collision hulls are not substituted for the visible assembly. Pose-controller gains
 are indexed by link, including a zero-gain fixed root, while targets use the 15-DoF order.
 
-The five-second reach-and-flex scene verifies moving joints and the loose cube settling
-on the table. Captures and readbacks are under `build/simulation/native/`.
+The five-second [scripted pick-and-place scene](../PICK_PLACE.md) requires opposing
+finger contact during lift/transport, then release at the green destination.
+Per-counterpart contact forces distinguish a grasp from a dropped or pushed cube.
+Captures and readbacks are under `build/simulation/native/`.
 See [shared scene, validation and GIF publishing](../COMPARISON.md). The native gains
 and inertias are illustrative; this is not a calibrated grasp or hardware-control test.
 

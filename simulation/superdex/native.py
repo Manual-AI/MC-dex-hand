@@ -52,8 +52,14 @@ def main():
         mesh.export(path)
         render_model_registry.register(scene, handle, str(path),
             physics.TransformRT(link.render_model_rotation, link.render_model_translation), physics.Real3(1, 1, 1))
+    contact_actors = {}
     for handle in actor.get_nested_link_actors():
-        scene.get_actor(handle).set_contact_layer("Robot")
+        link_actor = scene.get_actor(handle)
+        link_actor.set_contact_layer("Robot")
+        params = link_actor.get_contact_params()
+        params.coulomb_friction_coefficient = SPEC["contact_friction"]
+        link_actor.set_contact_params(params)
+        contact_actors[link_actor.get_name().rsplit("/", 1)[-1]] = link_actor
     scene.enable_layer_contact_symmetric("Robot", "Robot", False)
     scene.enable_layer_contact_symmetric("Robot", "Environment", True)
     scene.enable_layer_contact_symmetric("Robot", "Object", True)
@@ -65,11 +71,13 @@ def main():
         shape = physics.create_tri_mesh_shape(np.asarray(mesh.vertices, dtype=dtype).ravel(),
             np.asarray(mesh.faces, dtype=np.int32).ravel())
         contact = physics.ContactParams()
-        contact.coulomb_friction_coefficient = .7
+        contact.coulomb_friction_coefficient = SPEC["contact_friction"]
         obj = scene.create_rigid_actor(name=name, layer="Object" if mass else "Environment", shape=shape,
             world_from_local=physics.TransformRT(physics.Real3(*center)), collider_type=physics.ColliderType.BOX,
             is_static=mass is None, contact=contact, **({"mass": mass} if mass else {}))
         colors[name] = color
+        if mass is None:
+            contact_actors[name] = obj
         return obj
 
     box("floor", [0, 0, -.82], [200, 200, .1], [.78, .81, .85])
@@ -94,7 +102,7 @@ def main():
             for renderer in viewer.get_actor_renderers():
                 renderer.set_enable_edges(False)
                 renderer.set_enable_axes(False)
-                name = renderer.get_actor().get_name()
+                name = renderer.get_actor().get_name().rsplit("/", 1)[-1]
                 renderer.set_front_face_color(colors.get(name,
                     (.38, .43, .47) if name.startswith("md_") or name == "openarm_link7" else (.16, .18, .20)))
         sampled = physics.DynamicArrayReal(15)
@@ -103,8 +111,9 @@ def main():
             scene.step(DT)
             actor.get_articulated_pose(sampled)
             pos = cube.get_root_transform().translation
-            contact = np.linalg.norm(np.asarray(cube.get_contact_force_world())) > 1e-6
-            evidence.record(step, {n: sampled[i] for i, n in enumerate(names)}, pos, contact)
+            contacts = {name: float(np.linalg.norm(np.asarray(cube.get_contact_force_from_actor_world(other))))
+                        for name, other in contact_actors.items()}
+            evidence.record(step, {n: sampled[i] for i, n in enumerate(names)}, pos, contacts)
             if args.preview or step % STRIDE == STRIDE - 1:
                 if viewer:
                     viewer.render()

@@ -6,36 +6,56 @@ compatibility guarantees for every GPU, operating system or future engine releas
 
 ## Native physics and rendering
 
-All four engines completed **1,200 physics steps at 240 Hz** with gravity, native
-joint drives and table contacts, producing **100 native camera frames at 20 fps**.
+All four engines completed **1,200 physics steps at 240 Hz** with a scripted
+physics-driven pick and place, producing **100 native camera frames at 20 fps**.
 The same OpenArm + Manual-Dex geometry, camera pose/FOV, targets and table/cube layout
 were used. Native lighting/material response differs between renderers.
 
 | Engine | Environment | Native physics | Native rendering |
 |---|---|---|---|
-| MuJoCo 3.6.0 | Python 3.11 | 15 moving joints; cube settles on table | MuJoCo EGL, 100 frames |
-| Genesis 1.0.0 | Python 3.11, CPU physics | 15 moving joints; cube settles on table | Genesis rasterizer, 100 frames |
-| SuperDex 1.0.0 | Python 3.12 | 15 moving joints; cube settles on table | SuperDex SDK offscreen Polyscope viewer, 100 frames |
-| Isaac Sim 6.0.1.0 | Separate Python 3.12 environment, Torch 2.11.0 | PhysX force drives; 15 moving joints; cube settles on table | Native RTX / Replicator RGB, 100 frames |
+| MuJoCo 3.6.0 | Python 3.11 | Contact-driven grasp, transport and release | MuJoCo EGL, 100 frames |
+| Genesis 1.0.0 | Python 3.11, CPU physics | Contact-driven grasp, transport and release | Genesis rasterizer, 100 frames |
+| SuperDex 1.0.0 | Python 3.12 | Contact-driven grasp, transport and release | SuperDex SDK offscreen Polyscope viewer, 100 frames |
+| Isaac Sim 6.0.1.0 | Separate Python 3.12 environment, Torch 2.11.0 | PhysX contact-driven grasp, transport and release | Native RTX / Replicator RGB, 100 frames |
 
 Each run uses the initial joint pose once, then sends drive targets rather than
 overwriting joint positions/velocities at every step. The acceptance checks require
-finite readbacks, more than 0.015 rad of motion on every commanded joint, at least
-100 measured cube-contact steps, initial falling motion, a final cube center between
-0.015 and 0.07 m above the tabletop, and exactly 100 frames/state samples.
-The successful captures recorded over 1,140 contact steps each.
+finite readbacks for all 15 joints, a cube initially supported by the table, opposing
+thumb/finger forces during unsupported lift and transport, and a released, stationary
+cube at the destination. All 1,200 physics samples are checked, not just rendered frames.
+The [exact thresholds and controller timing](PICK_PLACE.md) reject drop-only, push-only,
+untransported and unreleased cubes. No attachment, cube pose overwrite or external
+object force is used.
+
+| Engine | Maximum lift | Held transport distance¹ | Opposing-contact fraction¹ | Final placement error | Released/table-supported |
+|---|---:|---:|---:|---:|---|
+| MuJoCo | 110.7 mm | 186.9 mm | 97.2% | 8.7 mm | Yes |
+| Genesis | 112.7 mm | 181.3 mm | 94.4% | 3.1 mm | Yes |
+| SuperDex | 121.1 mm | 186.4 mm | 100% | 11.2 mm | Yes |
+| Isaac Sim | 101.1 mm | 180.0 mm | 100% | 11.2 mm | Yes |
+
+¹ Evaluated over the fixed 2.45–3.20 s transport interval. The nominal source-to-goal
+distance is 200 mm. All engines finished below the 50 mm/s settling-speed threshold.
+Full-precision results and capture hashes are in the [published provenance](../docs/assets/simulation/provenance.json).
 
 Isaac additionally checks the physics clock: its 1,200-step run advanced approximately
 5.00000026 seconds. Replicator capture advances the timeline by zero seconds, so
 render warmup and capture do not add physics time. Native-resolution DLAA avoids
 half-resolution DLSS upscaling at this small capture size.
 
-The demonstration is **reach-and-flex with a falling cube, not pickup or grasping**.
-Hand mass/inertia and gains are illustrative and declared in
-[`native_scene.json`](native_scene.json); friction/contact settings are in each engine's
+The demonstration is **scripted, not a learned policy or general grasp planner**.
+Hand mass/inertia, friction and gains are illustrative and declared in
+[`native_scene.json`](native_scene.json); integration/contact settings are in each engine's
 `native.py`. Robot/environment contacts are enabled;
 robot self-collisions are disabled. These checks do not establish physical servo
-performance, payload, grasp stability, measured collision accuracy or hardware safety.
+performance, real payload capacity, measured collision accuracy or hardware safety.
+
+Genesis initially lost the cube because its URDF loader adds 0.1 kg·m² default joint
+armature. The native profile now explicitly uses 0.01 for arm joints and 0.001 for
+finger joints, matching the MuJoCo profile, with the full implicit-fast integrator.
+That corrected run passed. SuperDex's contact names include a robot namespace; the
+adapter normalizes those names before the shared opposing-finger check. Failed trials
+were not published and their diagnostic physics readbacks remain under `build/`.
 
 ## Native montage and GIF checks
 
@@ -45,8 +65,10 @@ each engine's actual PNGs. It adds labels and makes the 2×2 layout with PIL; it
 not import a 3D renderer or re-render another engine's states in MuJoCo.
 
 The [published provenance](../docs/assets/simulation/provenance.json) records engine
-versions, renderer names, run IDs, frame/state SHA-256 hashes and scene settings.
-Native first/midpoint frames and the montage were inspected. The title GIF and paired
+versions, renderer names, run IDs, frame/full-physics SHA-256 hashes, controller waypoints,
+grasp/place metrics and scene settings. The publisher recomputes the acceptance checks
+and rejects captures with an old scene/controller hash. Native grasp, transport and
+release frames and the montage were inspected. The title GIF and paired
 CAD illustration retain their original four- and ten-second durations; the native
 engine panels and synchronized montage are each five seconds. All seven GIFs are
 checked against [half-size byte budgets](../docs/assets/gif-size-budget.json).
@@ -103,8 +125,10 @@ models and the original zero-gravity playback examples unchanged.
 
 Two offline vendor-checkout regression tests passed, including preservation of
 locally modified vendor files. Native tests cover timing/trajectory, scene geometry,
-forbidden cross-engine MuJoCo imports, rejection of incomplete/motionless/contactless
-captures, GIF byte/duration budgets and static-label stability. All 32 existing
+forbidden cross-engine MuJoCo imports, rejection of incomplete/motionless/nonfinite
+captures, opposing-finger grasp and transport, target placement/release, stale protocol
+hashes, GIF byte/duration budgets and static-label stability. All 12 simulation tests
+and all 32 existing
 LeRobot unit tests also passed in its isolated environment with inherited ROS paths removed.
 
 ## Original playback and LeRobot coverage

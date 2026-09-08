@@ -47,27 +47,28 @@ and calibration tools.
 
 ## Simulation quick start
 
-Run Manual-Dex attached to a **seven-joint OpenArm v1**, with all eight hand joints
-flexing in one connected articulation. From this repository's root on Linux:
+Manual-Dex on a **seven-joint OpenArm v1** performs a five-second, scripted
+physics-driven pick and place: grasp, lift, carry from blue to green, and release.
+Each engine runs its own physics and rendering.
 
 <table>
   <tr>
     <td width="50%" align="center">
-      <img src="docs/assets/simulation/mujoco.gif" alt="MuJoCo native physics and rendering: OpenArm and Manual-Dex tabletop motion" width="100%"><br>
+      <img src="docs/assets/simulation/mujoco.gif" alt="MuJoCo native physics and rendering: OpenArm and Manual-Dex pick and place" width="100%"><br>
       <a href="simulation/mujoco/README.md">MuJoCo — setup and tutorial</a>
     </td>
     <td width="50%" align="center">
-      <img src="docs/assets/simulation/genesis.gif" alt="Genesis native physics and rendering: OpenArm and Manual-Dex tabletop motion" width="100%"><br>
+      <img src="docs/assets/simulation/genesis.gif" alt="Genesis native physics and rendering: OpenArm and Manual-Dex pick and place" width="100%"><br>
       <a href="simulation/genesis/README.md">Genesis — setup and tutorial</a>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <img src="docs/assets/simulation/superdex.gif" alt="SuperDex native physics and SDK rendering: OpenArm and Manual-Dex tabletop motion" width="100%"><br>
+      <img src="docs/assets/simulation/superdex.gif" alt="SuperDex native physics and SDK rendering: OpenArm and Manual-Dex pick and place" width="100%"><br>
       <a href="simulation/superdex/README.md">SuperDex — setup and tutorial</a>
     </td>
     <td width="50%" align="center">
-      <img src="docs/assets/simulation/isaacsim.gif" alt="Isaac Sim native PhysX and RTX rendering: OpenArm and Manual-Dex tabletop motion" width="100%"><br>
+      <img src="docs/assets/simulation/isaacsim.gif" alt="Isaac Sim native PhysX and RTX rendering: OpenArm and Manual-Dex pick and place" width="100%"><br>
       <a href="simulation/isaacsim/README.md">Isaac Sim — setup and tutorial</a>
     </td>
   </tr>
@@ -75,6 +76,7 @@ flexing in one connected articulation. From this repository's root on Linux:
 
 [Synchronized 2×2 animation](simulation/COMPARISON.md) ·
 [Simulation guide](simulation/README.md) ·
+[Pick-and-place controller](simulation/PICK_PLACE.md) ·
 [URDF and meshes](models/manual_dex/urdf/README.md) · [MJCF models](models/manual_dex/README.md)
 
 ## LeRobot teleoperation quick start

@@ -5,7 +5,7 @@ import json
 import sys
 
 from PIL import Image, ImageDraw, ImageFont
-from native_common import ROOT, NATIVE, SPEC, JOINTS
+from native_common import ROOT, NATIVE, SPEC, POLICY, JOINTS, protocol_hash, validate_pick_place, phase
 
 sys.path.insert(0, str(ROOT / "tools/visualization"))
 from encode_gifs import encode
@@ -23,6 +23,13 @@ def read_capture(engine):
     assert data["engine"] == engine and data["status"] == "passed"
     assert data["native_physics"] and data["native_rendering"]
     assert not data["state_overwrite_during_playback"]
+    assert data["protocol_sha256"] == protocol_hash(), "Stale scene/controller capture"
+    assert data["grasp_demonstrated"] and not data["object_attachment"]
+    assert not data["object_pose_overwrite"] and not data["external_object_force"]
+    physics_path = capture / "physics.json"
+    physics = json.loads(physics_path.read_text())
+    assert validate_pick_place(physics) == data["pick_place"]
+    assert physics[11::12] == data["states"]
     assert data["frames"] == 100 and data["fps"] == 20 and data["contact_steps"] >= 100
     assert data["gravity_m_s2"] == SPEC["gravity_m_s2"] and data["dt_s"] == SPEC["physics_dt_s"]
     assert [s["step"] for s in data["states"]] == list(range(11, 1200, 12))
@@ -39,6 +46,7 @@ def read_capture(engine):
     source = {k: v for k, v in data.items() if k not in ("capture_dir", "states")}
     source["capture_sha256"] = digest.hexdigest()
     source["physics_states_sha256"] = hashlib.sha256(json.dumps(data["states"], sort_keys=True).encode()).hexdigest()
+    source["full_physics_sha256"] = hashlib.sha256(physics_path.read_bytes()).hexdigest()
     return frames, source
 
 
@@ -64,7 +72,7 @@ def main():
             renderer = {"mujoco": "MuJoCo EGL", "genesis": "Genesis rasterizer",
                         "superdex": "SuperDex SDK / Polyscope", "isaacsim": "Isaac Sim RTX"}[engine]
             draw.text((18, 39), f"Native physics + {renderer}", font=text, fill="#41596e")
-            draw.text((18, 526), f"OpenArm + Manual-Dex  |  15 joints  |  t = {(frame+1)/20:0.2f} s", font=text, fill="#152a40")
+            draw.text((18, 526), f"OpenArm + Manual-Dex  |  {phase((frame+1)/20).upper()}  |  {(frame+1)/20:0.2f} s", font=text, fill="#152a40")
             panels[engine].append(panel)
             grid.paste(panel, ((index % 2)*580, (index // 2)*550))
         combined.append(grid)
@@ -77,7 +85,8 @@ def main():
     out = ROOT / "docs/assets/simulation"
     (out / "provenance.json").write_text(json.dumps({"rendering": "each engine's own renderer",
         "native_engine_screenshots": True, "duration_s": 5, "fps": 20,
-        "scene": SPEC, "grasp_demonstrated": False, "dynamics_calibrated_to_hardware": False,
+        "scene": SPEC, "controller": POLICY, "grasp_demonstrated": True, "learned_policy": False,
+        "dynamics_calibrated_to_hardware": False,
         "engines": provenance}, indent=2) + "\n")
     (out / "compression.json").write_text(json.dumps(compression, indent=2) + "\n")
 

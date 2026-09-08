@@ -4,8 +4,8 @@ Run a fixed-base **OpenArm v1 with the Manual-Dex gripper attached at its wrist*
 MuJoCo, Isaac Sim, SuperDex or Genesis. Each example moves the same **15 named joints**:
 seven arm joints and eight finger joints. You do not need ROS, SolidWorks or CAD software.
 
-Two paths are included: a **native physics/rendering showcase** with joint drives,
-gravity and contacts, and the original lightweight zero-gravity import/playback tutorials.
+Two paths are included: a **native physics-driven pick-and-place showcase** with
+joint drives and grasp contacts, and the original lightweight zero-gravity import/playback tutorials.
 Neither is a calibrated grasping benchmark or a hardware-safety validation.
 
 See the [synchronized 2×2 engine comparison](COMPARISON.md), with setup links for every
@@ -50,8 +50,9 @@ python3 simulation/run.py isaacsim --native --headless --accept-isaac-eula
 ```
 
 Pass the Isaac flag only after agreeing to NVIDIA's terms. The native run captures
-100 frames during a five-second arm/finger cycle and verifies measured cube/table
-contact, finite states and joint motion. See [the complete scene and publishing guide](COMPARISON.md)
+100 frames during a five-second [scripted pick and place](PICK_PLACE.md) and verifies
+opposing finger contact, unsupported lift/transport, target placement and release.
+See [the complete scene and publishing guide](COMPARISON.md)
 for outputs and acceptance criteria. `--native` always uses an offscreen renderer,
 even without `--headless`; it needs working graphics support. Native Genesis physics
 uses CPU. The following older playback options, such as arbitrary `--steps`,
