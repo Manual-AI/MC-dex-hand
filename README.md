@@ -1,5 +1,17 @@
 # MC-dex-hand
 
+<p align="center">
+  <img src="docs/assets/mc-dex-hand-demo.gif" alt="MC-dex-hand robot hand mirroring the wearable data-collection glove" width="800">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3-3776AB?logo=python&logoColor=white" alt="Python 3">
+  <img src="https://img.shields.io/badge/Hardware-8--DOF-F97316" alt="8-DOF hardware">
+  <img src="https://img.shields.io/badge/Firmware-ESP32-E7352C?logo=espressif&logoColor=white" alt="ESP32 firmware">
+  <img src="https://img.shields.io/badge/CAD-STL%20%7C%20STEP-5C6BC0" alt="STL and STEP CAD files">
+  <img src="https://img.shields.io/badge/Git%20LFS-enabled-F64935?logo=git&logoColor=white" alt="Git LFS enabled">
+</p>
+
 An open-source dexterous robot hand and a matching wearable data-collection glove, built by
 [Manual Cognition](https://github.com/Manual-AI).
 
