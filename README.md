@@ -30,7 +30,8 @@ demonstrations that transfer directly to the robot hand (UMI-style data collecti
 During data collection the glove's potentiometer readings are mapped to the corresponding robot servo
 encoder values, so a recorded glove trajectory is a servo trajectory.
 
-> **Status:** hardware release in progress. Firmware, host software and the assembly guide are TODO.
+> **Status:** hardware release in progress. A [visual assembly guide](docs/assembly/README.md)
+> covers the main link connections. Firmware, host software and detailed build instructions are TODO.
 > **License:** not yet chosen - repository is private until it is. See `bom/THIRD_PARTY.md` for the
 > current Quest mount authorship and historical third-party attribution.
 
@@ -46,7 +47,7 @@ hardware/
 third_party/udcap/   attribution for the superseded Quest cradle (see THIRD_PARTY.md)
 firmware/esp32_glove ESP32 Feather firmware reading the glove encoders   (TODO)
 software/            host-side collection / control / mapping code       (TODO)
-docs/assembly/       build guide                                          (TODO)
+docs/assembly/       visual guide to the main parts and link connections
 tools/               BOM renderer + SolidWorks macros used to produce the release files
 ```
 
@@ -61,7 +62,16 @@ tools/               BOM renderer + SolidWorks macros used to produce the releas
    `cm_quest_mount_hinged_cap` and `cm_quest_mount_receiver`. Add one 2 x 20 mm pin,
    one M3 x 12 mm screw and one M3 nut. The receiver pads have centered 8 x 9 mm
    edge-to-edge gaps. The previous two-piece udCap cradle is superseded.
-4. Follow `docs/assembly/` (coming).
+4. Follow the [visual assembly guide](docs/assembly/README.md) for the main link connections.
+
+## Meet the glove and robot hand
+
+![Wearable glove CAD overview](docs/images/wearable-glove-overview.png)
+
+![Robot hand CAD overview](docs/images/robot-hand-overview.png)
+
+See the [link connection close-ups](docs/assembly/README.md) for a short guide to how the
+backplate, proximal links and fingertips fit together.
 
 Right hand only for now. Parts flagged `mirror_for_left = yes` in the BOM need a mirrored print for a
 left-hand variant. Quest mount handedness is marked TODO until checked.
