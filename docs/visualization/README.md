@@ -33,6 +33,9 @@ to `build/manual-dex/{hand,glove}/`. The renderer publishes them to
 meshes stored through Git LFS. The animation loads these published models directly.
 The original models were generated as **MuJoCo MJCF, not URDF**; the repository includes
 the actual native model definitions rather than a different-format reconstruction.
+A [derived hand URDF](../../models/manual_dex/urdf/README.md) is provided separately for
+the [four-engine OpenArm tutorials](../../simulation/README.md); it is exported from
+these native models and checked for equivalent kinematics.
 Temporary tessellation and animation frames remain under the ignored `build/` directory.
 Mechanical release STLs remain unchanged.
 

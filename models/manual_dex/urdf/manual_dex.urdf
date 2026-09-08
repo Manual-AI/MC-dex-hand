@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="manual_dex">
+  <mujoco>
+    <compiler strippath="false" meshdir="." discardvisual="false" />
+  </mujoco>
+  <link name="world_base">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/world_base.obj" />
+      </geometry>
+      <material name="world_base_color">
+        <color rgba="0.38 0.39 0.42 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="meshes/world_base_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="md_index_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/md_index_proximal.obj" />
+      </geometry>
+      <material name="md_index_proximal_color">
+        <color rgba="0.36 0.48 0.55 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="meshes/md_index_proximal_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="md_index_proximal" type="revolute">
+    <parent link="world_base" />
+    <child link="md_index_proximal" />
+    <origin xyz="-0.0450491011749 -0.00261249694543 0.07841441" rpy="0 0 0" />
+    <axis xyz="-0.984807752955 -5.76884691974e-17 -0.173648177992" />
+    <limit lower="-1.5" upper="1.5" effort="10" velocity="2" />
+    <dynamics damping="0.01" friction="0" />
+  </joint>
+  <link name="md_index_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/md_index_distal.obj" />
+      </geometry>
+      <material name="md_index_distal_color">
+        <color rgba="0.36 0.48 0.55 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="meshes/md_index_distal_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="md_index_distal" type="revolute">
+    <parent link="md_index_proximal" />
+    <child link="md_index_distal" />
+    <origin xyz="-0.00522412143 1.69862877e-12 0.0305591022" rpy="0 0 0" />
+    <axis xyz="-0.984807752955 8.17573963963e-16 -0.173648177992" />
+    <limit lower="-1.5" upper="1.5" effort="10" velocity="2" />
+    <dynamics damping="0.01" friction="0" />
+  </joint>
+  <link name="md_middle_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/md_middle_proximal.obj" />
+      </geometry>
+      <material name="md_middle_proximal_color">
+        <color rgba="0.36 0.48 0.55 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="meshes/md_middle_proximal_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="md_middle_proximal" type="revolute">
+    <parent link="world_base" />
+    <child link="md_middle_proximal" />
+    <origin xyz="-0.0067037892749 -0.00261249694543 0.093502" rpy="0 0 0" />
+    <axis xyz="-1 0 -1.33440267e-16" />
+    <limit lower="-1.5" upper="1.5" effort="10" velocity="2" />
+    <dynamics damping="0.01" friction="0" />
+  </joint>
+  <link name="md_middle_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/md_middle_distal.obj" />
+      </geometry>
+      <material name="md_middle_distal_color">
+        <color rgba="0.36 0.48 0.55 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="meshes/md_middle_distal_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="md_middle_distal" type="revolute">
+    <parent link="md_middle_proximal" />
+    <child link="md_middle_distal" />
+    <origin xyz="0.000197150763 -6.65185628e-13 0.032002" rpy="0 0 0" />
+    <axis xyz="-1 0 1.98254112e-16" />
+    <limit lower="-1.5" upper="1.5" effort="10" velocity="2" />
+    <dynamics damping="0.01" friction="0" />
+  </joint>
+  <link name="md_pinkyring_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/md_pinkyring_proximal.obj" />
+      </geometry>
+      <material name="md_pinkyring_proximal_color">
+        <color rgba="0.36 0.48 0.55 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="meshes/md_pinkyring_proximal_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="md_pinkyring_proximal" type="revolute">
+    <parent link="world_base" />
+    <child link="md_pinkyring_proximal" />
+    <origin xyz="0.0375174420251 0.00130119903027 0.074552479" rpy="0 0 0" />
+    <axis xyz="-0.95125124261 -0.173648177929 0.254887001895" />
+    <limit lower="-1.5" upper="1.5" effort="10" velocity="2" />
+    <dynamics damping="0.01" friction="0" />
+  </joint>
+  <link name="md_pinkyring_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/md_pinkyring_distal.obj" />
+      </geometry>
+      <material name="md_pinkyring_distal_color">
+        <color rgba="0.36 0.48 0.55 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="meshes/md_pinkyring_distal_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="md_pinkyring_distal" type="revolute">
+    <parent link="md_pinkyring_proximal" />
+    <child link="md_pinkyring_distal" />
+    <origin xyz="0.00883869826 0.000101585434 0.0307605157" rpy="0 0 0" />
+    <axis xyz="-0.95125124261 -0.173648177929 0.254887001895" />
+    <limit lower="-1.5" upper="1.5" effort="10" velocity="2" />
+    <dynamics damping="0.01" friction="0" />
+  </joint>
+  <link name="md_thumb_proximal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/md_thumb_proximal.obj" />
+      </geometry>
+      <material name="md_thumb_proximal_color">
+        <color rgba="0.36 0.48 0.55 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="meshes/md_thumb_proximal_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="md_thumb_proximal" type="revolute">
+    <parent link="world_base" />
+    <child link="md_thumb_proximal" />
+    <origin xyz="-0.0187087248649 0.0338819181503 0.0538169421" rpy="0 0 0" />
+    <axis xyz="-2.15105711066e-16 0.258819045079 -0.965925826295" />
+    <limit lower="-1.5" upper="1.5" effort="10" velocity="2" />
+    <dynamics damping="0.01" friction="0" />
+  </joint>
+  <link name="md_thumb_distal">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/md_thumb_distal.obj" />
+      </geometry>
+      <material name="md_thumb_distal_color">
+        <color rgba="0.36 0.48 0.55 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="meshes/md_thumb_distal_collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="md_thumb_distal" type="revolute">
+    <parent link="md_thumb_proximal" />
+    <child link="md_thumb_distal" />
+    <origin xyz="0.000357330446 0.0306742027 -0.00130981312" rpy="0 0 0" />
+    <axis xyz="1 -4.02007245e-18 9.47167473e-16" />
+    <limit lower="-1.5" upper="1.5" effort="10" velocity="2" />
+    <dynamics damping="0.01" friction="0" />
+  </joint>
+</robot>

@@ -1,8 +1,13 @@
-# Manual-Dex MuJoCo models
+# Manual-Dex robot models
 
 These are the **actual MJCF models and mesh assets used by the paired visualization**.
 They were generated directly from the released STEP assemblies, not from URDF files.
 Each model has eight articulated revolute joints. All mesh coordinates are in metres.
+
+A [derived standalone hand URDF](urdf/README.md) with portable visual/collision meshes
+is also included. The [OpenArm simulation tutorials](../../simulation/README.md) compose
+the native hand with OpenArm v1 and provide one-command MuJoCo, Isaac Sim, SuperDex and
+Genesis examples. The original visualization still uses the native MJCF files below.
 
 | Model | Native definition | Geometry | Records |
 |---|---|---|---|

@@ -20,6 +20,7 @@
   <a href="bom/BOM.md">Bill of materials</a> ·
   <a href="hardware/step/">CAD assemblies</a> ·
   <a href="docs/assembly/README.md">Assembly guide</a> ·
+  <a href="simulation/README.md">Simulation tutorials</a> ·
   <a href="docs/visualization/README.md">Visualization methods</a>
 </p>
 
@@ -35,8 +36,36 @@ combined ring–little finger, and thumb. The robot hand uses eight serial-bus s
 glove measures the corresponding joints with eight rotary potentiometers. Shared camera
 mounts and a rigid Quest-controller mount provide a common mechanical basis for visual
 and spatial observations. The repository contains the mechanical design, bill of
-materials, CAD export tooling, and reproducible MuJoCo visualizations. Firmware,
+materials, CAD export tooling, reproducible MuJoCo visualizations, and OpenArm integration
+examples for four simulation engines. Firmware,
 host-side acquisition, calibration, and quantitative validation remain under development.
+
+## Simulation quick start
+
+Run Manual-Dex attached to a **seven-joint OpenArm v1**, with all eight hand joints
+flexing in one connected articulation. From this repository's root on Linux:
+
+| Engine | Single-command setup and launch | Tutorial |
+|---|---|---|
+| MuJoCo | `python3 simulation/run.py mujoco` | [Native MJCF, viewer and headless test](simulation/mujoco/README.md) |
+| Genesis | `python3 simulation/run.py genesis` | [URDF import, CPU/GPU and control hooks](simulation/genesis/README.md) |
+| SuperDex | `python3 simulation/run.py superdex` | [URDF runtime import and debugger](simulation/superdex/README.md) |
+| Isaac Sim | `python3 simulation/run.py isaacsim --accept-isaac-eula` | [URDF-to-USD import and PhysX articulation](simulation/isaacsim/README.md) |
+
+The launcher obtains pinned dependencies and OpenArm assets, creates isolated environments,
+builds and checks the model, then runs five simulated seconds. Git, Git LFS and Python
+with `venv`/`pip` are prerequisites; Isaac Sim also needs compatible NVIDIA hardware and
+your agreement to its EULA before passing the acceptance flag.
+
+For a finite, non-interactive run, add `--headless --steps 1200`. See the
+[complete simulation guide](simulation/README.md) for prerequisites, expected JSON results,
+mount configuration, offline use and agent-friendly commands. The
+[standalone hand URDF and meshes](models/manual_dex/urdf/README.md) are included alongside
+the [native MJCF models](models/manual_dex/README.md).
+
+These are **kinematic integration examples**, not validated grasp dynamics. All four
+engines passed the 15-joint headless playback test; local Isaac Sim rendering remains
+unverified because its renderer crashed during startup. See [validation and limitations](simulation/VALIDATION.md).
 
 ## 1. Design motivation
 
@@ -108,7 +137,9 @@ These are kinematic illustrations, not validated dynamics simulations. The hinge
 are recovered from CAD cylindrical faces; flexion amplitudes are selected for visualization.
 Joint limits, inertial properties, actuator dynamics, collisions, and contact behavior are
 not identified by this animation. The actual [MuJoCo MJCF models and meshes](models/manual_dex/README.md)
-are included in the repository; these models were generated directly as MJCF, not URDF.
+are included in the repository; these models were generated directly as MJCF. A
+[derived hand URDF](models/manual_dex/urdf/README.md) and
+[OpenArm integration examples](simulation/README.md) are now provided separately.
 See the [methods and regeneration instructions](docs/visualization/README.md).
 
 ## 4. Materials and fabrication
@@ -143,6 +174,8 @@ link-connection sequence.
 4. Follow the [assembly guide](docs/assembly/README.md).
 5. Open the [included MJCF models](models/manual_dex/README.md), or regenerate the models
    and diagrams using the [visualization workflow](docs/visualization/README.md).
+6. Follow the [simulation tutorials](simulation/README.md) to attach the hand to OpenArm
+   in MuJoCo, Isaac Sim, SuperDex or Genesis.
 
 The existing BOM and export utilities require Python 3. The visualization workflow uses
 Python 3.11 or newer and has been exercised with Python 3.13 and MuJoCo 3.6.0.
@@ -160,8 +193,9 @@ are recorded in [`bom/rename_map.csv`](bom/rename_map.csv).
 
 ## 6. Release status and limitations
 
-The release includes CAD, a BOM, mechanical connection diagrams, and a reproducible
-visualization pipeline. It does not yet include finished firmware, host software, wiring
+The release includes CAD, a BOM, mechanical connection diagrams, a reproducible
+visualization pipeline, native MJCF and derived hand URDF assets, and four-engine OpenArm
+kinematic integration tutorials. It does not yet include finished firmware, host software, wiring
 instructions, calibration data, a validated dynamics model, or experimental benchmarks.
 Some bought-part specifications and quantities are unresolved in the BOM.
 
@@ -182,7 +216,12 @@ docs/
   assets/               Prototype demonstration and paired MuJoCo animation
   assembly/             Mechanical connection guide
   visualization/        Visualization methods and complete part register
-models/manual_dex/       Ready-to-load MJCF models, meshes, and joint/part records
+models/manual_dex/      Native MJCF, standalone hand URDF, meshes, and joint/part records
+simulation/            OpenArm model builder, one-command launcher, and validation
+  mujoco/              Native MJCF tutorial and executable example
+  isaacsim/            URDF-to-USD / PhysX tutorial and executable example
+  superdex/            URDF runtime / debugger tutorial and executable example
+  genesis/             URDF CPU/GPU tutorial and executable example
 firmware/esp32_glove/    Glove acquisition firmware (pending)
 software/               Host acquisition, calibration, and control (pending)
 tools/
