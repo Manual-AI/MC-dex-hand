@@ -86,6 +86,15 @@ parts; no rubber, silicone or TPU coating is asserted. The enclosure is partiall
 transparent to expose the CAD electronics. Purchased-part composition is not inferred
 from its rendered color, and unresolved BOM materials remain TODO.
 
+The Quest 3 controller on the actuated hand is a deliberate appearance-matching
+component: the same controller/mount geometry is present on both embodiments to remove
+that visual difference for an overhead camera. For actual use, the operator also wears
+a black, fingertip-less fabric glove beneath the sensing assembly, with simple inpainting
+intended to address remaining differences in the hand-camera view. These are distinct
+camera-view considerations; see the [design rationale](../../README.md#22-why-is-there-a-quest-3-controller-on-the-actuated-hand).
+The CAD renders do not include the cloth or an inpainting process and do not demonstrate
+that visual differences have been eliminated.
+
 ## 4. Regeneration
 
 The reference environment is Linux, Python 3.13, MuJoCo 3.6.0 and an EGL-capable graphics

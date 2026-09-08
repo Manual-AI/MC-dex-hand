@@ -17,6 +17,13 @@ illustrative; see the [visualization methods](../visualization/README.md).
 The operator's hand moves the printed links. Eight rotary position sensors measure the joints:
 two each for the index, middle, combined ring/pinky, and thumb groups.
 
+For use, wear a **black, fingertip-less (fingerless) fabric glove beneath the instrumented
+assembly**, leaving the fingertips uncovered. Check that the fabric does not obstruct
+joint motion, sensor couplings or intended contact surfaces. This dark under-glove is
+part of the visual-matching setup: together with matched camera placement and simple
+inpainting of residual differences, it is intended to make the glove and robot look
+as similar as possible from the hand-mounted camera. The cloth is not modeled in the CAD.
+
 ![Manual-Dex glove index linkage: fixed frame, proximal pivot, proximal link, distal pivot and contact link](../images/manual-dex-glove-linkage.png)
 
 Build each main finger chain from the frame outward:
@@ -56,6 +63,14 @@ The OpenArm adaptor connects the completed hand frame to the robot arm.
 - Fit the electronics enclosure and lid.
 - Fit the Quest receiver and controller mount. The mount uses the printed base, hinged cap
   and receiver, plus one 2 x 20 mm pin, one M3 x 12 mm screw and one M3 nut per assembly.
+
+**Why fit a Quest 3 controller to the actuated hand as well?** It is intentionally
+retained to remove the controller-related visual embodiment gap in overhead-camera
+images. Fit the same controller and mount in corresponding poses on both assemblies,
+so the controller does not appear only in operator demonstrations. This overhead-view
+matching is separate from the black-under-glove/inpainting workflow for the hand camera.
+See the [design rationale](../../README.md#22-why-is-there-a-quest-3-controller-on-the-actuated-hand)
+for the distinction and current validation limits.
 
 Use the [BOM](../../bom/BOM.md) for quantities and the [STEP assemblies](../../hardware/step/)
 for exact part placement. This guide covers the mechanical connection pattern; detailed

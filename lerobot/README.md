@@ -145,6 +145,13 @@ readback from before that step. Do not describe this as a dataset of post-clippi
 commands or use it as measured physical training data. A controller-aware processor,
 cameras, task resets, rewards and policy evaluation are separate follow-on work.
 
+For a future camera-based capture setup, follow the
+[visual embodiment-matching guidance](../README.md#22-why-is-there-a-quest-3-controller-on-the-actuated-hand):
+retain corresponding Quest 3 controllers for the overhead-camera view, and wear a black,
+fingertip-less fabric glove beneath the sensing assembly for hand-camera appearance
+matching after simple inpainting. The state-only example above does not capture images
+or implement inpainting; those remain separate from the working joint-teleoperation path.
+
 ## 5. Implementation and reproducibility
 
 ```text

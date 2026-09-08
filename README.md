@@ -39,7 +39,10 @@ geometry. Each device has eight revolute joints arranged in four groups: index, 
 combined ring–little finger, and thumb. The robot hand uses eight serial-bus servos; the
 glove measures the corresponding joints with eight rotary potentiometers. Shared camera
 mounts and a rigid Quest-controller mount provide a common mechanical basis for visual
-and spatial observations. The repository contains the mechanical design, bill of
+and spatial observations. The controller is retained on the actuated hand to match the
+glove's appearance to an overhead camera; the operator wears a black, fingertip-less
+under-glove to support visual matching from the hand camera after simple inpainting.
+The repository contains the mechanical design, bill of
 materials, CAD export tooling, reproducible MuJoCo visualizations, and OpenArm integration
 examples for four simulation engines, plus LeRobot teleoperation adapters and calibration
 tutorials. Physical glove firmware, a verified hand driver, measured calibration and
@@ -137,7 +140,7 @@ measured tracking accuracy, contact-transfer error, payload, or manipulation suc
 | Joint structure | Four finger groups, two revolute joints per group | Corresponding eight joints |
 | Actuation / sensing | 8 × Feetech HLS3606 dual-shaft serial-bus servos | 8 × Bourns 3382G-2-103G, 10 kΩ rotary potentiometers |
 | Host interface | Serial-bus driver; final board selection pending | Adafruit HUZZAH32 ESP32 Feather; exact variant to be confirmed |
-| Spatial tracking | Rigidly mounted right Meta Quest Touch Plus controller | Same controller and mount design |
+| Quest controller | Right Meta Quest Touch Plus; retained for overhead-view appearance matching | Same controller and mount design; intended 6-DOF pose input |
 | Wrist imaging | 2 MP USB 2.0 UVC camera | Corresponding camera placement |
 | Structural components | FDM-printed ABS or PETG | FDM-printed ABS or PETG |
 | Mechanical interface | OpenArm wrist-flange adaptor | Wearable frame; attachment straps not yet specified |
@@ -157,6 +160,39 @@ these eight joint coordinates, the controller's six-degree-of-freedom pose, and 
 frames. The [LeRobot examples](lerobot/README.md) now provide host-side sensor mapping,
 simulation teleoperation and state-only recording. Synchronized camera/Quest acquisition,
 measured hardware calibration and physical replay remain pending.
+
+### 2.2 Why is there a Quest 3 controller on the actuated hand?
+
+A Quest 3 controller may seem redundant on a robot hand. **Its presence on the actuated
+hand is deliberate: it is there to remove the controller-related visual embodiment gap
+for an overhead camera.** The sensing glove carries a controller for pose input;
+retaining the same controller and mount on the robot gives both embodiments the same
+visible attachment, rather than a controller appearing only in human demonstrations.
+Match its placement and orientation on both assemblies when collecting corresponding views.
+
+Here, *visual embodiment gap* means differences in the visible operator/glove and robot
+that a vision system could use to distinguish demonstration from robot execution.
+The controller is therefore part of the appearance-matching design, in addition to its
+tracking role. This is a design rationale, not a claim that all visual differences have
+been experimentally eliminated.
+
+### 2.3 Black fingerless under-glove and the hand-camera view
+
+**Wear a black, fingertip-less (fingerless) fabric glove beneath the instrumented glove.**
+This provides a consistent dark covering for the operator's hand while leaving the
+fingertips uncovered. Fit it without obstructing the mechanism, sensors or intended
+contact surfaces.
+
+From the corresponding hand-/wrist-mounted camera perspective, the aim is for the
+robot hand and worn sensing glove to look as similar as possible **after simple image
+inpainting of remaining appearance differences**. The black under-glove and matched
+camera placement are part of that capture setup; they address a different view from
+the overhead-camera/controller matching above. Preserve task objects and relevant
+contact evidence when choosing any inpainting masks.
+
+The CAD visualizations show the mechanical assemblies, not the fabric under-glove or
+an inpainted camera stream. An inpainting implementation, masks and quantitative
+visual-matching evaluation are not yet included in this release.
 
 ## 3. Mechanical structure and kinematics
 
@@ -185,6 +221,10 @@ ring–little finger groups; the thumb is listed separately.*
 moves with its proximal link; its output carries the distal contact link. The thumb also
 uses a support rod, printed pin, and MR105ZZ bearing. Shared camera, tracking, and
 enclosure components preserve the paired-device layout.*
+
+The Quest 3 controller visible on the hand is intentional: see the
+[overhead-camera appearance-matching rationale](#22-why-is-there-a-quest-3-controller-on-the-actuated-hand).
+For the worn glove, follow the [black fingerless under-glove guidance](#23-black-fingerless-under-glove-and-the-hand-camera-view).
 
 These are kinematic illustrations, not validated dynamics simulations. The hinge axes
 are recovered from CAD cylindrical faces; flexion amplitudes are selected for visualization.
