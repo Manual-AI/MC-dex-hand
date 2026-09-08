@@ -9,7 +9,10 @@ superseded controller cradle. The repository license has not yet been chosen.
   `cm_quest_mount_hinged_cap.stl` and `cm_quest_mount_receiver.stl`.
 - **CAD source:** the project-local `Quest_mount_assembly.SLDASM`, containing
   `01_Base`, `02_Hinged_cap` and `03_Receiver_8x9`.
-- **Source / license:** TODO: confirm authorship, upstream source (if any), and applicable terms.
+- **Author:** Roman (Manual Cognition), who confirmed that the new mount is his own design.
+- **Source / license:** original project design; no third-party attribution is required for
+  this mount. It follows the project's licensing decision; the repository license has not
+  yet been chosen.
 - **Receiver modification:** four rectangular pads retained at 8 x 5 x 3 mm;
   centered edge-to-edge gaps changed from 6 x 11 mm to 8 x 9 mm.
 

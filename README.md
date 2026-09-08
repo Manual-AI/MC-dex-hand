@@ -32,7 +32,7 @@ encoder values, so a recorded glove trajectory is a servo trajectory.
 
 > **Status:** hardware release in progress. Firmware, host software and the assembly guide are TODO.
 > **License:** not yet chosen - repository is private until it is. See `bom/THIRD_PARTY.md` for the
-> current Quest mount source status and historical third-party attribution.
+> current Quest mount authorship and historical third-party attribution.
 
 ## Repository layout
 
