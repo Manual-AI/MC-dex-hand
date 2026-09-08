@@ -33,8 +33,12 @@ Private Sub BuildList()
     AddName "cm_camera_mount"
     AddName "cm_electronics_box"
     AddName "cm_electronics_box_lid"
-    AddName "cm_quest_adapter_lower"
-    AddName "cm_quest_adapter_upper"
+    AddName "01_Base"
+    AddName "02_Hinged_cap"
+    AddName "03_Receiver_8x9"
+    AddName "cm_quest_mount_base"
+    AddName "cm_quest_mount_hinged_cap"
+    AddName "cm_quest_mount_receiver"
     AddName "gl_backplate"
     AddName "gl_encoder_case_distal"
     AddName "gl_encoder_case_proximal"
@@ -86,6 +90,15 @@ Private Function BaseName(path As String) As String
     BaseName = f
 End Function
 
+Private Function ExportName(base As String) As String
+    Select Case LCase$(base)
+        Case "01_base": ExportName = "cm_quest_mount_base"
+        Case "02_hinged_cap": ExportName = "cm_quest_mount_hinged_cap"
+        Case "03_receiver_8x9": ExportName = "cm_quest_mount_receiver"
+        Case Else: ExportName = base
+    End Select
+End Function
+
 Private Sub EnsureDir(p As String)
     Dim fso As Object: Set fso = CreateObject("Scripting.FileSystemObject")
     If Not fso.FolderExists(p) Then fso.CreateFolder p
@@ -131,7 +144,8 @@ Sub Main()
         If swPart Is Nothing Then
             Debug.Print "  FAIL (cannot activate) " & base: nFail = nFail + 1: GoTo NextComp
         End If
-        outFile = stlDir & base & ".stl"
+        outFile = stlDir & ExportName(base) & ".stl"
+        swPart.ClearSelection2 True
         ok = swPart.Extension.SaveAs3(outFile, swSaveAsCurrentVersion, swSaveAsOptions_Silent, Nothing, Nothing, errs, warns)
         If ok Then
             Debug.Print "  stl  " & base: nOk = nOk + 1
@@ -145,6 +159,7 @@ NextComp:
     ' back to the assembly, export STEP
     swApp.ActivateDoc3 swAssy.GetPathName, False, swDontRebuildActiveDoc, errs
     asmName = IIf(hasRobot, "mc_dex_hand_robot_hand", "mc_dex_hand_glove")
+    swAssy.ClearSelection2 True
     outFile = stepDir & asmName & ".step"
     ok = swAssy.Extension.SaveAs3(outFile, swSaveAsCurrentVersion, swSaveAsOptions_Silent, Nothing, Nothing, errs, warns)
     Debug.Print IIf(ok, "  step " & outFile, "  FAIL STEP errors=" & errs)

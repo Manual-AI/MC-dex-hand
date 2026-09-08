@@ -16,8 +16,9 @@ RH-014 / GL-030,electronics_box1,cm_electronics_box,common,shared part - one fil
 RH-015 / GL-031,electronics_box1_lid,cm_electronics_box_lid,common,shared
 RH-016 / GL-032,camera_mount_v2,cm_camera_mount,common,shared
 RH-017 / GL-033,camera_adaptor_v2,cm_camera_adaptor,common,shared
-RH-018 / GL-034,Controller Adapter_right,cm_quest_adapter_lower,common,shared; third-party derived (udCap)
-RH-019 / GL-035,Controller Adapter UP_right,cm_quest_adapter_upper,common,shared; third-party derived (udCap)
+RH-018 / GL-034,01_Base,cm_quest_mount_base,common,shared; Quest_mount_assembly base
+RH-019 / GL-035,02_Hinged_cap,cm_quest_mount_hinged_cap,common,shared; Quest_mount_assembly hinged cap
+RH-020 / GL-036,03_Receiver_8x9,cm_quest_mount_receiver,common,shared; receiver with centered 8 x 9 mm clear pad gaps
 GL-001,palm_plate_j3_glove,gl_palm_plate,glove,
 GL-002,backplate_j4,gl_backplate,glove,
 GL-003,link1_index_j3,gl_index_proximal_link,glove,align with robot naming (link1 -> proximal_link)

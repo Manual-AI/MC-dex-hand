@@ -20,7 +20,7 @@ encoder values, so a recorded glove trajectory is a servo trajectory.
 
 > **Status:** hardware release in progress. Firmware, host software and the assembly guide are TODO.
 > **License:** not yet chosen - repository is private until it is. See `bom/THIRD_PARTY.md` for the
-> two parts that carry third-party terms.
+> current Quest mount source status and historical third-party attribution.
 
 ## Repository layout
 
@@ -31,7 +31,7 @@ hardware/
   glove/stl/         printed parts unique to the glove         (gl_*)
   common/stl/        printed parts used on both                (cm_*)
   step/              full assemblies as STEP (robot hand, glove)
-third_party/udcap/   Quest controller cradle, derived from udCap files (own terms - see THIRD_PARTY.md)
+third_party/udcap/   attribution for the superseded Quest cradle (see THIRD_PARTY.md)
 firmware/esp32_glove ESP32 Feather firmware reading the glove encoders   (TODO)
 software/            host-side collection / control / mapping code       (TODO)
 docs/assembly/       build guide                                          (TODO)
@@ -45,16 +45,21 @@ tools/               BOM renderer + SolidWorks macros used to produce the releas
 2. Print every part in the *Make* tables from `hardware/*/stl/`. Quantities are in the BOM
    (most are 1; `gl_tip_hinge_pin` x3, `gl_encoder_lid` x5, `gl_encoder_case_*` x2).
    ABS or PETG, 100 % infill for pins.
-3. Follow `docs/assembly/` (coming).
+3. Each assembly uses the same Quest mount: print `cm_quest_mount_base`,
+   `cm_quest_mount_hinged_cap` and `cm_quest_mount_receiver`. Add one 2 x 20 mm pin,
+   one M3 x 12 mm screw and one M3 nut. The receiver pads have centered 8 x 9 mm
+   edge-to-edge gaps. The previous two-piece udCap cradle is superseded.
+4. Follow `docs/assembly/` (coming).
 
 Right hand only for now. Parts flagged `mirror_for_left = yes` in the BOM need a mirrored print for a
-left-hand variant.
+left-hand variant. Quest mount handedness is marked TODO until checked.
 
 ## Part naming
 
 `rh_` robot hand, `gl_` glove, `cm_` common to both; then finger (`index`, `middle`, `pinkyring`,
-`thumb`) and part. `bom/rename_map.csv` maps the historical CAD names to these. Every SolidWorks part
-carries `BOM_ID` and `PART_NAME` custom properties matching the BOM.
+`thumb`) and part. `bom/rename_map.csv` maps historical CAD names to release names.
+The imported Quest mount retains its source filenames;
+`export_cad.bas` maps these to the three `cm_quest_mount_*` release filenames.
 
 ## Regenerating release files
 

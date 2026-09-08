@@ -16,8 +16,6 @@ DEST = {
     "gl_": ROOT / "hardware/glove/stl",
     "cm_": ROOT / "hardware/common/stl",
 }
-THIRD_PARTY = {"cm_quest_adapter_lower", "cm_quest_adapter_upper"}
-THIRD_PARTY_DIR = ROOT / "third_party/udcap/stl"
 STEP_DIR = ROOT / "hardware/step"
 
 
@@ -40,10 +38,7 @@ def main(export_dir):
 
     placed, unknown = 0, []
     for stem, p in sorted(found.items()):
-        if stem in THIRD_PARTY:
-            dest = THIRD_PARTY_DIR
-        else:
-            dest = next((d for pre, d in DEST.items() if stem.startswith(pre)), None)
+        dest = next((d for pre, d in DEST.items() if stem.startswith(pre)), None)
         if dest is None or stem not in expected:
             unknown.append(stem)
             continue

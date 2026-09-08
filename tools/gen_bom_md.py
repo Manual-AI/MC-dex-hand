@@ -47,7 +47,7 @@ def render():
           "**Status legend:** `in CAD` = present in the released STEP assembly; "
           "`TODO` = required for a working build but not modelled in CAD - fill in before release.", "",
           "All *make* parts are FDM printed in ABS or PETG. Parts marked *mirror for left* need a "
-          "mirrored copy for a left-hand variant; the rest are symmetric or handedness-agnostic.", ""]
+          "mirrored copy for a left-hand variant. A TODO in that column means handedness is not yet verified.", ""]
 
     shared_seen = {}
     for title, fname, shared_col in ASSEMBLIES:

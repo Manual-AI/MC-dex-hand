@@ -4,13 +4,13 @@ Generated from `bom/robot_hand.csv` and `bom/glove.csv` by `tools/gen_bom_md.py`
 
 **Status legend:** `in CAD` = present in the released STEP assembly; `TODO` = required for a working build but not modelled in CAD - fill in before release.
 
-All *make* parts are FDM printed in ABS or PETG. Parts marked *mirror for left* need a mirrored copy for a left-hand variant; the rest are symmetric or handedness-agnostic.
+All *make* parts are FDM printed in ABS or PETG. Parts marked *mirror for left* need a mirrored copy for a left-hand variant. A TODO in that column means handedness is not yet verified.
 
 ## Robot hand
 
-- **Make (3D printed):** 19 unique parts, 19 pieces
-- **Buy:** 12 line items (22 pieces counted, 4 quantities still TODO)
-- **Shared with the other assembly:** 10 line items
+- **Make (3D printed):** 20 unique parts, 20 pieces
+- **Buy:** 15 line items (25 pieces counted, 4 quantities still TODO)
+- **Shared with the other assembly:** 14 line items
 
 ### Robot hand: Make - 3D printed parts
 
@@ -50,8 +50,9 @@ All *make* parts are FDM printed in ABS or PETG. Parts marked *mirror for left* 
 
 | ID | Part (CAD name) | Qty | Subsystem | Material | Mirror for left | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| RH-018 | Controller Adapter_right | 1 | tracking | ABS or PETG | yes | in CAD | Quest controller cradle (right); derived (minor edits) from udCap VR glove adapter files - see bom/THIRD_PARTY.md |
-| RH-019 | Controller Adapter UP_right | 1 | tracking | ABS or PETG | yes | in CAD | Quest controller cradle upper half (right); derived (minor edits) from udCap VR glove adapter files - see bom/THIRD_PARTY.md |
+| RH-018 | 01_Base | 1 | tracking | ABS or PETG | TODO | in CAD | Quest mount base; see bom/THIRD_PARTY.md for source status; left-hand compatibility not yet verified |
+| RH-019 | 02_Hinged_cap | 1 | tracking | ABS or PETG | TODO | in CAD | Quest mount hinged cap; see bom/THIRD_PARTY.md for source status; left-hand compatibility not yet verified |
+| RH-020 | 03_Receiver_8x9 | 1 | tracking | ABS or PETG | TODO | in CAD | Quest mount receiver; four 8 x 5 x 3 mm pads with centered 8 x 9 mm clear gaps; left-hand compatibility not yet verified |
 
 ### Robot hand: Buy - off-the-shelf
 
@@ -65,7 +66,7 @@ All *make* parts are FDM printed in ABS or PETG. Parts marked *mirror for left* 
 
 | ID | Item | Qty | Subsystem | Spec | Supplier | Part no. | Status | Notes |
 |---|---|---|---|---|---|---|---|---|
-| RH-104 | Meta Quest Touch Plus controller (right) | 1 | tracking | Quest 3 / 3S Touch Plus, right hand | Meta | TODO | in CAD | Rigidly mounted via printed adapters; provides 6-DOF pose |
+| RH-104 | Meta Quest Touch Plus controller (right) | 1 | tracking | Quest 3 / 3S Touch Plus, right hand | Meta | TODO | in CAD | Rigidly mounted via Quest_mount_assembly (base; hinged cap; receiver); provides 6-DOF pose |
 
 #### Actuator
 
@@ -92,6 +93,9 @@ All *make* parts are FDM printed in ABS or PETG. Parts marked *mirror for left* 
 
 | ID | Item | Qty | Subsystem | Spec | Supplier | Part no. | Status | Notes |
 |---|---|---|---|---|---|---|---|---|
+| RH-105 | Quest mount hinge pin 2 x 20 mm | 1 | tracking | 2 mm diameter x 20 mm length; material TODO | Generic | TODO | in CAD | Quest mount hardware; CAD reference: 04_Pin_2x20_reference; confirm hardware grade and exact standard before purchase |
+| RH-106 | Quest mount M3 x 12 mm screw | 1 | tracking | M3 x 12 mm; head style and grade TODO | Generic | TODO | in CAD | Quest mount hardware; CAD reference: 05_M3x12_screw_reference; confirm hardware grade and exact standard before purchase |
+| RH-107 | Quest mount M3 nut | 1 | tracking | M3; standard and grade TODO | Generic | TODO | in CAD | Quest mount hardware; CAD reference: 06_M3_nut_reference; confirm hardware grade and exact standard before purchase |
 | RH-205 | Servo mounting screws | TODO | fasteners | TODO: e.g. M2 x L self-tapping / machine | Generic | TODO | TODO | Not in CAD; count per servo x 8 |
 | RH-206 | Servo horn / output screws | TODO | fasteners | TODO: typically supplied with servo | Feetech | TODO | TODO | Not in CAD |
 | RH-207 | Structural screws and heat-set inserts | TODO | fasteners | TODO: sizes (M2/M2.5/M3), lengths, insert type | Generic | TODO | TODO | Not in CAD; palm plate; backplate; camera mount; electronics box; OpenArm flange |
@@ -104,9 +108,9 @@ All *make* parts are FDM printed in ABS or PETG. Parts marked *mirror for left* 
 
 ## Glove
 
-- **Make (3D printed):** 35 unique parts, 43 pieces
-- **Buy:** 12 line items (30 pieces counted, 3 quantities still TODO)
-- **Shared with the other assembly:** 10 line items
+- **Make (3D printed):** 36 unique parts, 44 pieces
+- **Buy:** 15 line items (33 pieces counted, 3 quantities still TODO)
+- **Shared with the other assembly:** 14 line items
 
 ### Glove: Make - 3D printed parts
 
@@ -172,8 +176,9 @@ All *make* parts are FDM printed in ABS or PETG. Parts marked *mirror for left* 
 
 | ID | Part (CAD name) | Qty | Subsystem | Material | Mirror for left | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| GL-034 | Controller Adapter_right | 1 | tracking | ABS or PETG | yes | in CAD | Quest controller cradle (right); derived (minor edits) from udCap VR glove adapter files - see bom/THIRD_PARTY.md |
-| GL-035 | Controller Adapter UP_right | 1 | tracking | ABS or PETG | yes | in CAD | Quest controller cradle upper half (right); derived (minor edits) from udCap VR glove adapter files - see bom/THIRD_PARTY.md |
+| GL-034 | 01_Base | 1 | tracking | ABS or PETG | TODO | in CAD | Quest mount base; see bom/THIRD_PARTY.md for source status; left-hand compatibility not yet verified |
+| GL-035 | 02_Hinged_cap | 1 | tracking | ABS or PETG | TODO | in CAD | Quest mount hinged cap; see bom/THIRD_PARTY.md for source status; left-hand compatibility not yet verified |
+| GL-036 | 03_Receiver_8x9 | 1 | tracking | ABS or PETG | TODO | in CAD | Quest mount receiver; four 8 x 5 x 3 mm pads with centered 8 x 9 mm clear gaps; left-hand compatibility not yet verified |
 
 ### Glove: Buy - off-the-shelf
 
@@ -187,7 +192,7 @@ All *make* parts are FDM printed in ABS or PETG. Parts marked *mirror for left* 
 
 | ID | Item | Qty | Subsystem | Spec | Supplier | Part no. | Status | Notes |
 |---|---|---|---|---|---|---|---|---|
-| GL-104 | Meta Quest Touch Plus controller (right) | 1 | tracking | Quest 3 / 3S Touch Plus, right hand | Meta | TODO | in CAD | Rigidly mounted via printed adapters; provides 6-DOF pose |
+| GL-104 | Meta Quest Touch Plus controller (right) | 1 | tracking | Quest 3 / 3S Touch Plus, right hand | Meta | TODO | in CAD | Rigidly mounted via Quest_mount_assembly (base; hinged cap; receiver); provides 6-DOF pose |
 
 #### Sensor
 
@@ -209,6 +214,9 @@ All *make* parts are FDM printed in ABS or PETG. Parts marked *mirror for left* 
 
 | ID | Item | Qty | Subsystem | Spec | Supplier | Part no. | Status | Notes |
 |---|---|---|---|---|---|---|---|---|
+| GL-105 | Quest mount hinge pin 2 x 20 mm | 1 | tracking | 2 mm diameter x 20 mm length; material TODO | Generic | TODO | in CAD | Quest mount hardware; CAD reference: 04_Pin_2x20_reference; confirm hardware grade and exact standard before purchase |
+| GL-106 | Quest mount M3 x 12 mm screw | 1 | tracking | M3 x 12 mm; head style and grade TODO | Generic | TODO | in CAD | Quest mount hardware; CAD reference: 05_M3x12_screw_reference; confirm hardware grade and exact standard before purchase |
+| GL-107 | Quest mount M3 nut | 1 | tracking | M3; standard and grade TODO | Generic | TODO | in CAD | Quest mount hardware; CAD reference: 06_M3_nut_reference; confirm hardware grade and exact standard before purchase |
 | GL-206 | Structural screws and heat-set inserts | TODO | fasteners | TODO: sizes (M2/M2.5/M3), lengths, insert type | Generic | TODO | TODO | Not in CAD; encoder cases; palm plate; camera mount; electronics box |
 | GL-207 | Potentiometer mounting hardware | 8 | fasteners | TODO: pot nut/washer or press fit | Generic | TODO | remove? | Not in CAD. Pots are held by printed lids or hot glue - likely no dedicated hardware; delete this row if so |
 
@@ -230,10 +238,14 @@ These are the same physical design on both assemblies - print/buy two of each fo
 
 | Part | BOM IDs |
 |---|---|
-| Controller Adapter UP_right | RH-019, GL-035 |
-| Controller Adapter_right | RH-018, GL-034 |
+| 01_Base | RH-018, GL-034 |
+| 02_Hinged_cap | RH-019, GL-035 |
+| 03_Receiver_8x9 | RH-020, GL-036 |
 | Fingertip friction / contact material | RH-208, GL-208 |
 | Meta Quest Touch Plus controller (right) | RH-104, GL-104 |
+| Quest mount M3 nut | RH-107, GL-107 |
+| Quest mount M3 x 12 mm screw | RH-106, GL-106 |
+| Quest mount hinge pin 2 x 20 mm | RH-105, GL-105 |
 | USB cable for camera | RH-204, GL-203 |
 | USB camera module 2 MP | RH-103, GL-103 |
 | camera_adaptor_v2 | RH-017, GL-033 |
