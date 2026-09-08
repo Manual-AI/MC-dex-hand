@@ -73,5 +73,7 @@ command checks mesh availability, closed collision hulls, the 8/15-joint topolog
 regenerated assets. The exporter supports this model's one-hinge-per-body structure;
 it is not a general MJCF-to-URDF converter.
 
-The repository has not yet selected a license for its original Manual-Dex assets.
-See [third-party provenance](../../../simulation/THIRD_PARTY.md).
+Original Manual-Dex URDF and mesh assets are licensed under [CERN-OHL-P-2.0](LICENSE).
+Keep this license and the [notice](NOTICE) when sharing the standalone package.
+See [licensing scope](../../../LICENSING.md) and
+[third-party provenance](../../../simulation/THIRD_PARTY.md).

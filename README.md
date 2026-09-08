@@ -8,6 +8,8 @@
 </p>
 
 <p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Software-Apache%202.0-blue" alt="Software license: Apache 2.0"></a>
+  <a href="hardware/LICENSE"><img src="https://img.shields.io/badge/Hardware-CERN--OHL--P%202.0-blue" alt="Hardware license: CERN-OHL-P 2.0"></a>
   <a href="tools/"><img src="https://img.shields.io/badge/Tooling-Python%203-3776AB?logo=python&logoColor=white" alt="Python 3 tooling"></a>
   <a href="docs/visualization/README.md"><img src="https://img.shields.io/badge/Rendering-MuJoCo%203.6-286778" alt="MuJoCo 3.6 rendering"></a>
   <img src="https://img.shields.io/badge/Kinematics-8%20DOF-526777" alt="Eight degrees of freedom">
@@ -199,9 +201,9 @@ kinematic integration tutorials. It does not yet include finished firmware, host
 instructions, calibration data, a validated dynamics model, or experimental benchmarks.
 Some bought-part specifications and quantities are unresolved in the BOM.
 
-The repository's license has not yet been chosen. See [`bom/THIRD_PARTY.md`](bom/THIRD_PARTY.md)
-for the current Quest mount's authorship and the attribution retained for superseded
-third-party parts.
+Original software is released under Apache-2.0; original hardware designs and robot
+models use CERN-OHL-P-2.0. See [licensing and reuse](#8-license-and-community) below,
+including the separate terms and historical exclusions for third-party material.
 
 ## 7. Repository organization
 
@@ -229,3 +231,21 @@ tools/
   solidworks/           CAD naming and export macros
 third_party/udcap/      Historical attribution for the superseded cradle
 ```
+
+## 8. License and community
+
+Manual-Dex's original software and general documentation are licensed under the
+[Apache License 2.0](LICENSE). Its original hardware designs, CAD, fabrication files,
+BOMs and CAD-derived robot models are licensed under the
+[CERN Open Hardware Licence v2 — Permissive](hardware/LICENSE), SPDX `CERN-OHL-P-2.0`.
+The [licensing guide](LICENSING.md) defines exactly which files use each license.
+
+You are free to use, study, modify, redistribute and build upon the licensed work,
+including manufacturing and selling hardware or using the software commercially,
+without a license fee. Preserve the required notices and comply with the applicable
+license terms. The project is provided **as is, without warranty**. Third-party material
+retains its own terms; see the [hardware notices](bom/THIRD_PARTY.md) and
+[simulation notices](simulation/THIRD_PARTY.md).
+
+Thank you to the open-source community. Manual-Dex is free to use and modify under
+these licenses. We welcome sharing, improvements and new applications.

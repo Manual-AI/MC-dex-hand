@@ -136,6 +136,9 @@ convex-hull stand-ins, not detailed validated contact surfaces. They are disable
 OpenArm's upstream assets are downloaded at the exact commit in `versions.json`; they
 are not silently replaced with whatever is on the upstream default branch. Its Apache-2.0
 license is copied into the generated package. See [THIRD_PARTY.md](THIRD_PARTY.md).
+The builder also includes the Manual-Dex hardware license and notice. Original tutorial
+code uses Apache-2.0; original hand models use CERN-OHL-P-2.0. See
+[the licensing scope](../LICENSING.md) before redistributing a mixed model package.
 
 ## 5. Existing environments and offline operation
 

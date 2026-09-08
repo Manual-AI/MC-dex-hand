@@ -18,9 +18,13 @@ The standalone versioned Manual-Dex URDF does not contain OpenArm geometry.
 ## Manual-Dex
 
 The hand comes from this repository's original CAD-derived MJCF and mesh assets.
-The project has not yet selected its own license. OpenArm's license does **not** relicense
-Manual-Dex. See [`../bom/THIRD_PARTY.md`](../bom/THIRD_PARTY.md) for existing component
-authorship and historical attribution.
+The original Manual-Dex hardware models use **CERN-OHL-P-2.0**; the simulation scripts
+and tutorials use **Apache-2.0**. See the [licensing scope](../LICENSING.md).
+OpenArm's license does **not** relicense Manual-Dex, and Manual-Dex's licenses do not
+replace OpenArm's. The builder includes `MANUAL_DEX_LICENSE` and `MANUAL_DEX_NOTICE`
+alongside `OPENARM_LICENSE` in the assembled output. Preserve the applicable notices
+and license copies when redistributing it. See [`../bom/THIRD_PARTY.md`](../bom/THIRD_PARTY.md)
+for existing component authorship and historical attribution.
 
 ## Runtime packages
 

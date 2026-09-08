@@ -53,6 +53,7 @@ def environment(label):
 def input_digest():
     digest = hashlib.sha256()
     files = [HERE / p for p in ("prepare.py", "check.py", "common.py", "versions.json", "mount.json", "requirements-prepare.txt")]
+    files += [ROOT / "hardware" / name for name in ("LICENSE", "NOTICE")]
     files += sorted((ROOT / "models/manual_dex/hand").rglob("*"))
     for path in files:
         if path.is_file():
