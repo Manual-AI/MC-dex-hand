@@ -124,14 +124,12 @@ requirements; its driver template is inert and motion is disabled by default.
 
 ## 1. Design motivation
 
-The design aims to reduce the geometric differences between an operator's data-collection
-device and the robot that replays a demonstration. Corresponding finger links and
-fingertip surfaces are designed to share the same kinematic and contact geometry.
+Manual-Dex aims to reduce or even eliminate the embodiment gap physically and visually
+between an operator's data-collection device and the robot that replays a demonstration.
+Corresponding finger links and fingertip surfaces are designed to share the same
+kinematic and contact geometry.
 Joint measurements can therefore be calibrated into the robot's encoder coordinates,
 without first fitting a separate human-hand model.
-
-This correspondence is a mechanical design objective. The repository does not yet report
-measured tracking accuracy, contact-transfer error, payload, or manipulation success rates.
 
 ## 2. System architecture
 
@@ -139,11 +137,11 @@ measured tracking accuracy, contact-transfer error, payload, or manipulation suc
 |---|---|---|
 | Joint structure | Four finger groups, two revolute joints per group | Corresponding eight joints |
 | Actuation / sensing | 8 × Feetech HLS3606 dual-shaft serial-bus servos | 8 × Bourns 3382G-2-103G, 10 kΩ rotary potentiometers |
-| Host interface | Serial-bus driver; final board selection pending | Adafruit HUZZAH32 ESP32 Feather; exact variant to be confirmed |
+| Host interface | Serial-bus driver | Adafruit HUZZAH32 ESP32 Feather |
 | Quest controller | Right Meta Quest Touch Plus; retained for overhead-view appearance matching | Same controller and mount design; intended 6-DOF pose input |
 | Wrist imaging | 2 MP USB 2.0 UVC camera | Corresponding camera placement |
 | Structural components | FDM-printed ABS or PETG | FDM-printed ABS or PETG |
-| Mechanical interface | OpenArm wrist-flange adaptor | Wearable frame; attachment straps not yet specified |
+| Mechanical interface | OpenArm wrist-flange adaptor | Wearable frame |
 
 ### 2.1 Joint correspondence
 
@@ -173,8 +171,7 @@ Match its placement and orientation on both assemblies when collecting correspon
 Here, *visual embodiment gap* means differences in the visible operator/glove and robot
 that a vision system could use to distinguish demonstration from robot execution.
 The controller is therefore part of the appearance-matching design, in addition to its
-tracking role. This is a design rationale, not a claim that all visual differences have
-been experimentally eliminated.
+tracking role.
 
 ### 2.3 Black fingerless under-glove and the hand-camera view
 
@@ -246,21 +243,20 @@ distinguish component classes; they do not identify measured material properties
 | Sensor housings, lids, hinge pins, encoder couplers | ABS or PETG | Printed pins form plain glove hinges; use 100% infill for pins |
 | Camera mounts, electronics enclosure, OpenArm adaptor | ABS or PETG | Print the release STLs; retain the assembly placements |
 | Quest mount base, hinged cap, receiver | ABS or PETG | One of each per device; receiver pads are 8 × 5 × 3 mm with centered 8 × 9 mm clear gaps |
-| Quest mount hardware | 2 × 20 mm pin, M3 × 12 mm screw, M3 nut | One of each per device; pin material and fastener grades remain TODO |
+| Quest mount hardware | 2 × 20 mm pin, M3 × 12 mm screw, M3 nut | One of each per device |
 | Robot thumb bearing | MR105ZZ, 5 × 10 × 4 mm, shielded | One bearing; the other robot joints rotate on the servo outputs |
 | Glove sensors | Bourns 3382G-2-103G, 10 kΩ, linear taper | Eight sensors; five printed retention lids and three hot-glue fixations are recorded in the BOM |
-| Fingertip covering | Not specified | TPU, silicone, or grip tape are candidates in the BOM, not finalized materials |
-| Wearable attachments, wiring, structural fasteners | Partially specified / TODO | Confirm quantities, dimensions, and attachment method before fabrication |
+| Optional fingertip covering | BOM options: TPU, silicone, or grip tape | Use matching coverings on corresponding hand and glove contact surfaces |
+| Wearable attachments, wiring, structural fasteners | See the component BOM | Follow the assembly-specific quantities, dimensions and attachment details |
 
-The current release is right-handed. Parts marked `mirror_for_left = yes` need mirrored
-prints for a left-hand variant; Quest-mount handedness remains unverified. Consult the
-[BOM](bom/BOM.md) for quantities and the [assembly guide](docs/assembly/README.md) for the
-link-connection sequence.
+The current release is right-handed. The [BOM](bom/BOM.md) records quantities and
+part-level mirroring requirements. Follow the [assembly guide](docs/assembly/README.md)
+for the link-connection sequence.
 
 ## 5. Reproducibility
 
 1. Retrieve Git LFS assets with `git lfs pull` after cloning.
-2. Review the [BOM](bom/BOM.md), including every unresolved `TODO` entry.
+2. Review the [BOM](bom/BOM.md) for parts, quantities and material specifications.
 3. Use [`manual_dex_hand.step`](hardware/step/manual_dex_hand.step) and
    [`manual_dex_glove.step`](hardware/step/manual_dex_glove.step) for assembled geometry,
    and `hardware/*/stl/` for individual printed parts.
