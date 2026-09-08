@@ -28,7 +28,7 @@ the corresponding robot-hand joints.*
 
 ## Overview
 
-Manual-Dex is a paired dexterous robot hand and wearable sensing glove designed for
+Manual-Dex is a co-designed dexterous robot hand and wearable sensing glove designed for
 collecting manipulation demonstrations with corresponding joint coordinates and contact
 geometry. Each device has eight revolute joints arranged in four groups: index, middle,
 combined ring–little finger, and thumb. The robot hand uses eight serial-bus servos; the
