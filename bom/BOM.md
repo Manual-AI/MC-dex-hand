@@ -1,4 +1,4 @@
-# Bill of Materials
+# Manual-Dex Bill of Materials
 
 Generated from `bom/robot_hand.csv` and `bom/glove.csv` by `tools/gen_bom_md.py`. Edit the CSVs, not this file.
 

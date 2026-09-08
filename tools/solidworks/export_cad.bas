@@ -158,7 +158,7 @@ NextComp:
 
     ' back to the assembly, export STEP
     swApp.ActivateDoc3 swAssy.GetPathName, False, swDontRebuildActiveDoc, errs
-    asmName = IIf(hasRobot, "mc_dex_hand_robot_hand", "mc_dex_hand_glove")
+    asmName = IIf(hasRobot, "manual_dex_hand", "manual_dex_glove")
     swAssy.ClearSelection2 True
     outFile = stepDir & asmName & ".step"
     ok = swAssy.Extension.SaveAs3(outFile, swSaveAsCurrentVersion, swSaveAsOptions_Silent, Nothing, Nothing, errs, warns)

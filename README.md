@@ -1,92 +1,188 @@
-# MC-dex-hand
+<h1 align="center">Manual-Dex</h1>
+
+<p align="center"><strong>A Kinematically Matched Robot Hand and Wearable Glove for Manipulation Data Collection</strong></p>
+<p align="center"><a href="https://github.com/Manual-AI">Manual Cognition</a></p>
 
 <p align="center">
-  <img src="docs/assets/mc-dex-hand-demo.gif" alt="MC-dex-hand robot hand mirroring the wearable data-collection glove" width="800">
+  <img src="docs/assets/manual-dex-demo.gif" alt="Manual-Dex prototype: wearable glove, corresponding robot hand, and joint visualization" width="640">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3-3776AB?logo=python&logoColor=white" alt="Python 3">
-  <img src="https://img.shields.io/badge/Hardware-8--DOF-F97316" alt="8-DOF hardware">
-  <img src="https://img.shields.io/badge/Firmware-ESP32-E7352C?logo=espressif&logoColor=white" alt="ESP32 firmware">
-  <img src="https://img.shields.io/badge/CAD-STL%20%7C%20STEP-5C6BC0" alt="STL and STEP CAD files">
-  <img src="https://img.shields.io/badge/Git%20LFS-enabled-F64935?logo=git&logoColor=white" alt="Git LFS enabled">
+  <a href="tools/"><img src="https://img.shields.io/badge/Tooling-Python%203-3776AB?logo=python&logoColor=white" alt="Python 3 tooling"></a>
+  <a href="docs/visualization/README.md"><img src="https://img.shields.io/badge/Rendering-MuJoCo%203.6-286778" alt="MuJoCo 3.6 rendering"></a>
+  <img src="https://img.shields.io/badge/Kinematics-8%20DOF-526777" alt="Eight degrees of freedom">
+  <a href="hardware/step/"><img src="https://img.shields.io/badge/CAD-STL%20%2F%20STEP-526777" alt="STL and STEP CAD"></a>
+  <a href="firmware/esp32_glove/"><img src="https://img.shields.io/badge/Glove%20MCU-ESP32-526777" alt="ESP32 glove microcontroller"></a>
 </p>
 
-An open-source dexterous robot hand and a matching wearable data-collection glove, built by
-[Manual Cognition](https://github.com/Manual-AI).
+<p align="center">
+  <a href="#2-system-architecture">Architecture</a> ·
+  <a href="bom/BOM.md">Bill of materials</a> ·
+  <a href="hardware/step/">CAD assemblies</a> ·
+  <a href="docs/assembly/README.md">Assembly guide</a> ·
+  <a href="docs/visualization/README.md">Visualization methods</a>
+</p>
 
-The two share **identical kinematics and contact geometry**: what the glove's fingertips touch is what
-the robot's fingertips touch. Wearing the glove and manipulating objects therefore produces
-demonstrations that transfer directly to the robot hand (UMI-style data collection).
+*Figure 1. Manual-Dex prototype demonstration. The wearable glove measures the motion of
+the corresponding robot-hand joints.*
 
-| | Robot hand | Glove |
+## Abstract
+
+Manual-Dex is a paired dexterous robot hand and wearable sensing glove designed for
+collecting manipulation demonstrations with corresponding joint coordinates and contact
+geometry. Each device has eight revolute joints arranged in four groups: index, middle,
+combined ring–little finger, and thumb. The robot hand uses eight serial-bus servos; the
+glove measures the corresponding joints with eight rotary potentiometers. Shared camera
+mounts and a rigid Quest-controller mount provide a common mechanical basis for visual
+and spatial observations. The repository contains the mechanical design, bill of
+materials, CAD export tooling, and reproducible MuJoCo visualizations. Firmware,
+host-side acquisition, calibration, and quantitative validation remain under development.
+
+## 1. Design motivation
+
+The design aims to reduce the geometric differences between an operator's data-collection
+device and the robot that replays a demonstration. Corresponding finger links and
+fingertip surfaces are designed to share the same kinematic and contact geometry.
+Joint measurements can therefore be calibrated into the robot's encoder coordinates,
+without first fitting a separate human-hand model.
+
+This correspondence is a mechanical design objective. The repository does not yet report
+measured tracking accuracy, contact-transfer error, payload, or manipulation success rates.
+
+## 2. System architecture
+
+| Property | Manual-Dex hand | Manual-Dex glove |
 |---|---|---|
-| Joints | 8 DOF: index, middle, ring+pinky (combined), thumb - 2 joints each | same 8 joints |
-| Actuation / sensing | 8x Feetech HLS3606 dual-shaft serial-bus servos | 8x Bourns 3382G-2-103G rotary potentiometers, read by an Adafruit HUZZAH32 ESP32 Feather |
-| 6-DOF pose | mounted on the robot arm (OpenArm flange adaptor included) | Meta Quest Touch Plus controller, rigidly mounted |
-| Wrist camera | 2 MP USB camera | same camera, same pose |
-| Structure | FDM printed, ABS or PETG | FDM printed, ABS or PETG |
+| Joint structure | Four finger groups, two revolute joints per group | Corresponding eight joints |
+| Actuation / sensing | 8 × Feetech HLS3606 dual-shaft serial-bus servos | 8 × Bourns 3382G-2-103G, 10 kΩ rotary potentiometers |
+| Host interface | Serial-bus driver; final board selection pending | Adafruit HUZZAH32 ESP32 Feather; exact variant to be confirmed |
+| Spatial tracking | Rigidly mounted right Meta Quest Touch Plus controller | Same controller and mount design |
+| Wrist imaging | 2 MP USB 2.0 UVC camera | Corresponding camera placement |
+| Structural components | FDM-printed ABS or PETG | FDM-printed ABS or PETG |
+| Mechanical interface | OpenArm wrist-flange adaptor | Wearable frame; attachment straps not yet specified |
 
-During data collection the glove's potentiometer readings are mapped to the corresponding robot servo
-encoder values, so a recorded glove trajectory is a servo trajectory.
+### 2.1 Joint correspondence
 
-> **Status:** hardware release in progress. A [visual assembly guide](docs/assembly/README.md)
-> covers the main link connections. Firmware, host software and detailed build instructions are TODO.
-> **License:** not yet chosen - repository is private until it is. See `bom/THIRD_PARTY.md` for the
-> current Quest mount authorship and historical third-party attribution.
+Let the joint vector be
 
-## Repository layout
+$$
+\mathbf{q} = [q_{I,p}, q_{I,d}, q_{M,p}, q_{M,d}, q_{R+L,p}, q_{R+L,d}, q_{T,p}, q_{T,d}]^{\mathsf T},
+$$
 
+where $p$ and $d$ denote the proximal and distal joints. The ring and little fingers share
+one mechanical group. The glove potentiometer signals must be calibrated to robot servo
+encoder values for each corresponding joint. A synchronized demonstration would combine
+these eight joint coordinates, the controller's six-degree-of-freedom pose, and camera
+frames. Acquisition, time synchronization, calibration parameters, and replay software
+are not yet released.
+
+## 3. Mechanical structure and kinematics
+
+The following figures use tessellated geometry from the released STEP assemblies,
+including the current three-part Quest mount. Both are **five-second loops at 20 fps**,
+with one full camera orbit and prescribed flexion of all eight joints. Labels follow
+the moving geometry; repeated parts share a numbered component-family label.
+The [part register](docs/visualization/PARTS.md) lists individual BOM entries, release
+filenames, materials, and functions.
+
+### 3.1 Instrumented glove
+
+![Manual-Dex glove: five-second MuJoCo orbit with flexing fingers and BOM-linked technical callouts](docs/assets/manual-dex-glove-kinematics.gif)
+
+*Figure 2. Manual-Dex glove. Printed links rotate about hinge pins; potentiometers measure
+the corresponding joints. Sensor housings, retention lids, and encoder couplers are
+identified separately. The electronics enclosure is transparent to expose the PCB from
+the CAD assembly. I, M, and R+P in the register denote index, middle, and combined
+ring–little finger groups; the thumb is listed separately.*
+
+### 3.2 Actuated robot hand
+
+![Manual-Dex hand: five-second MuJoCo orbit with flexing fingers and BOM-linked technical callouts](docs/assets/manual-dex-hand-kinematics.gif)
+
+*Figure 3. Manual-Dex hand. Two servos actuate each finger group. The distal servo housing
+moves with its proximal link; its output carries the distal contact link. The thumb also
+uses a support rod, printed pin, and MR105ZZ bearing. Shared camera, tracking, and
+enclosure components preserve the paired-device layout.*
+
+These are kinematic illustrations, not validated dynamics simulations. The hinge axes
+are recovered from CAD cylindrical faces; flexion amplitudes are selected for visualization.
+Joint limits, inertial properties, actuator dynamics, collisions, and contact behavior are
+not identified by these animations. See the [methods and regeneration instructions](docs/visualization/README.md).
+
+## 4. Materials and fabrication
+
+The CSV files in [`bom/`](bom/) are the source of truth. Material colors in the figures
+distinguish component classes; they do not identify measured material properties.
+
+| Component | BOM specification | Manufacturing / selection notes |
+|---|---|---|
+| Palm plates, backplates, finger links, contact links | ABS or PETG | FDM print; match the hand and glove contact geometry |
+| Sensor housings, lids, hinge pins, encoder couplers | ABS or PETG | Printed pins form plain glove hinges; use 100% infill for pins |
+| Camera mounts, electronics enclosure, OpenArm adaptor | ABS or PETG | Print the release STLs; retain the assembly placements |
+| Quest mount base, hinged cap, receiver | ABS or PETG | One of each per device; receiver pads are 8 × 5 × 3 mm with centered 8 × 9 mm clear gaps |
+| Quest mount hardware | 2 × 20 mm pin, M3 × 12 mm screw, M3 nut | One of each per device; pin material and fastener grades remain TODO |
+| Robot thumb bearing | MR105ZZ, 5 × 10 × 4 mm, shielded | One bearing; the other robot joints rotate on the servo outputs |
+| Glove sensors | Bourns 3382G-2-103G, 10 kΩ, linear taper | Eight sensors; five printed retention lids and three hot-glue fixations are recorded in the BOM |
+| Fingertip covering | Not specified | TPU, silicone, or grip tape are candidates in the BOM, not finalized materials |
+| Wearable attachments, wiring, structural fasteners | Partially specified / TODO | Confirm quantities, dimensions, and attachment method before fabrication |
+
+The current release is right-handed. Parts marked `mirror_for_left = yes` need mirrored
+prints for a left-hand variant; Quest-mount handedness remains unverified. Consult the
+[BOM](bom/BOM.md) for quantities and the [assembly guide](docs/assembly/README.md) for the
+link-connection sequence.
+
+## 5. Reproducibility
+
+1. Retrieve Git LFS assets with `git lfs pull` after cloning.
+2. Review the [BOM](bom/BOM.md), including every unresolved `TODO` entry.
+3. Use [`manual_dex_hand.step`](hardware/step/manual_dex_hand.step) and
+   [`manual_dex_glove.step`](hardware/step/manual_dex_glove.step) for assembled geometry,
+   and `hardware/*/stl/` for individual printed parts.
+4. Follow the [assembly guide](docs/assembly/README.md).
+5. Rebuild the MuJoCo models and figures using the [visualization workflow](docs/visualization/README.md).
+
+The existing BOM and export utilities require Python 3. The visualization workflow uses
+Python 3.11 or newer and has been exercised with Python 3.13 and MuJoCo 3.6.0.
+
+```bash
+python tools/gen_bom_md.py                  # Regenerate the human-readable BOM.
+python tools/place_exports.py <export_dir> # Place exported STL/STEP assets.
 ```
-bom/                 Bill of materials (CSV = source of truth, BOM.md rendered from it)
+
+The SolidWorks macros in [`tools/solidworks/`](tools/solidworks/) rename printed parts and
+export the assemblies as `manual_dex_hand.step` and `manual_dex_glove.step`. Component
+prefixes remain `rh_` for robot-hand parts, `gl_` for glove parts, and `cm_` for common
+parts; these identifiers preserve the BOM mapping. Historical source-component names
+are recorded in [`bom/rename_map.csv`](bom/rename_map.csv).
+
+## 6. Release status and limitations
+
+The release includes CAD, a BOM, mechanical connection diagrams, and a reproducible
+visualization pipeline. It does not yet include finished firmware, host software, wiring
+instructions, calibration data, a validated dynamics model, or experimental benchmarks.
+Some bought-part specifications and quantities are unresolved in the BOM.
+
+The repository's license has not yet been chosen. See [`bom/THIRD_PARTY.md`](bom/THIRD_PARTY.md)
+for the current Quest mount's authorship and the attribution retained for superseded
+third-party parts.
+
+## 7. Repository organization
+
+```text
+bom/                    Part inventory, materials, naming map, and attribution
 hardware/
-  robot_hand/stl/    printed parts unique to the robot hand   (rh_*)
-  glove/stl/         printed parts unique to the glove         (gl_*)
-  common/stl/        printed parts used on both                (cm_*)
-  step/              full assemblies as STEP (robot hand, glove)
-third_party/udcap/   attribution for the superseded Quest cradle (see THIRD_PARTY.md)
-firmware/esp32_glove ESP32 Feather firmware reading the glove encoders   (TODO)
-software/            host-side collection / control / mapping code       (TODO)
-docs/assembly/       visual guide to the main parts and link connections
-tools/               BOM renderer + SolidWorks macros used to produce the release files
+  robot_hand/stl/        Robot-hand printed parts (rh_*)
+  glove/stl/             Wearable-glove printed parts (gl_*)
+  common/stl/            Shared printed components (cm_*)
+  step/                 Manual-Dex hand and glove assemblies
+docs/
+  assets/               Prototype demonstration and MuJoCo animations
+  assembly/             Mechanical connection guide
+  visualization/        Figure methods and complete part register
+firmware/esp32_glove/    Glove acquisition firmware (pending)
+software/               Host acquisition, calibration, and control (pending)
+tools/
+  visualization/        STEP extraction, MJCF generation, and figure renderer
+  solidworks/           CAD naming and export macros
+third_party/udcap/      Historical attribution for the superseded cradle
 ```
-
-## Building one
-
-1. Read `bom/BOM.md`. Buy everything in the *Buy* tables; rows marked `TODO` are still being
-   finalised.
-2. Print every part in the *Make* tables from `hardware/*/stl/`. Quantities are in the BOM
-   (most are 1; `gl_tip_hinge_pin` x3, `gl_encoder_lid` x5, `gl_encoder_case_*` x2).
-   ABS or PETG, 100 % infill for pins.
-3. Each assembly uses the same Quest mount: print `cm_quest_mount_base`,
-   `cm_quest_mount_hinged_cap` and `cm_quest_mount_receiver`. Add one 2 x 20 mm pin,
-   one M3 x 12 mm screw and one M3 nut. The receiver pads have centered 8 x 9 mm
-   edge-to-edge gaps. The previous two-piece udCap cradle is superseded.
-4. Follow the [visual assembly guide](docs/assembly/README.md) for the main link connections.
-
-## Meet the glove and robot hand
-
-![Wearable glove CAD overview](docs/images/wearable-glove-overview.png)
-
-![Robot hand CAD overview](docs/images/robot-hand-overview.png)
-
-See the [link connection close-ups](docs/assembly/README.md) for a short guide to how the
-backplate, proximal links and fingertips fit together.
-
-Right hand only for now. Parts flagged `mirror_for_left = yes` in the BOM need a mirrored print for a
-left-hand variant. Quest mount handedness is marked TODO until checked.
-
-## Part naming
-
-`rh_` robot hand, `gl_` glove, `cm_` common to both; then finger (`index`, `middle`, `pinkyring`,
-`thumb`) and part. `bom/rename_map.csv` maps historical CAD names to release names.
-The imported Quest mount retains its source filenames;
-`export_cad.bas` maps these to the three `cm_quest_mount_*` release filenames.
-
-## Regenerating release files
-
-- `python tools/gen_bom_md.py` - re-render `bom/BOM.md` after editing the CSVs.
-- `tools/solidworks/rename_parts.bas` - renames CAD files per `rename_map.csv` (already applied).
-- `tools/solidworks/export_cad.bas` - exports one STL per printed part and the assembly STEP.
-- `python tools/place_exports.py <export folder>` - sorts exported STL/STEP into `hardware/` and
-  checks them against the BOM.

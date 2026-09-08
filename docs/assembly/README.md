@@ -1,17 +1,23 @@
-# Visual assembly guide
+# Manual-Dex: Mechanical Assembly Guide
 
-A quick guide to the main parts and link connections. These are views of the actual
-SolidWorks assemblies, including the current Quest mount. The close-ups isolate an
-index-finger chain; surrounding parts are hidden, and the links remain in their assembled positions.
+This guide describes the principal mechanical connections in the released Manual-Dex
+assemblies, including the current three-part Quest mount. The figures are MuJoCo renders
+of the STEP geometry. Linkage close-ups isolate the index-finger chain; surrounding
+components are hidden and retained components remain in their assembled positions.
 
-## Wearable glove
+All printed frames, links, housings and pins are specified as **ABS or PETG** in the BOM.
+Refer to the [component and material register](../visualization/PARTS.md) for individual
+part IDs, filenames, quantities and functions. Motion in the overview figures is
+illustrative; see the [visualization methods](../visualization/README.md).
 
-![Wearable glove CAD overview with labels for the finger links, hand frame, Quest mount and electronics enclosure](../images/wearable-glove-overview.png)
+## 1. Manual-Dex glove
 
-Your hand moves the printed links. Eight rotary position sensors measure the joints:
+![Manual-Dex glove: labeled five-second MuJoCo orbit with articulated finger motion](../assets/manual-dex-glove-kinematics.gif)
+
+The operator's hand moves the printed links. Eight rotary position sensors measure the joints:
 two each for the index, middle, combined ring/pinky, and thumb groups.
 
-![Isolated glove index-finger chain showing the backplate pivot, fingertip pivot and sensor housing](../images/wearable-glove-link-connections.png)
+![Manual-Dex glove index linkage: fixed frame, proximal pivot, proximal link, distal pivot and contact link](../images/manual-dex-glove-linkage.png)
 
 Build each main finger chain from the frame outward:
 
@@ -25,14 +31,14 @@ Build each main finger chain from the frame outward:
 The middle and combined ring/pinky chains follow the same connection pattern, with their
 own matching parts. The thumb connects at the palm plate and uses its dedicated link and pins.
 
-## Robot hand
+## 2. Manual-Dex hand
 
-![Robot hand CAD overview with labels for the servo-driven finger chains, hand frame, Quest mount and electronics enclosure](../images/robot-hand-overview.png)
+![Manual-Dex hand: labeled five-second MuJoCo orbit with articulated finger motion](../assets/manual-dex-hand-kinematics.gif)
 
 The robot uses matching finger groups and fingertip geometry. Each group has two servos:
 one drives the proximal link and the other drives the fingertip.
 
-![Isolated robot index-finger chain showing the base servo output, distal servo output and distal servo body inside the proximal link](../images/robot-hand-link-connections.png)
+![Manual-Dex robot index linkage: fixed frame, base servo axis, proximal link, distal servo axis and contact link](../images/manual-dex-hand-linkage.png)
 
 Build the main finger chains from the frame outward:
 
@@ -46,7 +52,7 @@ Repeat for the middle and combined ring/pinky chains. The thumb has its own supp
 pin and MR105ZZ bearing arrangement; use the robot STEP assembly to follow that placement.
 The OpenArm adaptor connects the completed hand frame to the robot arm.
 
-## Finish the shared attachments
+## 3. Shared attachments
 
 - Attach the camera mount and adaptor in the matching pose on both assemblies.
 - Fit the electronics enclosure and lid.

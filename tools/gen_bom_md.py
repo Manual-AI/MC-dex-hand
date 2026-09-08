@@ -41,7 +41,7 @@ def qty_total(rows):
 
 
 def render():
-    md = ["# Bill of Materials", "",
+    md = ["# Manual-Dex Bill of Materials", "",
           "Generated from `bom/robot_hand.csv` and `bom/glove.csv` by `tools/gen_bom_md.py`. "
           "Edit the CSVs, not this file.", "",
           "**Status legend:** `in CAD` = present in the released STEP assembly; "

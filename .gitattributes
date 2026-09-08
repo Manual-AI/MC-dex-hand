@@ -18,3 +18,4 @@
 *.md  text eol=lf
 *.py  text eol=lf
 *.bas text eol=crlf
+*.bat text eol=crlf
