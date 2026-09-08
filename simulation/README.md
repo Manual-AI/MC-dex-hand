@@ -4,10 +4,9 @@ Run a fixed-base **OpenArm v1 with the Manual-Dex gripper attached at its wrist*
 MuJoCo, Isaac Sim, SuperDex or Genesis. Each example moves the same **15 named joints**:
 seven arm joints and eight finger joints. You do not need ROS, SolidWorks or CAD software.
 
-These are **prescribed joint-motion tutorials**, not calibrated grasping benchmarks.
-They run inside the actual engines and read back joint states, but deliberately use
-zero gravity and disabled contacts. The hand's inertias and drive limits are placeholders.
-Do not interpret successful playback as validation of dynamics, payload or grasp stability.
+Two paths are included: a **native physics/rendering showcase** with joint drives,
+gravity and contacts, and the original lightweight zero-gravity import/playback tutorials.
+Neither is a calibrated grasping benchmark or a hardware-safety validation.
 
 See the [synchronized 2×2 engine comparison](COMPARISON.md), with setup links for every
 panel. For live glove input, use the [LeRobot teleoperation tutorial](../lerobot/README.md),
@@ -25,7 +24,7 @@ which includes YAML configuration, calibration and an isolated worker for each e
   motion tests are available for those engines. Screenshots still need a working renderer.
 - Isaac Sim additionally requires a supported NVIDIA RTX GPU, compatible driver and
   acceptance of NVIDIA's EULA. Its installation is substantially larger than MuJoCo's;
-  review its [requirements](https://docs.isaacsim.omniverse.nvidia.com/5.1.0/installation/requirements.html)
+  review the selected profile's [requirements](isaacsim/README.md)
   before installing. The launcher does not install drivers or accept terms silently.
 
 Start in the repository root. Each command below performs its own setup; no separate
@@ -38,6 +37,29 @@ Run one launcher at a time in a checkout: a local lock protects the shared build
 environments and result files from simultaneous writes.
 
 ## 2. Choose an engine: one command
+
+### Native physics and capture
+
+These commands generate the README scenes using each engine's own physics and renderer:
+
+```bash
+python3 simulation/run.py mujoco --native --headless
+python3 simulation/run.py genesis --native --headless
+python3 simulation/run.py superdex --native --headless
+python3 simulation/run.py isaacsim --native --headless --accept-isaac-eula
+```
+
+Pass the Isaac flag only after agreeing to NVIDIA's terms. The native run captures
+100 frames during a five-second arm/finger cycle and verifies measured cube/table
+contact, finite states and joint motion. See [the complete scene and publishing guide](COMPARISON.md)
+for outputs and acceptance criteria. `--native` always uses an offscreen renderer,
+even without `--headless`; it needs working graphics support. Native Genesis physics
+uses CPU. The following older playback options, such as arbitrary `--steps`,
+`--screenshot` and `--trace`, do not apply to this fixed-duration showcase.
+Native Isaac uses a separate 6.0.1 / Python 3.12 environment; the older playback
+and LeRobot paths keep their existing 5.1 / Python 3.11 environment.
+
+### Original import/playback examples
 
 For an unattended workflow and explicit pass/fail criteria, see the
 [agent runbook](AGENT_GUIDE.md).
@@ -135,7 +157,8 @@ The URDF uses **one complete OBJ visual per rigid link**, preserving all CAD occ
 This avoids SuperDex's first-visual-only behavior and MuJoCo's per-STL triangle limit.
 Fixed mount frames are fused into neighboring links for import portability; kinematics
 are checked against the unfused native MJCF. Collision meshes are separate watertight
-convex-hull stand-ins, not detailed validated contact surfaces. They are disabled in the demos.
+convex-hull stand-ins, not detailed validated contact surfaces. The original playback
+examples disable them; the native showcase enables robot/environment contacts.
 
 OpenArm's upstream assets are downloaded at the exact commit in `versions.json`; they
 are not silently replaced with whatever is on the upstream default branch. Its Apache-2.0
@@ -166,9 +189,11 @@ checking, logs and timeouts.
 
 ## 6. From playback to dynamics and control
 
-The demos intentionally set joint positions before stepping. They do **not** implement
+The original `demo.py` examples intentionally set joint positions before stepping. They do **not** implement
 servo control, calibrated torque limits, grasp contact or a policy-learning task. Each
-engine tutorial identifies where to replace playback with a controller. Before doing so:
+engine tutorial identifies where to replace playback with a controller. The separate
+`native.py` showcase already uses native drives and contacts with illustrative parameters.
+For a calibrated experiment:
 
 1. Identify the real hand's link masses, centers of mass and inertia tensors. The hand
    currently uses 1 g / 10⁻⁶ kg·m² placeholders; fixed-body inertias may be merged.

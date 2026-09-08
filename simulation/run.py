@@ -46,7 +46,13 @@ def environment(label):
     if not python.exists():
         execute([uv, "venv", "--python", VERSIONS["python"][label], dest])
     requirements = HERE / "requirements-prepare.txt" if label == "prepare" else HERE / label / "requirements.txt"
-    execute([uv, "pip", "install", "--python", python, "-r", requirements])
+    extra = []
+    if label == "isaacsim-native":
+        requirements = HERE / "isaacsim/requirements-native.txt"
+        # NVIDIA and PyPI host different versions of transitive SDK dependencies.
+        # tinyobjloader is explicitly pinned to a release candidate by Isaac itself.
+        extra = ["--index-strategy", "unsafe-best-match", "--prerelease", "allow"]
+    execute([uv, "pip", "install", "--python", python, "-r", requirements, *extra])
     return python
 
 
@@ -71,6 +77,7 @@ def main():
     parser.add_argument("--steps", type=int, default=1200)
     parser.add_argument("--screenshot", action="store_true")
     parser.add_argument("--trace", action="store_true")
+    parser.add_argument("--native", action="store_true", help="Capture the five-second native physics/rendering tabletop demo")
     parser.add_argument("--backend", choices=["cpu", "gpu"], default="cpu")
     parser.add_argument("--python", type=Path, help="Use an existing engine interpreter without modifying its packages")
     parser.add_argument("--prepare-python", type=Path, help="Use an existing model-builder interpreter")
@@ -83,7 +90,11 @@ def main():
         parser.error("The automated bootstrap is tested on Linux. See the engine tutorials for manual setup on other systems.")
     if args.steps < 1 or args.timeout < 1:
         parser.error("--steps and --timeout must be positive")
-    if args.engine == "superdex" and args.screenshot:
+    if args.native and (args.engine == "prepare" or args.steps != 1200 or args.screenshot or args.trace):
+        parser.error("--native requires an engine and 1200 steps; it captures 100 frames automatically, without --screenshot/--trace")
+    if args.native and args.backend != "cpu":
+        parser.error("The native showcase uses CPU physics and each engine's graphics backend; omit --backend gpu")
+    if args.engine == "superdex" and args.screenshot and not args.native:
         parser.error("SuperDex uses its debugger for screenshots; headless runs produce JSON only")
     if args.engine == "isaacsim" and not args.accept_isaac_eula and not args.python and not args.no_setup:
         parser.error("Review NVIDIA's EULA, then pass --accept-isaac-eula, or use --python with an already-accepted installation. See simulation/isaacsim/README.md.")
@@ -113,7 +124,11 @@ def main():
     if args.engine == "prepare":
         print(f"Prepared model package: {BUILD / 'generated'}")
         return
-    python = args.python or (BUILD / "envs" / args.engine / "bin/python" if args.no_setup else environment(args.engine))
+    if args.native:
+        prepare_python = args.prepare_python or (BUILD / "envs/prepare/bin/python" if args.no_setup else environment("prepare"))
+        execute([prepare_python, HERE / "native_build.py"])
+    label = "isaacsim-native" if args.native and args.engine == "isaacsim" else args.engine
+    python = args.python or (BUILD / "envs" / label / "bin/python" if args.no_setup else environment(label))
     if not python.is_file():
         parser.error(f"Python interpreter not found: {python}")
     env = os.environ.copy()
@@ -122,7 +137,12 @@ def main():
     env["MANUAL_DEX_RUN_ID"] = run_id
     if args.accept_isaac_eula:
         env["OMNI_KIT_ACCEPT_EULA"] = "YES"
-    command = [python, HERE / args.engine / "demo.py", "--steps", str(args.steps), "--backend", args.backend]
+    if args.native and args.engine == "isaacsim":
+        # Avoid mixing ROS/system CUDA libraries with Kit's self-contained runtime.
+        for key in ("PYTHONPATH", "PYTHONHOME", "LD_LIBRARY_PATH"):
+            env.pop(key, None)
+    command = ([python, HERE / args.engine / "native.py"] if args.native else
+               [python, HERE / args.engine / "demo.py", "--steps", str(args.steps), "--backend", args.backend])
     if args.headless:
         command.append("--headless")
     if args.screenshot:
@@ -131,7 +151,7 @@ def main():
         command.append("--trace")
     logs = BUILD / "logs"
     logs.mkdir(exist_ok=True)
-    log = logs / f"{args.engine}.log"
+    log = logs / f"{args.engine}{'-native' if args.native else ''}.log"
     print(f"Engine log: {log}", flush=True)
     try:
         with log.open("w") as stream:
@@ -139,13 +159,13 @@ def main():
     except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
         print("\n".join(log.read_text(errors="replace").splitlines()[-60:]), file=sys.stderr)
         raise
-    result = BUILD / "results" / f"{args.engine}.json"
+    result = BUILD / ("native" if args.native else "results") / f"{args.engine}.json"
     if not result.exists():
         raise RuntimeError(f"Engine exited without a result. Inspect {log}")
     result_data = json.loads(result.read_text())
     if result_data.get("run_id") != run_id or result_data.get("status") != "passed":
         raise RuntimeError(f"No successful result from this run (an old result may remain). Inspect {log}")
-    print(json.dumps(result_data, indent=2))
+    print(json.dumps({k: v for k, v in result_data.items() if k != "states"}, indent=2))
     print(f"Run passed. Results: {result.parent}")
 
 

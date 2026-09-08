@@ -1,5 +1,28 @@
 # SuperDex: OpenArm v1 with Manual-Dex
 
+## Native physics and rendered showcase
+
+```bash
+python3 simulation/run.py superdex --native --headless
+```
+
+[`native.py`](native.py) runs SuperDex's articulated pose controller, gravity and native
+contacts, then captures the scene through **SuperDex's bundled Polyscope viewer** using
+its offscreen EGL backend. No debugger clicks, desktop recording or MuJoCo rendering
+are involved. This is the SDK viewer, not the separate Mochi renderer/server.
+
+The URDF's visual CAD meshes are converted to the GLB/Y-up convention expected by the
+SDK visual-model registry. SuperDex's actual link transforms drive those visuals;
+collision hulls are not substituted for the visible assembly. Pose-controller gains
+are indexed by link, including a zero-gain fixed root, while targets use the 15-DoF order.
+
+The five-second reach-and-flex scene verifies moving joints and the loose cube settling
+on the table. Captures and readbacks are under `build/simulation/native/`.
+See [shared scene, validation and GIF publishing](../COMPARISON.md). The native gains
+and inertias are illustrative; this is not a calibrated grasp or hardware-control test.
+
+The sections below retain the simpler zero-gravity import/playback and debugger example.
+
 ## Run
 
 ```bash

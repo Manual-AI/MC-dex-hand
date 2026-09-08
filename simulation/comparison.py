@@ -1,95 +1,85 @@
-"""Render recorded engine joint states in one shared MuJoCo scene."""
+"""Publish independently rendered native captures. PIL only; no 3D renderer here."""
 import argparse
 import hashlib
 import json
-import os
-from pathlib import Path
-import xml.etree.ElementTree as ET
+import sys
 
-os.environ.setdefault("MUJOCO_GL", "egl")
-import mujoco
 from PIL import Image, ImageDraw, ImageFont
+from native_common import ROOT, NATIVE, SPEC, JOINTS
 
-from common import ROOT, BUILD, PACKAGE, JOINT_NAMES
+sys.path.insert(0, str(ROOT / "tools/visualization"))
+from encode_gifs import encode
 
-ENGINES = [("mujoco", "MuJoCo 3.6.0"), ("genesis", "Genesis 1.0.0"),
-           ("superdex", "SuperDex 1.0.0"), ("isaacsim", "Isaac Sim 5.1.0")]
+ENGINES = [("mujoco", "MuJoCo"), ("genesis", "Genesis"),
+           ("superdex", "SuperDex"), ("isaacsim", "Isaac Sim")]
+
+
+def read_capture(engine):
+    path = NATIVE / f"{engine}.json"
+    data = json.loads(path.read_text())
+    capture = NATIVE / "captures" / engine / data["run_id"]
+    if json.loads((capture / "result.json").read_text()) != data:
+        raise ValueError(f"Mismatched capture manifest: {engine}")
+    assert data["engine"] == engine and data["status"] == "passed"
+    assert data["native_physics"] and data["native_rendering"]
+    assert not data["state_overwrite_during_playback"]
+    assert data["frames"] == 100 and data["fps"] == 20 and data["contact_steps"] >= 100
+    assert data["gravity_m_s2"] == SPEC["gravity_m_s2"] and data["dt_s"] == SPEC["physics_dt_s"]
+    assert [s["step"] for s in data["states"]] == list(range(11, 1200, 12))
+    assert all(set(s["joints"]) == set(JOINTS) for s in data["states"])
+    paths = sorted(capture.glob("frame-*.png"))
+    assert len(paths) == 100
+    digest = hashlib.sha256()
+    frames = []
+    for path in paths:
+        digest.update(path.read_bytes())
+        with Image.open(path) as frame:
+            assert frame.size == (580, 460)
+            frames.append(frame.convert("RGB"))
+    source = {k: v for k, v in data.items() if k not in ("capture_dir", "states")}
+    source["capture_sha256"] = digest.hexdigest()
+    source["physics_states_sha256"] = hashlib.sha256(json.dumps(data["states"], sort_keys=True).encode()).hexdigest()
+    return frames, source
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--preview", action="store_true")
+    parser.add_argument("--preview", action="store_true", help="Build one montage PNG without replacing GIFs")
     args = parser.parse_args()
-    output = ROOT / "docs/assets/simulation"
-    output.mkdir(parents=True, exist_ok=True)
-    traces, provenance = {}, {}
-    for key, label in ENGINES:
-        path = BUILD / "results" / f"{key}-trace.json"
-        trace = json.loads(path.read_text())
-        result = json.loads((BUILD / "results" / f"{key}.json").read_text())
-        assert result["status"] == "passed" and result["steps"] == 1200
-        assert trace["run_id"] == result["run_id"], "Stale trace: rerun this engine with --trace"
-        assert [s["step"] for s in trace["states"]] == list(range(0, 1200, 12))
-        assert all(set(s["positions"]) == set(JOINT_NAMES) for s in trace["states"])
-        traces[key] = trace["states"]
-        provenance[key] = {"version": label, "run_id": trace["run_id"],
-            "trace_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-            "steps": 1200, "source": "actual post-step joint readbacks"}
-    tree = ET.parse(PACKAGE / "openarm_manual_dex.xml").getroot()
-    ET.SubElement(tree.find("asset"), "texture", name="comparison_sky", type="skybox",
-                  builtin="gradient", rgb1=".94 .96 .98", rgb2=".84 .87 .91", width="512", height="3072")
-    ET.SubElement(tree.find("worldbody"), "geom", name="comparison_floor", type="plane",
-                  size="2 2 .1", pos="0 0 -.008", rgba=".84 .87 .9 1", contype="0", conaffinity="0")
-    model = mujoco.MjModel.from_xml_string(ET.tostring(tree, encoding="unicode"))
-    data = mujoco.MjData(model)
-    option = mujoco.MjvOption()
-    option.geomgroup[3] = 0
-    camera = mujoco.MjvCamera()
-    camera.lookat[:] = [.12, 0, .37]
-    camera.distance, camera.azimuth, camera.elevation = 1.2, 140, -18
     fonts = "/usr/share/fonts/truetype/dejavu/"
     title = ImageFont.truetype(fonts + "DejaVuSans-Bold.ttf", 24)
     text = ImageFont.truetype(fonts + "DejaVuSans.ttf", 15)
-    frames = {key: [] for key, _ in ENGINES}
+    native, provenance, panels = {}, {}, {}
+    for engine, label in ENGINES:
+        native[engine], provenance[engine] = read_capture(engine)
+        panels[engine] = []
     combined = []
-    with mujoco.Renderer(model, height=460, width=580) as renderer:
-        for frame in range(1 if args.preview else 100):
-            grid = Image.new("RGB", (1160, 1100), "#f0f4f8")
-            for index, (key, label) in enumerate(ENGINES):
-                for name, value in traces[key][frame]["positions"].items():
-                    data.joint(name).qpos[0] = value
-                mujoco.mj_forward(model, data)
-                renderer.update_scene(data, camera=camera, scene_option=option)
-                panel = Image.new("RGB", (580, 550), "#f0f4f8")
-                panel.paste(Image.fromarray(renderer.render()), (0, 62))
-                draw = ImageDraw.Draw(panel)
-                draw.text((18, 10), label, font=title, fill="#152a40")
-                draw.text((18, 40), "Actual engine state | shared MuJoCo renderer", font=text, fill="#41596e")
-                draw.text((18, 526), f"OpenArm + Manual-Dex  |  15 joints  |  t = {frame/20:0.2f} s", font=text, fill="#152a40")
-                frames[key].append(panel)
-                grid.paste(panel, ((index % 2) * 580, (index // 2) * 550))
-            combined.append(grid)
-            if frame % 20 == 0:
-                print(f"Rendered comparison frame {frame + 1}/100", flush=True)
+    for frame in range(1 if args.preview else 100):
+        grid = Image.new("RGB", (1160, 1100), "#f0f4f8")
+        for index, (engine, label) in enumerate(ENGINES):
+            panel = Image.new("RGB", (580, 550), "#f0f4f8")
+            panel.paste(native[engine][frame], (0, 62))
+            draw = ImageDraw.Draw(panel)
+            draw.text((18, 9), f"{label} {provenance[engine]['version']}", font=title, fill="#152a40")
+            renderer = {"mujoco": "MuJoCo EGL", "genesis": "Genesis rasterizer",
+                        "superdex": "SuperDex SDK / Polyscope", "isaacsim": "Isaac Sim RTX"}[engine]
+            draw.text((18, 39), f"Native physics + {renderer}", font=text, fill="#41596e")
+            draw.text((18, 526), f"OpenArm + Manual-Dex  |  15 joints  |  t = {(frame+1)/20:0.2f} s", font=text, fill="#152a40")
+            panels[engine].append(panel)
+            grid.paste(panel, ((index % 2)*580, (index // 2)*550))
+        combined.append(grid)
     if args.preview:
-        combined[0].save(BUILD / "results/comparison-preview.png")
+        combined[0].save(NATIVE / "montage-preview.png")
         return
-    for key, sequence in list(frames.items()) + [("all-engines", combined)]:
-        # A fixed palette per animation prevents label/background color flicker.
-        palette = sequence[0].quantize(colors=256)
-        encoded = [frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in sequence]
-        path = output / f"{key}.gif"
-        encoded[0].save(path, save_all=True, append_images=encoded[1:], duration=50, loop=0, optimize=False, disposal=2)
-        with Image.open(path) as gif:
-            assert gif.n_frames == 100
-            duration = 0
-            for i in range(gif.n_frames):
-                gif.seek(i)
-                duration += gif.info["duration"]
-            assert duration == 5000
-    (output / "provenance.json").write_text(json.dumps({"rendering": "MuJoCo 3.6.0 shared scene",
-        "native_engine_screenshots": False, "duration_s": 5, "fps": 20,
-        "dynamics_validated": False, "engines": provenance}, indent=2) + "\n")
+    compression = {}
+    for name, sequence in [*panels.items(), ("all-engines", combined)]:
+        compression[name] = encode(sequence, [50]*100, f"simulation/{name}.gif")
+    out = ROOT / "docs/assets/simulation"
+    (out / "provenance.json").write_text(json.dumps({"rendering": "each engine's own renderer",
+        "native_engine_screenshots": True, "duration_s": 5, "fps": 20,
+        "scene": SPEC, "grasp_demonstrated": False, "dynamics_calibrated_to_hardware": False,
+        "engines": provenance}, indent=2) + "\n")
+    (out / "compression.json").write_text(json.dumps(compression, indent=2) + "\n")
 
 
 if __name__ == "__main__":

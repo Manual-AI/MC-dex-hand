@@ -4,7 +4,24 @@ Read [`README.md`](README.md) and the selected engine tutorial before running co
 This guide grants no permission to accept a license, install a system driver, alter an
 existing environment, push changes, or connect physical hardware.
 
-## Default: build and verify MuJoCo
+## Native showcase: physics and rendering
+
+Run each native scene separately, in order:
+
+```bash
+python3 simulation/run.py mujoco --native --headless
+python3 simulation/run.py genesis --native --headless
+python3 simulation/run.py superdex --native --headless
+```
+
+Then run Isaac with `--native --headless` and an already-accepted installation or
+the explicit EULA flag after user agreement. The [native comparison guide](COMPARISON.md)
+defines the scene and publishing command. Require the fresh native result, 100 PNGs,
+all 15 moving joints and cube/table contact. A numerical-only success cannot substitute
+for a rendered capture. Never render another engine's result in MuJoCo and label it native.
+Do not alter host drivers or interrupt unrelated GPU processes to obtain a capture.
+
+## Lightweight alternative: build and verify MuJoCo
 
 From the repository root, the single command is:
 

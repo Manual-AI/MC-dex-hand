@@ -1,5 +1,24 @@
 # MuJoCo: OpenArm v1 with Manual-Dex
 
+## Native physics and rendered showcase
+
+```bash
+python3 simulation/run.py mujoco --native --headless
+```
+
+This one command prepares the robot and runs [`native.py`](native.py): native MuJoCo
+position actuators move all 15 joints with gravity and table contacts enabled, while
+the EGL renderer captures 100 frames over five seconds. The loose cube falls onto
+the table; the hand opens and closes during an arm sweep. No desktop window is opened.
+
+The initial pose is set once. Each subsequent step writes `data.ctrl`, calls `mj_step`,
+reads actual joint/cube states and renders that same `MjData`. The capture and JSON
+evidence are under `build/simulation/native/`; see [scene, validation and GIF publishing](../COMPARISON.md).
+The camera, table, gains and illustrative inertias are in [`native_scene.json`](../native_scene.json).
+This smoke test is not a calibrated grasp or hardware-control demonstration.
+
+The sections below retain the simpler zero-gravity import/playback example.
+
 ## Run
 
 From the repository root:

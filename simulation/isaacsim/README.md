@@ -1,8 +1,45 @@
 # OpenArm + Manual-Dex in Isaac Sim
 
-This example imports the connected 15-joint URDF into USD, fixes the OpenArm base,
+## Native PhysX and RTX showcase — Isaac Sim 6.0.1
+
+After agreeing to NVIDIA's [Omniverse terms](https://docs.omniverse.nvidia.com/platform/latest/common/NVIDIA_Omniverse_License_Agreement.html):
+
+```bash
+python3 simulation/run.py isaacsim --native --headless --accept-isaac-eula
+```
+
+This profile uses **Isaac Sim 6.0.1 and Python 3.12** in the separate
+`build/simulation/envs/isaacsim-native/` environment. It preserves the older 5.1
+environment used by the existing playback and LeRobot workers. Review the
+[6.0.1 requirements](https://docs.isaacsim.omniverse.nvidia.com/6.0.1/installation/requirements.html)
+and allow substantial download/shader-compilation time; use `--timeout 1800` if needed.
+No host driver, BIOS setting or existing external environment is modified.
+
+[`native.py`](native.py) uses the 6.x `URDFImporter`/`URDFImporterConfig` API to convert
+the attached robot into USD, fixes the base, and configures PhysX force drives. After
+setting the initial pose once, it sends `ArticulationAction` position targets through
+the native articulation controller. Gravity and table contacts remain enabled. An
+RTX camera captures the scene through Replicator RGB: no MuJoCo rendering, desktop
+capture or external viewer is used.
+
+The same five-second arm sweep, opening/closing hand, table and falling cube appear
+in all engines. Native capture success requires 100 frames, all 15 moving joints and
+measured cube/table contact. Outputs are in `build/simulation/native/`; see
+[scene parameters, evidence checks and GIF publishing](../COMPARISON.md). Replicator
+capture uses zero simulation-time increments so camera capture does not advance physics.
+The illustrative gains/inertias are not a calibrated grasp or hardware-control test.
+
+The launcher removes inherited `PYTHONPATH`, `PYTHONHOME` and `LD_LIBRARY_PATH` only
+from the native Isaac child process to avoid mixing ROS/system CUDA packages with Kit.
+It uses NVIDIA's index and PyPI for the pinned SDK dependencies; the upstream
+`tinyobjloader` dependency requires allowing its explicitly pinned prerelease.
+
+## Original import/playback profile — Isaac Sim 5.1
+
+The older [`demo.py`](demo.py) imports the connected 15-joint URDF into USD, fixes the OpenArm base,
 initializes a PhysX articulation, and plays arm and finger motion by joint name.
 It targets **Isaac Sim 5.1.0 and Python 3.11** on Linux x86-64.
+All commands below omit `--native` and refer specifically to that older profile.
 
 ## 1. Requirements and one-command setup
 
@@ -51,7 +88,8 @@ python3 simulation/run.py isaacsim --accept-isaac-eula --headless --steps 240 --
 `--screenshot` deliberately enables the renderer. **The fresh one-command installation
 and numerical test passed. Screenshot startup still crashed in NVIDIA's renderer before
 model import; the existing installation also failed GUI and screenshot startup.**
-Rendering is therefore not claimed as verified here.
+Rendering for this older 5.1 profile is therefore not claimed as verified.
+The native 6.0.1 profile above passed full PhysX/RTX capture on the same host.
 See [the validation record](../VALIDATION.md) for hardware and driver details.
 
 ## 3. How the import and connection work

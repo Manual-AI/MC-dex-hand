@@ -8,6 +8,22 @@ previous 72°/s. Finger motion retains its original five-second period, giving t
 flexion–extension cycles per orbit. The original prototype demonstration is retained
 separately; there are no separate glove and hand animation files in the current release.
 
+The separate [four-engine showcase](../../simulation/COMPARISON.md) uses each engine's
+own physics and renderer. This page documents only the paired CAD illustration above.
+
+The published title and paired GIFs are compressed to less than half their previous
+file sizes, retaining their original durations and on-page widths. After regenerating
+the paired illustration, use the model-builder interpreter to run:
+
+```bash
+build/simulation/envs/prepare/bin/python tools/visualization/encode_gifs.py --legacy
+```
+
+The encoder preserves first-seen originals under ignored `build/gif-originals/`, so
+repeated compression does not degrade the input further. For a deliberately regenerated
+new original, move the corresponding backup aside before running it. Optional `gifsicle`
+on PATH adds lossless frame-difference optimization. See the [compression report](../assets/legacy-gif-compression.json).
+
 ## 1. Geometry and coordinate frames
 
 The inputs are [`manual_dex_glove.step`](../../hardware/step/manual_dex_glove.step) and

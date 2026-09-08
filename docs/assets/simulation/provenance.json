@@ -1,37 +1,178 @@
 {
-  "rendering": "MuJoCo 3.6.0 shared scene",
-  "native_engine_screenshots": false,
+  "rendering": "each engine's own renderer",
+  "native_engine_screenshots": true,
   "duration_s": 5,
   "fps": 20,
-  "dynamics_validated": false,
+  "scene": {
+    "duration_s": 5,
+    "fps": 20,
+    "physics_dt_s": 0.004166666666666667,
+    "gravity_m_s2": [
+      0,
+      0,
+      -9.81
+    ],
+    "camera": {
+      "eye": [
+        1.25,
+        -1.25,
+        0.95
+      ],
+      "target": [
+        0.16,
+        0,
+        0.28
+      ],
+      "fov_deg": 42
+    },
+    "table": {
+      "center": [
+        0.25,
+        0,
+        -0.04
+      ],
+      "size": [
+        1.15,
+        0.9,
+        0.08
+      ],
+      "color": [
+        0.29,
+        0.35,
+        0.4
+      ]
+    },
+    "cube": {
+      "center": [
+        0.38,
+        -0.23,
+        0.28
+      ],
+      "size": [
+        0.06,
+        0.06,
+        0.06
+      ],
+      "mass_kg": 0.08,
+      "color": [
+        0.95,
+        0.39,
+        0.1
+      ]
+    },
+    "arm_kp": 400,
+    "arm_kd": 35,
+    "hand_kp": 3,
+    "hand_kd": 0.12,
+    "hand_link_mass_kg": 0.08,
+    "hand_link_diagonal_inertia_kg_m2": 4e-05,
+    "hand_frame_mass_kg": 0.4,
+    "note": "Illustrative simulated masses and drive gains, not measured hardware parameters. Native gravity/contact/drive demo; no grasp is claimed."
+  },
+  "grasp_demonstrated": false,
+  "dynamics_calibrated_to_hardware": false,
   "engines": {
     "mujoco": {
-      "version": "MuJoCo 3.6.0",
-      "run_id": "4c54ce776a264dfea95b829fbca6551f",
-      "trace_sha256": "03536904461d0f6a9fa3afe1a8586d91ca9500a1c08f0a23ec2106a8e40ffcc0",
-      "steps": 1200,
-      "source": "actual post-step joint readbacks"
+      "engine": "mujoco",
+      "version": "3.6.0",
+      "renderer": "MuJoCo OpenGL/EGL",
+      "status": "passed",
+      "run_id": "8a2060d1474143ba8e14b192c012b31b",
+      "native_physics": true,
+      "native_rendering": true,
+      "mode": "joint drives, gravity and free-cube table contact",
+      "grasp_demonstrated": false,
+      "state_overwrite_during_playback": false,
+      "dynamics_calibrated_to_hardware": false,
+      "self_collision": false,
+      "gravity_m_s2": [
+        0,
+        0,
+        -9.81
+      ],
+      "dt_s": 0.004166666666666667,
+      "frames": 100,
+      "fps": 20,
+      "contact_steps": 1147,
+      "capture_sha256": "9b22a64d703ab059bc83c966bd90f373f40cab7d8ed5498d89c035f57dd428ed",
+      "physics_states_sha256": "d6e83d5fedb94947fb1c327f2687da17a981991385092356cd35916aaf6e3628"
     },
     "genesis": {
-      "version": "Genesis 1.0.0",
-      "run_id": "1b989cc1561343dba61786a31f8cd705",
-      "trace_sha256": "e80dfed694a9ca1bf4bac5851e1b0925cc3d832b774ad9dc40b27a1eba32e505",
-      "steps": 1200,
-      "source": "actual post-step joint readbacks"
+      "engine": "genesis",
+      "version": "1.0.0",
+      "renderer": "Genesis native rasterizer",
+      "status": "passed",
+      "run_id": "c0ff61e6e5264416865becfa3ec4466c",
+      "native_physics": true,
+      "native_rendering": true,
+      "mode": "joint drives, gravity and free-cube table contact",
+      "grasp_demonstrated": false,
+      "state_overwrite_during_playback": false,
+      "dynamics_calibrated_to_hardware": false,
+      "self_collision": false,
+      "gravity_m_s2": [
+        0,
+        0,
+        -9.81
+      ],
+      "dt_s": 0.004166666666666667,
+      "frames": 100,
+      "fps": 20,
+      "contact_steps": 1146,
+      "capture_sha256": "ca3a1d68b9e4f011e6f6e5dfbd27df44c56130d99c9a8935fb4318e78b8f2310",
+      "physics_states_sha256": "81914a13c4bc486b53c4ad2699a7f220a616b3398bee5ae9f6d592eed5201bc1"
     },
     "superdex": {
-      "version": "SuperDex 1.0.0",
-      "run_id": "a447b49eacc34802ae982a79d9cf1e8f",
-      "trace_sha256": "c9aec85745bc6f9fa7ee9c434cd37371bd5b2c43b71970f09e99ea2257d45879",
-      "steps": 1200,
-      "source": "actual post-step joint readbacks"
+      "engine": "superdex",
+      "version": "1.0.0",
+      "renderer": "SuperDex SDK offscreen viewer (Polyscope)",
+      "status": "passed",
+      "run_id": "71accfef38df41cb9e9ae46c9bc414f8",
+      "native_physics": true,
+      "native_rendering": true,
+      "mode": "joint drives, gravity and free-cube table contact",
+      "grasp_demonstrated": false,
+      "state_overwrite_during_playback": false,
+      "dynamics_calibrated_to_hardware": false,
+      "self_collision": false,
+      "gravity_m_s2": [
+        0,
+        0,
+        -9.81
+      ],
+      "dt_s": 0.004166666666666667,
+      "frames": 100,
+      "fps": 20,
+      "contact_steps": 1147,
+      "capture_sha256": "23d583c972a3cdd8d1d57bb198537acf5de46c65793d0253556f4a460abc4082",
+      "physics_states_sha256": "ea3a8a5435b1ce903c3380d416e793a5576d1a20052a3e425d7ef954ee9da918"
     },
     "isaacsim": {
-      "version": "Isaac Sim 5.1.0",
-      "run_id": "bbba4e77d1c54867880449029910590d",
-      "trace_sha256": "0ce7b55cbc8b7f41c017673149da089754e9a28156d0780131e5080c62570b0a",
-      "steps": 1200,
-      "source": "actual post-step joint readbacks"
+      "engine": "isaacsim",
+      "version": "6.0.1.0",
+      "renderer": "Isaac Sim RTX / Replicator RGB",
+      "status": "passed",
+      "run_id": "99902d9084b547f2aa329960e3f78ff8",
+      "native_physics": true,
+      "native_rendering": true,
+      "mode": "joint drives, gravity and free-cube table contact",
+      "grasp_demonstrated": false,
+      "state_overwrite_during_playback": false,
+      "dynamics_calibrated_to_hardware": false,
+      "self_collision": false,
+      "gravity_m_s2": [
+        0,
+        0,
+        -9.81
+      ],
+      "dt_s": 0.004166666666666667,
+      "frames": 100,
+      "fps": 20,
+      "contact_steps": 1149,
+      "simulated_time_s": 5.000000260770321,
+      "anti_aliasing": "DLAA (native resolution)",
+      "capture_sha256": "50dbf05986c0dabe2745a90e4c80e1b06e90b3c7e0baa8d053d7d5dc43499472",
+      "physics_states_sha256": "6a345a33d055406c604c56ccc2b57e8dcd125d9d3d34fbfa2fc01fccb1c37868"
     }
   }
 }

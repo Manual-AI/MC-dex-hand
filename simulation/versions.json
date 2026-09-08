@@ -2,5 +2,5 @@
   "openarm_repository": "https://github.com/enactic/openarm_mujoco.git",
   "openarm_commit": "a8c979629f2591ad035d99d338ce114969e6cddc",
   "openarm_model": "v1/openarm.xml",
-  "python": {"prepare": "3.11", "mujoco": "3.11", "genesis": "3.11", "superdex": "3.12", "isaacsim": "3.11"}
+  "python": {"prepare": "3.11", "mujoco": "3.11", "genesis": "3.11", "superdex": "3.12", "isaacsim": "3.11", "isaacsim-native": "3.12"}
 }

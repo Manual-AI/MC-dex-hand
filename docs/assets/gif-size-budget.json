@@ -1,0 +1,13 @@
+{
+  "baseline_commit": "da43ed9",
+  "maximum_fraction": 0.5,
+  "assets": {
+    "manual-dex-demo.gif": {"bytes": 30970422, "width": 1080, "height": 1056, "duration_ms": 4000},
+    "manual-dex-paired-kinematics.gif": {"bytes": 31652231, "width": 2000, "height": 1100, "duration_ms": 10000},
+    "simulation/all-engines.gif": {"bytes": 15329215, "width": 1160, "height": 1100, "duration_ms": 5000},
+    "simulation/mujoco.gif": {"bytes": 4235019, "width": 580, "height": 550, "duration_ms": 5000},
+    "simulation/genesis.gif": {"bytes": 4228288, "width": 580, "height": 550, "duration_ms": 5000},
+    "simulation/superdex.gif": {"bytes": 4238112, "width": 580, "height": 550, "duration_ms": 5000},
+    "simulation/isaacsim.gif": {"bytes": 4239447, "width": 580, "height": 550, "duration_ms": 5000}
+  }
+}

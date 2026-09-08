@@ -1,62 +1,95 @@
-# Four-engine comparison in one visualization environment
+# Native four-engine simulation
 
-![Synchronized 2×2 comparison: MuJoCo and Genesis above SuperDex and Isaac Sim, sharing the same OpenArm and Manual-Dex scene](../docs/assets/simulation/all-engines.gif)
+<img src="../docs/assets/simulation/all-engines.gif" alt="Synchronized native MuJoCo, Genesis, SuperDex and Isaac Sim tabletop simulations" width="1160">
 
-| Top-left: MuJoCo | Top-right: Genesis |
+| MuJoCo | Genesis |
 |---|---|
-| [MJCF setup and tutorial](mujoco/README.md) · [LeRobot setup](../lerobot/README.md#1-first-run-one-command-no-hardware) | [URDF setup and tutorial](genesis/README.md) · [LeRobot setup](../lerobot/README.md#1-first-run-one-command-no-hardware) |
-| **Bottom-left: SuperDex** | **Bottom-right: Isaac Sim** |
-| [Runtime/debugger setup and tutorial](superdex/README.md) · [LeRobot setup](../lerobot/README.md#1-first-run-one-command-no-hardware) | [URDF-to-USD setup and tutorial](isaacsim/README.md) · [LeRobot setup](../lerobot/README.md#1-first-run-one-command-no-hardware) |
+| [Setup and tutorial](mujoco/README.md) | [Setup and tutorial](genesis/README.md) |
+| **SuperDex** | **Isaac Sim** |
+| [Setup and tutorial](superdex/README.md) | [Setup and tutorial](isaacsim/README.md) |
 
-Each panel shows the same connected OpenArm v1 + Manual-Dex robot, under identical
-camera, lighting, floor and labeling. The single GIF keeps all four panels on the
-same frame clock: **100 frames, 20 fps, five seconds**. Labels remain visible and
-use one fixed GIF palette. Separate panels are also embedded in the main README
-with their setup links directly underneath each image.
+Each engine imports the connected OpenArm + Manual-Dex robot, runs its own physics,
+and renders its own camera. The montage only labels and combines those captured images;
+it never re-poses another engine's states in MuJoCo.
 
-## What is actually being compared?
+## Scene and motion
 
-All four engines ran their own model imports and 1,200 simulation steps at 240 Hz.
-Each recorded its **actual post-step joint readbacks** every 12 steps. The renderer
-uses those 15 named coordinates to pose the shared native MJCF scene. It does not
-substitute requested target coordinates for observed engine states.
+The common [scene specification](native_scene.json) defines metres, gravity, camera,
+table dimensions, a loose 60 mm cube, joint-drive gains and a five-second target cycle.
+All engines use 1,200 physics steps at 240 Hz and capture 100 frames at 20 fps.
+The arm reaches through a gentle sweep while all eight finger joints open and close.
+The cube falls under gravity and settles on the table. **This is not a grasp demonstration.**
 
-This is a **shared-renderer kinematic comparison**, not a claim that MuJoCo, Genesis,
-SuperDex and Isaac Sim have identical native renderers. In particular, the Isaac
-panel uses actual PhysX joint states but is **not** an RTX screenshot. Native Isaac
-rendering failed at startup on the test machine; see [VALIDATION.md](VALIDATION.md).
-SuperDex's post-step states can differ from its prescribed targets. This comparison
-shows those readbacks without establishing calibrated dynamics or exact tracking.
+| Engine | Physics/control | Native capture |
+|---|---|---|
+| MuJoCo | Position actuators, implicit integration, gravity/contact | MuJoCo EGL renderer |
+| Genesis | PD joint drives, rigid-body gravity/contact | Genesis rasterizer |
+| SuperDex | Articulated pose controller, gravity/contact | SuperDex SDK offscreen viewer, built on Polyscope |
+| Isaac Sim | PhysX force drives, gravity/contact | Isaac Sim RTX renderer and Replicator RGB |
 
-Gravity and contacts are disabled. The floor is added only to the visualization;
-it is not a validated physical contact surface. The animation is a playback
-comparison, not a live four-engine dashboard or a simultaneous LeRobot session.
-Sample labels denote trajectory sample time; each readback follows its 1/240-second step.
+Joint positions are assigned only for the initial condition. During playback each
+engine evolves its own state from drive targets; it is not teleported to the command
+at every step. Robot/environment contacts are enabled; robot self-collisions are
+disabled. Lighting and material response differ between native renderers, while
+geometry, camera pose/field of view, scene layout and target timing are matched.
 
-## Regenerate from actual engine runs
+Illustrative hand masses, inertias and gains are explicit in the specification;
+friction/contact settings are set in each engine's `native.py`.
+They are not measured hardware parameters or evidence of payload, grasp stability,
+servo performance or safe physical operation. The generated dynamic-demo package
+is separate from the released CAD-derived models and the older zero-gravity playback examples.
 
-From the root, run each engine with trace collection. The launcher handles dependencies
-and model setup. Review NVIDIA's terms before the Isaac acceptance flag:
+## One-command setup and capture
+
+From the repository root, run in this order. Each command installs its own isolated
+dependencies, prepares the robot, runs the full native environment, and validates
+its capture. Review NVIDIA's terms before using the final acceptance flag.
 
 ```bash
-python3 simulation/run.py mujoco --headless --steps 1200 --trace
-python3 simulation/run.py genesis --headless --steps 1200 --trace
-python3 simulation/run.py superdex --headless --steps 1200 --trace
-python3 simulation/run.py isaacsim --accept-isaac-eula --headless --steps 1200 --trace
+python3 simulation/run.py mujoco --native --headless
+python3 simulation/run.py genesis --native --headless
+python3 simulation/run.py superdex --native --headless
+python3 simulation/run.py isaacsim --native --headless --accept-isaac-eula
+```
+
+Then publish the compressed panel GIFs and synchronized montage:
+
+```bash
 build/simulation/envs/prepare/bin/python simulation/comparison.py
 ```
 
-Rendering requires a working EGL/OpenGL stack and DejaVu Sans fonts (Ubuntu package
-`fonts-dejavu-core`). The engine motion tests themselves do not require this shared
-renderer. `--preview` renders just the first frame into
-`build/simulation/results/comparison-preview.png` without replacing release GIFs.
+Publishing uses Pillow from the prepare environment and DejaVu Sans fonts (Ubuntu
+package `fonts-dejavu-core`). Optional `gifsicle` improves lossless compression.
 
-[`comparison.py`](comparison.py) checks successful 1,200-step reports, matching run IDs,
-all 15 joint names and the expected 100 sample indices. An old trace paired with a new
-report is rejected; rerun that engine with `--trace`. Outputs are five GIFs under
-`docs/assets/simulation/` plus [provenance.json](../docs/assets/simulation/provenance.json),
-which records versions, run IDs, trace hashes and the shared-renderer disclosure.
-The source traces remain in ignored `build/simulation/results/`.
+Use `--no-setup` after the first setup for cached/offline runs. These captures need
+working native graphics backends even with `--headless`; that flag means no desktop
+window, not no rendering. EGL is used for the first three engines; Isaac requires
+a compatible NVIDIA RTX runtime. The [engine tutorials](README.md) cover dependencies.
 
-Manual-Dex model and OpenArm source notices still apply; see
-[THIRD_PARTY.md](THIRD_PARTY.md) and the [licensing scope](../LICENSING.md).
+## Evidence and reproducibility
+
+A successful launcher run must have a fresh run ID, exactly 100 native PNG frames,
+100 post-step state samples, finite positions for all 15 joints, motion on every
+commanded joint, a falling cube, and measured cube/table contact with a settled final height.
+Captures and full state records stay under `build/simulation/native/captures/<engine>/<run-id>/`.
+The current successful manifest is `build/simulation/native/<engine>.json`.
+Preview/physics-only diagnostic runs cannot replace it.
+
+[`comparison.py`](comparison.py) checks manifest identity, joint names, timestep,
+frame dimensions and sample indices before publishing. It uses PIL for labels and
+image composition, not a simulator. [Provenance](../docs/assets/simulation/provenance.json)
+records engine versions, renderer names, run IDs, frame/state hashes and scene parameters.
+The montage has one synchronized clock; separate README GIFs can start loading independently.
+
+All seven repository GIFs have an enforced byte budget of **at most half their previous size**.
+Their original durations and on-page display widths are retained. Fixed palettes and
+optional lossless Gifsicle optimization keep static labels stable.
+See the [size baseline](../docs/assets/gif-size-budget.json),
+[showcase compression report](../docs/assets/simulation/compression.json), and
+[title/paired-diagram report](../docs/assets/legacy-gif-compression.json).
+Regenerate the original paired diagram with its [own workflow](../docs/visualization/README.md),
+then run `tools/visualization/encode_gifs.py --legacy` with the prepare interpreter.
+
+Native physics smoke tests do not constitute calibrated hardware validation.
+See [the validation record](VALIDATION.md), [third-party notices](THIRD_PARTY.md)
+and [licensing scope](../LICENSING.md).

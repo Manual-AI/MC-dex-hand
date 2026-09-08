@@ -11,7 +11,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/Software-Apache%202.0-blue" alt="Software license: Apache 2.0"></a>
   <a href="hardware/LICENSE"><img src="https://img.shields.io/badge/Hardware-CERN--OHL--P%202.0-blue" alt="Hardware license: CERN-OHL-P 2.0"></a>
   <a href="tools/"><img src="https://img.shields.io/badge/Tooling-Python%203-3776AB?logo=python&logoColor=white" alt="Python 3 tooling"></a>
-  <a href="docs/visualization/README.md"><img src="https://img.shields.io/badge/Rendering-MuJoCo%203.6-286778" alt="MuJoCo 3.6 rendering"></a>
+  <a href="simulation/COMPARISON.md"><img src="https://img.shields.io/badge/Simulation-4%20native%20engines-286778" alt="Native MuJoCo, Genesis, SuperDex and Isaac Sim simulation"></a>
   <a href="lerobot/README.md"><img src="https://img.shields.io/badge/Teleoperation-LeRobot%200.6.1-FFD21E" alt="LeRobot 0.6.1 teleoperation"></a>
   <img src="https://img.shields.io/badge/Kinematics-8%20DOF-526777" alt="Eight degrees of freedom">
   <a href="hardware/step/"><img src="https://img.shields.io/badge/CAD-STL%20%2F%20STEP-526777" alt="STL and STEP CAD"></a>
@@ -28,7 +28,7 @@
   <a href="docs/visualization/README.md">Visualization methods</a>
 </p>
 
-*Manual-Dex prototype demonstration. The wearable glove measures the motion of
+*Manual-Dex prototype demonstration. The wearable glove generates the motion of
 the corresponding robot-hand joints.*
 
 ## Overview
@@ -42,11 +42,8 @@ mounts and a rigid Quest-controller mount provide a common mechanical basis for 
 and spatial observations. The controller is retained on the actuated hand to match the
 glove's appearance to an overhead camera; the operator wears a black, fingertip-less
 under-glove to support visual matching from the hand camera after simple inpainting.
-The repository contains the mechanical design, bill of
-materials, CAD export tooling, reproducible MuJoCo visualizations, and OpenArm integration
-examples for four simulation engines, plus LeRobot teleoperation adapters and calibration
-tutorials. Physical glove firmware, a verified hand driver, measured calibration and
-quantitative validation remain under development.
+Includes CAD, a BOM, four-engine OpenArm simulation tutorials, and LeRobot teleoperation
+and calibration tools.
 
 ## Simulation quick start
 
@@ -56,52 +53,29 @@ flexing in one connected articulation. From this repository's root on Linux:
 <table>
   <tr>
     <td width="50%" align="center">
-      <img src="docs/assets/simulation/mujoco.gif" alt="MuJoCo: OpenArm and Manual-Dex, actual joint states in the shared visualization" width="100%"><br>
-      <a href="simulation/mujoco/README.md">MuJoCo — MJCF setup and tutorial</a><br>
-      <code>python3 simulation/run.py mujoco</code>
+      <img src="docs/assets/simulation/mujoco.gif" alt="MuJoCo native physics and rendering: OpenArm and Manual-Dex tabletop motion" width="100%"><br>
+      <a href="simulation/mujoco/README.md">MuJoCo — setup and tutorial</a>
     </td>
     <td width="50%" align="center">
-      <img src="docs/assets/simulation/genesis.gif" alt="Genesis: OpenArm and Manual-Dex, actual joint states in the shared visualization" width="100%"><br>
-      <a href="simulation/genesis/README.md">Genesis — URDF setup and tutorial</a><br>
-      <code>python3 simulation/run.py genesis</code>
+      <img src="docs/assets/simulation/genesis.gif" alt="Genesis native physics and rendering: OpenArm and Manual-Dex tabletop motion" width="100%"><br>
+      <a href="simulation/genesis/README.md">Genesis — setup and tutorial</a>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <img src="docs/assets/simulation/superdex.gif" alt="SuperDex: OpenArm and Manual-Dex, actual joint states in the shared visualization" width="100%"><br>
-      <a href="simulation/superdex/README.md">SuperDex — runtime and debugger setup</a><br>
-      <code>python3 simulation/run.py superdex</code>
+      <img src="docs/assets/simulation/superdex.gif" alt="SuperDex native physics and SDK rendering: OpenArm and Manual-Dex tabletop motion" width="100%"><br>
+      <a href="simulation/superdex/README.md">SuperDex — setup and tutorial</a>
     </td>
     <td width="50%" align="center">
-      <img src="docs/assets/simulation/isaacsim.gif" alt="Isaac Sim: OpenArm and Manual-Dex, actual PhysX joint states rendered with MuJoCo, not an RTX screenshot" width="100%"><br>
-      <a href="simulation/isaacsim/README.md">Isaac Sim — URDF-to-USD setup and tutorial</a><br>
-      <code>python3 simulation/run.py isaacsim &#92;</code><br>
-      <code>--accept-isaac-eula</code> (after agreement)
+      <img src="docs/assets/simulation/isaacsim.gif" alt="Isaac Sim native PhysX and RTX rendering: OpenArm and Manual-Dex tabletop motion" width="100%"><br>
+      <a href="simulation/isaacsim/README.md">Isaac Sim — setup and tutorial</a>
     </td>
   </tr>
 </table>
 
-*Four engines, one visualization convention. Each five-second panel uses actual
-post-step joint states recorded in the named engine, displayed through the same
-MuJoCo renderer, camera and scene. These are not four native-engine screenshots.*
-Open the [single synchronized 2×2 animation and methods](simulation/COMPARISON.md)
-for frame-aligned playback and provenance; individual README panels can load at
-slightly different times.
-
-The launcher obtains pinned dependencies and OpenArm assets, creates isolated environments,
-builds and checks the model, then runs five simulated seconds. Git, Git LFS and Python
-with `venv`/`pip` are prerequisites; Isaac Sim also needs compatible NVIDIA hardware and
-your agreement to its EULA before passing the acceptance flag.
-
-For a finite, non-interactive run, add `--headless --steps 1200`. See the
-[complete simulation guide](simulation/README.md) for prerequisites, expected JSON results,
-mount configuration, offline use and agent-friendly commands. The
-[standalone hand URDF and meshes](models/manual_dex/urdf/README.md) are included alongside
-the [native MJCF models](models/manual_dex/README.md).
-
-These are **kinematic integration examples**, not validated grasp dynamics. All four
-engines passed the 15-joint headless playback test; local Isaac Sim rendering remains
-unverified because its renderer crashed during startup. See [validation and limitations](simulation/VALIDATION.md).
+[Synchronized 2×2 animation](simulation/COMPARISON.md) ·
+[Simulation guide](simulation/README.md) ·
+[URDF and meshes](models/manual_dex/urdf/README.md) · [MJCF models](models/manual_dex/README.md)
 
 ## LeRobot teleoperation quick start
 
@@ -115,7 +89,7 @@ python3 lerobot/run.py mujoco
 The [dedicated LeRobot tutorial](lerobot/README.md) includes one-command setup for all
 four engines, editable YAML files, [glove-to-hand calibration](lerobot/CALIBRATION.md),
 an explicit [ESP32 serial protocol](lerobot/PROTOCOL.md) and local dataset recording.
-The OpenArm stays in a fixed pose during glove teleoperation; wrist/arm IK is not included.
+The OpenArm stays in a fixed pose during glove teleoperation; wrist/arm IK is not included yet [TODO].
 
 Simulation is implemented and headless-tested. Real hardware additionally needs the
 still-pending glove firmware and a verified HLS3606 driver, wiring, watchdog and measured
@@ -145,51 +119,28 @@ without first fitting a separate human-hand model.
 
 ### Joint correspondence
 
-Let the joint vector be
-
-$$
-\mathbf{q} = [q_{I,p}, q_{I,d}, q_{M,p}, q_{M,d}, q_{R+L,p}, q_{R+L,d}, q_{T,p}, q_{T,d}]^{\mathsf T},
-$$
-
-where $p$ and $d$ denote the proximal and distal joints. The ring and little fingers share
-one mechanical group. The glove potentiometer signals must be calibrated to robot servo
-encoder values for each corresponding joint. A synchronized demonstration would combine
-these eight joint coordinates, the controller's six-degree-of-freedom pose, and camera
-frames. The [LeRobot examples](lerobot/README.md) now provide host-side sensor mapping,
-simulation teleoperation and state-only recording. Synchronized camera/Quest acquisition,
-measured hardware calibration and physical replay remain pending.
+Each finger group has proximal and distal joints; the ring and little fingers share
+one group. Calibrate the eight glove potentiometers to their corresponding robot servos.
+The [LeRobot examples](lerobot/README.md) provide sensor mapping, simulation teleoperation
+and state-only recording. Synchronized Quest/camera acquisition and measured hardware
+calibration remain future work.
 
 ### Why is there a Quest 3 controller on the actuated hand?
 
-A Quest 3 controller may seem redundant on a robot hand. **Its presence on the actuated
-hand is deliberate: it is there to remove the controller-related visual embodiment gap
-for an overhead camera.** The sensing glove carries a controller for pose input;
-retaining the same controller and mount on the robot gives both embodiments the same
-visible attachment, rather than a controller appearing only in human demonstrations.
-Match its placement and orientation on both assemblies when collecting corresponding views.
-
-Here, *visual embodiment gap* means differences in the visible operator/glove and robot
-that a vision system could use to distinguish demonstration from robot execution.
-The controller is therefore part of the appearance-matching design, in addition to its
-tracking role.
+A controller on the actuated hand may seem redundant. It is deliberate: the matching
+controller and mount remove the controller-related visual embodiment gap for an overhead
+camera, while the glove's controller provides pose input. Match their placement and
+orientation so that this attachment does not visually distinguish human demonstrations
+from robot execution.
 
 ### Black fingerless under-glove and the hand-camera view
 
-**Wear a black, fingertip-less (fingerless) fabric glove beneath the instrumented glove.**
-This provides a consistent dark covering for the operator's hand while leaving the
-fingertips uncovered. Fit it without obstructing the mechanism, sensors or intended
-contact surfaces.
-
-From the corresponding hand-/wrist-mounted camera perspective, the aim is for the
-robot hand and worn sensing glove to look as similar as possible **after simple image
-inpainting of remaining appearance differences**. The black under-glove and matched
-camera placement are part of that capture setup; they address a different view from
-the overhead-camera/controller matching above. Preserve task objects and relevant
-contact evidence when choosing any inpainting masks.
-
-The CAD visualizations show the mechanical assemblies, not the fabric under-glove or
-an inpainted camera stream. An inpainting implementation, masks and quantitative
-visual-matching evaluation are not yet included in this release.
+Wear a black, fingertip-less fabric glove beneath the instrumented glove, keeping sensors,
+mechanisms and contact surfaces unobstructed. With matched hand-camera placement and
+simple inpainting of remaining appearance differences, the aim is for the worn glove
+and robot hand to look as similar as possible. Preserve objects and contact evidence
+in any masks. The CAD animations show the mechanical assemblies; fabric and an inpainting
+pipeline are not included.
 
 ## Mechanical structure and kinematics
 
@@ -202,7 +153,7 @@ All component names and specifications remain visible in the fixed right-hand re
 The [part register](docs/visualization/PARTS.md) lists individual BOM entries, release
 filenames, materials, and functions.
 
-![Manual-Dex glove and actuated hand side by side: ten-second MuJoCo orbit, flexing fingers, and persistent BOM-linked component labels](docs/assets/manual-dex-paired-kinematics.gif)
+<img src="docs/assets/manual-dex-paired-kinematics.gif" alt="Manual-Dex glove and actuated hand side by side: ten-second MuJoCo orbit, flexing fingers, and persistent BOM-linked component labels" width="2000">
 
 ### Instrumented glove
 
@@ -281,20 +232,6 @@ export the assemblies as `manual_dex_hand.step` and `manual_dex_glove.step`. Com
 prefixes remain `rh_` for robot-hand parts, `gl_` for glove parts, and `cm_` for common
 parts; these identifiers preserve the BOM mapping. Historical source-component names
 are recorded in [`bom/rename_map.csv`](bom/rename_map.csv).
-
-## Release status and limitations
-
-The release includes CAD, a BOM, mechanical connection diagrams, a reproducible
-visualization pipeline, native MJCF and derived hand URDF assets, and four-engine OpenArm
-kinematic integration tutorials, LeRobot host adapters, calibration workflows and a local
-recording example. It does not yet include finished glove firmware, a verified physical-hand
-driver, complete wiring instructions, measured calibration data, a validated dynamics model
-or experimental benchmarks.
-Some bought-part specifications and quantities are unresolved in the BOM.
-
-Original software is released under Apache-2.0; original hardware designs and robot
-models use CERN-OHL-P-2.0. See [licensing and reuse](#license-and-community) below,
-including the separate terms and historical exclusions for third-party material.
 
 ## Repository organization
 

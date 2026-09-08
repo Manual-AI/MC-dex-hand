@@ -1,0 +1,17 @@
+{
+  "duration_s": 5,
+  "fps": 20,
+  "physics_dt_s": 0.004166666666666667,
+  "gravity_m_s2": [0, 0, -9.81],
+  "camera": {"eye": [1.25, -1.25, 0.95], "target": [0.16, 0, 0.28], "fov_deg": 42},
+  "table": {"center": [0.25, 0, -0.04], "size": [1.15, 0.9, 0.08], "color": [0.29, 0.35, 0.40]},
+  "cube": {"center": [0.38, -0.23, 0.28], "size": [0.06, 0.06, 0.06], "mass_kg": 0.08, "color": [0.95, 0.39, 0.10]},
+  "arm_kp": 400,
+  "arm_kd": 35,
+  "hand_kp": 3,
+  "hand_kd": 0.12,
+  "hand_link_mass_kg": 0.08,
+  "hand_link_diagonal_inertia_kg_m2": 0.00004,
+  "hand_frame_mass_kg": 0.4,
+  "note": "Illustrative simulated masses and drive gains, not measured hardware parameters. Native gravity/contact/drive demo; no grasp is claimed."
+}

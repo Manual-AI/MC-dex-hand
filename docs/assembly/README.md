@@ -10,7 +10,7 @@ Refer to the [component and material register](../visualization/PARTS.md) for in
 part IDs, filenames, quantities and functions. Motion in the overview animation is
 illustrative; see the [visualization methods](../visualization/README.md).
 
-![Manual-Dex glove (left) and actuated hand (right): synchronized ten-second MuJoCo orbit with flexing fingers and a persistent component register](../assets/manual-dex-paired-kinematics.gif)
+<img src="../assets/manual-dex-paired-kinematics.gif" alt="Manual-Dex glove (left) and actuated hand (right): synchronized ten-second MuJoCo orbit with flexing fingers and a persistent component register" width="2000">
 
 ## 1. Manual-Dex glove
 
