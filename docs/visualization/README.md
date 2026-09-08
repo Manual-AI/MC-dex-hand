@@ -91,7 +91,7 @@ component: the same controller/mount geometry is present on both embodiments to 
 that visual difference for an overhead camera. For actual use, the operator also wears
 a black, fingertip-less fabric glove beneath the sensing assembly, with simple inpainting
 intended to address remaining differences in the hand-camera view. These are distinct
-camera-view considerations; see the [design rationale](../../README.md#22-why-is-there-a-quest-3-controller-on-the-actuated-hand).
+camera-view considerations; see the [design rationale](../../README.md#why-is-there-a-quest-3-controller-on-the-actuated-hand).
 The CAD renders do not include the cloth or an inpainting process and do not demonstrate
 that visual differences have been eliminated.
 

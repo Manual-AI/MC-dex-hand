@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="#2-system-architecture">Architecture</a> ·
+  <a href="#system-architecture">Architecture</a> ·
   <a href="bom/BOM.md">Bill of materials</a> ·
   <a href="hardware/step/">CAD assemblies</a> ·
   <a href="docs/assembly/README.md">Assembly guide</a> ·
@@ -122,7 +122,7 @@ still-pending glove firmware and a verified HLS3606 driver, wiring, watchdog and
 joint limits. The [physical-hand integration guide](lerobot/HARDWARE.md) identifies these
 requirements; its driver template is inert and motion is disabled by default.
 
-## 1. Design motivation
+## Design motivation
 
 Manual-Dex aims to reduce or even eliminate the embodiment gap physically and visually
 between an operator's data-collection device and the robot that replays a demonstration.
@@ -131,7 +131,7 @@ kinematic and contact geometry.
 Joint measurements can therefore be calibrated into the robot's encoder coordinates,
 without first fitting a separate human-hand model.
 
-## 2. System architecture
+## System architecture
 
 | Property | Manual-Dex hand | Manual-Dex glove |
 |---|---|---|
@@ -143,7 +143,7 @@ without first fitting a separate human-hand model.
 | Structural components | FDM-printed ABS or PETG | FDM-printed ABS or PETG |
 | Mechanical interface | OpenArm wrist-flange adaptor | Wearable frame |
 
-### 2.1 Joint correspondence
+### Joint correspondence
 
 Let the joint vector be
 
@@ -159,7 +159,7 @@ frames. The [LeRobot examples](lerobot/README.md) now provide host-side sensor m
 simulation teleoperation and state-only recording. Synchronized camera/Quest acquisition,
 measured hardware calibration and physical replay remain pending.
 
-### 2.2 Why is there a Quest 3 controller on the actuated hand?
+### Why is there a Quest 3 controller on the actuated hand?
 
 A Quest 3 controller may seem redundant on a robot hand. **Its presence on the actuated
 hand is deliberate: it is there to remove the controller-related visual embodiment gap
@@ -173,7 +173,7 @@ that a vision system could use to distinguish demonstration from robot execution
 The controller is therefore part of the appearance-matching design, in addition to its
 tracking role.
 
-### 2.3 Black fingerless under-glove and the hand-camera view
+### Black fingerless under-glove and the hand-camera view
 
 **Wear a black, fingertip-less (fingerless) fabric glove beneath the instrumented glove.**
 This provides a consistent dark covering for the operator's hand while leaving the
@@ -191,7 +191,7 @@ The CAD visualizations show the mechanical assemblies, not the fabric under-glov
 an inpainted camera stream. An inpainting implementation, masks and quantitative
 visual-matching evaluation are not yet included in this release.
 
-## 3. Mechanical structure and kinematics
+## Mechanical structure and kinematics
 
 The following animation uses tessellated geometry from the released STEP assemblies,
 including the current three-part Quest mount. The glove and actuated hand are shown
@@ -204,7 +204,7 @@ filenames, materials, and functions.
 
 ![Manual-Dex glove and actuated hand side by side: ten-second MuJoCo orbit, flexing fingers, and persistent BOM-linked component labels](docs/assets/manual-dex-paired-kinematics.gif)
 
-### 3.1 Instrumented glove
+### Instrumented glove
 
 *Manual-Dex glove (left). Printed links rotate about hinge pins; potentiometers measure
 the corresponding joints. Sensor housings, retention lids, and encoder couplers are
@@ -212,7 +212,7 @@ identified separately. The electronics enclosure is transparent to expose the PC
 the CAD assembly. The register distinguishes the index, middle, and combined
 ring–little finger groups; the thumb is listed separately.*
 
-### 3.2 Actuated robot hand
+### Actuated robot hand
 
 *Manual-Dex hand (right). Two servos actuate each finger group. The distal servo housing
 moves with its proximal link; its output carries the distal contact link. The thumb also
@@ -220,8 +220,8 @@ uses a support rod, printed pin, and MR105ZZ bearing. Shared camera, tracking, a
 enclosure components preserve the paired-device layout.*
 
 The Quest 3 controller visible on the hand is intentional: see the
-[overhead-camera appearance-matching rationale](#22-why-is-there-a-quest-3-controller-on-the-actuated-hand).
-For the worn glove, follow the [black fingerless under-glove guidance](#23-black-fingerless-under-glove-and-the-hand-camera-view).
+[overhead-camera appearance-matching rationale](#why-is-there-a-quest-3-controller-on-the-actuated-hand).
+For the worn glove, follow the [black fingerless under-glove guidance](#black-fingerless-under-glove-and-the-hand-camera-view).
 
 These are kinematic illustrations, not validated dynamics simulations. The hinge axes
 are recovered from CAD cylindrical faces; flexion amplitudes are selected for visualization.
@@ -232,7 +232,7 @@ are included in the repository; these models were generated directly as MJCF. A
 [OpenArm integration examples](simulation/README.md) are now provided separately.
 See the [methods and regeneration instructions](docs/visualization/README.md).
 
-## 4. Materials and fabrication
+## Materials and fabrication
 
 The CSV files in [`bom/`](bom/) are the source of truth. Material colors in the diagrams
 distinguish component classes; they do not identify measured material properties.
@@ -253,7 +253,7 @@ The current release is right-handed. The [BOM](bom/BOM.md) records quantities an
 part-level mirroring requirements. Follow the [assembly guide](docs/assembly/README.md)
 for the link-connection sequence.
 
-## 5. Reproducibility
+## Reproducibility
 
 1. Retrieve Git LFS assets with `git lfs pull` after cloning.
 2. Review the [BOM](bom/BOM.md) for parts, quantities and material specifications.
@@ -282,7 +282,7 @@ prefixes remain `rh_` for robot-hand parts, `gl_` for glove parts, and `cm_` for
 parts; these identifiers preserve the BOM mapping. Historical source-component names
 are recorded in [`bom/rename_map.csv`](bom/rename_map.csv).
 
-## 6. Release status and limitations
+## Release status and limitations
 
 The release includes CAD, a BOM, mechanical connection diagrams, a reproducible
 visualization pipeline, native MJCF and derived hand URDF assets, and four-engine OpenArm
@@ -293,10 +293,10 @@ or experimental benchmarks.
 Some bought-part specifications and quantities are unresolved in the BOM.
 
 Original software is released under Apache-2.0; original hardware designs and robot
-models use CERN-OHL-P-2.0. See [licensing and reuse](#8-license-and-community) below,
+models use CERN-OHL-P-2.0. See [licensing and reuse](#license-and-community) below,
 including the separate terms and historical exclusions for third-party material.
 
-## 7. Repository organization
+## Repository organization
 
 ```text
 bom/                    Part inventory, materials, naming map, and attribution
@@ -326,7 +326,7 @@ tools/
 third_party/udcap/      Historical attribution for the superseded cradle
 ```
 
-## 8. License and community
+## License and community
 
 Manual-Dex's original software and general documentation are licensed under the
 [Apache License 2.0](LICENSE). Its original hardware designs, CAD, fabrication files,

@@ -146,7 +146,7 @@ commands or use it as measured physical training data. A controller-aware proces
 cameras, task resets, rewards and policy evaluation are separate follow-on work.
 
 For a future camera-based capture setup, follow the
-[visual embodiment-matching guidance](../README.md#22-why-is-there-a-quest-3-controller-on-the-actuated-hand):
+[visual embodiment-matching guidance](../README.md#why-is-there-a-quest-3-controller-on-the-actuated-hand):
 retain corresponding Quest 3 controllers for the overhead-camera view, and wear a black,
 fingertip-less fabric glove beneath the sensing assembly for hand-camera appearance
 matching after simple inpainting. The state-only example above does not capture images

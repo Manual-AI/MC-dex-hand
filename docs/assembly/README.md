@@ -69,7 +69,7 @@ retained to remove the controller-related visual embodiment gap in overhead-came
 images. Fit the same controller and mount in corresponding poses on both assemblies,
 so the controller does not appear only in operator demonstrations. This overhead-view
 matching is separate from the black-under-glove/inpainting workflow for the hand camera.
-See the [design rationale](../../README.md#22-why-is-there-a-quest-3-controller-on-the-actuated-hand)
+See the [design rationale](../../README.md#why-is-there-a-quest-3-controller-on-the-actuated-hand)
 for the distinction between the two camera views.
 
 Use the [BOM](../../bom/BOM.md) for quantities and the [STEP assemblies](../../hardware/step/)
