@@ -9,11 +9,11 @@ import mujoco
 import numpy as np
 from PIL import Image, ImageDraw
 
-from render import BUILD, ROOT, VIEW_W, VIEW_H, font, project, world, nearest_joint, INK, MUTED, TEAL
+from render import MODELS, ROOT, VIEW_W, VIEW_H, font, project, world, nearest_joint, INK, MUTED, TEAL
 
 
 def render_closeup(kind):
-    directory = BUILD / kind
+    directory = MODELS / kind
     model = mujoco.MjModel.from_xml_path(str(directory / "scene.xml"))
     parts = json.loads((directory / "parts.json").read_text())
     joints = json.loads((directory / "joints.json").read_text())

@@ -23,10 +23,10 @@
   <a href="docs/visualization/README.md">Visualization methods</a>
 </p>
 
-*Figure 1. Manual-Dex prototype demonstration. The wearable glove measures the motion of
+*Manual-Dex prototype demonstration. The wearable glove measures the motion of
 the corresponding robot-hand joints.*
 
-## Abstract
+## Overview
 
 Manual-Dex is a paired dexterous robot hand and wearable sensing glove designed for
 collecting manipulation demonstrations with corresponding joint coordinates and contact
@@ -78,28 +78,28 @@ are not yet released.
 
 ## 3. Mechanical structure and kinematics
 
-The following figures use tessellated geometry from the released STEP assemblies,
-including the current three-part Quest mount. Both are **five-second loops at 20 fps**,
-with one full camera orbit and prescribed flexion of all eight joints. Labels follow
-the moving geometry; repeated parts share a numbered component-family label.
+The following animation uses tessellated geometry from the released STEP assemblies,
+including the current three-part Quest mount. The glove and actuated hand are shown
+**side by side in one ten-second loop at 20 fps**, with synchronized full camera orbits
+at 36°/s—half the original rotation speed. Finger flexion retains its five-second cycle.
+Labels follow the moving geometry; repeated parts share a numbered component-family label.
+All component names and specifications remain visible in the fixed right-hand register.
 The [part register](docs/visualization/PARTS.md) lists individual BOM entries, release
 filenames, materials, and functions.
 
+![Manual-Dex glove and actuated hand side by side: ten-second MuJoCo orbit, flexing fingers, and persistent BOM-linked component labels](docs/assets/manual-dex-paired-kinematics.gif)
+
 ### 3.1 Instrumented glove
 
-![Manual-Dex glove: five-second MuJoCo orbit with flexing fingers and BOM-linked technical callouts](docs/assets/manual-dex-glove-kinematics.gif)
-
-*Figure 2. Manual-Dex glove. Printed links rotate about hinge pins; potentiometers measure
+*Manual-Dex glove (left). Printed links rotate about hinge pins; potentiometers measure
 the corresponding joints. Sensor housings, retention lids, and encoder couplers are
 identified separately. The electronics enclosure is transparent to expose the PCB from
-the CAD assembly. I, M, and R+P in the register denote index, middle, and combined
+the CAD assembly. The register distinguishes the index, middle, and combined
 ring–little finger groups; the thumb is listed separately.*
 
 ### 3.2 Actuated robot hand
 
-![Manual-Dex hand: five-second MuJoCo orbit with flexing fingers and BOM-linked technical callouts](docs/assets/manual-dex-hand-kinematics.gif)
-
-*Figure 3. Manual-Dex hand. Two servos actuate each finger group. The distal servo housing
+*Manual-Dex hand (right). Two servos actuate each finger group. The distal servo housing
 moves with its proximal link; its output carries the distal contact link. The thumb also
 uses a support rod, printed pin, and MR105ZZ bearing. Shared camera, tracking, and
 enclosure components preserve the paired-device layout.*
@@ -107,11 +107,13 @@ enclosure components preserve the paired-device layout.*
 These are kinematic illustrations, not validated dynamics simulations. The hinge axes
 are recovered from CAD cylindrical faces; flexion amplitudes are selected for visualization.
 Joint limits, inertial properties, actuator dynamics, collisions, and contact behavior are
-not identified by these animations. See the [methods and regeneration instructions](docs/visualization/README.md).
+not identified by this animation. The actual [MuJoCo MJCF models and meshes](models/manual_dex/README.md)
+are included in the repository; these models were generated directly as MJCF, not URDF.
+See the [methods and regeneration instructions](docs/visualization/README.md).
 
 ## 4. Materials and fabrication
 
-The CSV files in [`bom/`](bom/) are the source of truth. Material colors in the figures
+The CSV files in [`bom/`](bom/) are the source of truth. Material colors in the diagrams
 distinguish component classes; they do not identify measured material properties.
 
 | Component | BOM specification | Manufacturing / selection notes |
@@ -139,7 +141,8 @@ link-connection sequence.
    [`manual_dex_glove.step`](hardware/step/manual_dex_glove.step) for assembled geometry,
    and `hardware/*/stl/` for individual printed parts.
 4. Follow the [assembly guide](docs/assembly/README.md).
-5. Rebuild the MuJoCo models and figures using the [visualization workflow](docs/visualization/README.md).
+5. Open the [included MJCF models](models/manual_dex/README.md), or regenerate the models
+   and diagrams using the [visualization workflow](docs/visualization/README.md).
 
 The existing BOM and export utilities require Python 3. The visualization workflow uses
 Python 3.11 or newer and has been exercised with Python 3.13 and MuJoCo 3.6.0.
@@ -176,13 +179,14 @@ hardware/
   common/stl/            Shared printed components (cm_*)
   step/                 Manual-Dex hand and glove assemblies
 docs/
-  assets/               Prototype demonstration and MuJoCo animations
+  assets/               Prototype demonstration and paired MuJoCo animation
   assembly/             Mechanical connection guide
-  visualization/        Figure methods and complete part register
+  visualization/        Visualization methods and complete part register
+models/manual_dex/       Ready-to-load MJCF models, meshes, and joint/part records
 firmware/esp32_glove/    Glove acquisition firmware (pending)
 software/               Host acquisition, calibration, and control (pending)
 tools/
-  visualization/        STEP extraction, MJCF generation, and figure renderer
+  visualization/        STEP extraction, MJCF generation, and diagram renderer
   solidworks/           CAD naming and export macros
 third_party/udcap/      Historical attribution for the superseded cradle
 ```

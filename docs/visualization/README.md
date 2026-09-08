@@ -1,9 +1,12 @@
 # Manual-Dex: Visualization Methods
 
-The glove and robot-hand figures are generated from the released CAD with MuJoCo 3.6.0.
-Each GIF contains **100 frames at 20 fps, totaling exactly 5.00 seconds**, with one
-360-degree camera orbit and one flexion–extension cycle. The repository retains the
-original prototype demonstration separately; it is not one of these two technical GIFs.
+The glove and robot hand are shown side by side in **one combined MuJoCo animation**,
+generated from the released CAD with MuJoCo 3.6.0. The GIF contains **200 frames at
+20 fps, totaling exactly 10.00 seconds**. Both views use identical camera settings,
+scale and timing. Their cameras each complete a 360-degree orbit at 36°/s, half the
+previous 72°/s. Finger motion retains its original five-second period, giving two
+flexion–extension cycles per orbit. The original prototype demonstration is retained
+separately; there are no separate glove and hand animation files in the current release.
 
 ## 1. Geometry and coordinate frames
 
@@ -24,9 +27,14 @@ y_world = -z_CAD / 1000
 z_world =  y_CAD / 1000 + 0.13
 ```
 
-Generated meshes, MJCF, per-occurrence metadata and joint-axis records are written to
-`build/manual-dex/{hand,glove}/`. This derived directory is ignored by Git; the STEP files,
-generator source and final figures are versioned. Mechanical release STLs remain unchanged.
+Generated meshes, MJCF, per-occurrence metadata and joint-axis records are first written
+to `build/manual-dex/{hand,glove}/`. The renderer publishes them to
+[`models/manual_dex/`](../../models/manual_dex/README.md), which is **versioned**, with
+meshes stored through Git LFS. The animation loads these published models directly.
+The original models were generated as **MuJoCo MJCF, not URDF**; the repository includes
+the actual native model definitions rather than a different-format reconstruction.
+Temporary tessellation and animation frames remain under the ignored `build/` directory.
+Mechanical release STLs remain unchanged.
 
 ## 2. Articulation
 
@@ -45,22 +53,25 @@ remain fixed to the frame.
 Flexion is prescribed relative to the CAD pose with a periodic raised cosine. The index,
 middle and ring–little groups use amplitudes of 32° proximal and 45° distal; the thumb
 uses 24° and 36°. Small phase offsets distinguish the groups. These are **illustration
-parameters**, not measured travel limits. The 5.00 s seam is periodic in both camera
+parameters**, not measured travel limits. The 10.00 s seam is periodic in both camera
 orientation and joint state.
 
 The scene uses forward kinematics (`mj_forward`), not a simulated control task. Collision
 response is disabled. Each moving body has a placeholder 1 g mass and diagonal inertia
 of 10⁻⁶ kg·m² so the model can compile; these values are not estimates of hardware mass
 or inertia. MJCF joint ranges of ±1.5 rad are display bounds, not calibrated joint limits.
-Do not use this figure model as a validated dynamics or reinforcement-learning model.
+Do not use these visualization models as validated dynamics or reinforcement-learning models.
 
 ## 3. Labels and materials
 
 Twelve callout families identify the printed structure, finger links, joint hardware,
-sensing or actuation, tracking assembly, camera and enclosure. Numbered labels anchor
-to visible surface pixels using MuJoCo's segmentation output. A family that is fully
-occluded in the current view is grayed out in the register, rather than labeled through
-an unrelated component. One representative is labeled for a repeated family.
+sensing or actuation, tracking assembly, camera and enclosure. Labels prefixed **G**
+(glove) or **H** (hand) anchor to visible surface pixels using MuJoCo's segmentation
+output. A surface callout is omitted when the entire family is occluded, so it never
+points through an unrelated component. **Every name and specification in the right-hand
+register remains visible at constant contrast in every frame**, regardless of occlusion.
+One representative is labeled for a repeated family. The renderer verifies that the
+register is pixel-identical across all decoded GIF frames.
 
 The [complete part register](PARTS.md) resolves those families into individual BOM IDs,
 release filenames, quantities, material specifications and functions. Generate it from
@@ -85,33 +96,40 @@ git lfs pull
 python3 -m venv .venv
 .venv/bin/python -m pip install -r tools/visualization/requirements.txt
 
+# Render directly from the included MJCF and meshes; no CAD extraction required.
+MUJOCO_GL=egl .venv/bin/python tools/visualization/render.py --models
+```
+
+To rebuild the native models from the STEP assemblies instead:
+
+```bash
 .venv/bin/python tools/visualization/cad.py hardware/step/manual_dex_glove.step --out build/manual-dex/glove/cad
 .venv/bin/python tools/visualization/cad.py hardware/step/manual_dex_hand.step --out build/manual-dex/hand/cad
 
-MUJOCO_GL=egl .venv/bin/python tools/visualization/render.py glove
-MUJOCO_GL=egl .venv/bin/python tools/visualization/render.py hand
+MUJOCO_GL=egl .venv/bin/python tools/visualization/render.py
 MUJOCO_GL=egl .venv/bin/python tools/visualization/closeups.py
 .venv/bin/python tools/visualization/register.py
 ```
 
-Use `render.py hand --preview` (or `glove`) to generate four inspection frames at
-0, 1.25, 2.50 and 3.75 seconds. `--reuse` skips rebuilding MJCF and meshes when only
-the overlay is being adjusted. After modifying CAD or the geometry/material builder,
-omit `--reuse` and re-extract the CAD if needed.
+Use `render.py --models --preview` to generate four paired inspection frames at
+0, 2.50, 5.00 and 7.50 seconds. `--reuse` publishes the existing build models without
+rebuilding MJCF and meshes. After modifying CAD or the geometry/material builder,
+omit `--models` and `--reuse`, and re-extract the CAD if needed. A normal rebuild updates
+the versioned model directories as well as the animation.
 
-The renderer checks for exactly eight joints and verifies each final GIF's frame count
-and duration. The generated `scene.xml` files can also be opened with MuJoCo's viewer
-for inspection, subject to the kinematic-model limitations above.
+The renderer checks for exactly eight joints per device and verifies the final GIF's
+frame count, duration and unchanging register. The included `scene.xml` files can also
+be opened with MuJoCo's viewer; see the [model instructions](../../models/manual_dex/README.md).
 
 ## 5. Outputs
 
 | File | Description |
 |---|---|
-| [`manual-dex-glove-kinematics.gif`](../assets/manual-dex-glove-kinematics.gif) | Labeled glove orbit and flexion, 5 seconds |
-| [`manual-dex-hand-kinematics.gif`](../assets/manual-dex-hand-kinematics.gif) | Labeled robot-hand orbit and flexion, 5 seconds |
+| [`manual-dex-paired-kinematics.gif`](../assets/manual-dex-paired-kinematics.gif) | Side-by-side glove and hand, synchronized half-speed orbit, 10 seconds |
+| [`models/manual_dex/`](../../models/manual_dex/README.md) | Native MJCF models, meshes, and per-part/joint records used for rendering |
 | [`manual-dex-glove-linkage.png`](../images/manual-dex-glove-linkage.png) | Isolated index-finger connection diagram |
 | [`manual-dex-hand-linkage.png`](../images/manual-dex-hand-linkage.png) | Isolated actuated index-finger connection diagram |
-| [`PARTS.md`](PARTS.md) | Complete BOM-to-figure component and material register |
+| [`PARTS.md`](PARTS.md) | Complete BOM-linked component and material register |
 
 The [MuJoCo Python API](https://mujoco.readthedocs.io/en/3.6.0/python.html) and
 [MJCF reference](https://mujoco.readthedocs.io/en/3.6.0/XMLreference.html) document the

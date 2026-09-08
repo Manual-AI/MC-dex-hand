@@ -1,18 +1,18 @@
 # Manual-Dex: Mechanical Assembly Guide
 
 This guide describes the principal mechanical connections in the released Manual-Dex
-assemblies, including the current three-part Quest mount. The figures are MuJoCo renders
+assemblies, including the current three-part Quest mount. The diagrams are MuJoCo renders
 of the STEP geometry. Linkage close-ups isolate the index-finger chain; surrounding
 components are hidden and retained components remain in their assembled positions.
 
 All printed frames, links, housings and pins are specified as **ABS or PETG** in the BOM.
 Refer to the [component and material register](../visualization/PARTS.md) for individual
-part IDs, filenames, quantities and functions. Motion in the overview figures is
+part IDs, filenames, quantities and functions. Motion in the overview animation is
 illustrative; see the [visualization methods](../visualization/README.md).
 
-## 1. Manual-Dex glove
+![Manual-Dex glove (left) and actuated hand (right): synchronized ten-second MuJoCo orbit with flexing fingers and a persistent component register](../assets/manual-dex-paired-kinematics.gif)
 
-![Manual-Dex glove: labeled five-second MuJoCo orbit with articulated finger motion](../assets/manual-dex-glove-kinematics.gif)
+## 1. Manual-Dex glove
 
 The operator's hand moves the printed links. Eight rotary position sensors measure the joints:
 two each for the index, middle, combined ring/pinky, and thumb groups.
@@ -32,8 +32,6 @@ The middle and combined ring/pinky chains follow the same connection pattern, wi
 own matching parts. The thumb connects at the palm plate and uses its dedicated link and pins.
 
 ## 2. Manual-Dex hand
-
-![Manual-Dex hand: labeled five-second MuJoCo orbit with articulated finger motion](../assets/manual-dex-hand-kinematics.gif)
 
 The robot uses matching finger groups and fingertip geometry. Each group has two servos:
 one drives the proximal link and the other drives the fingertip.

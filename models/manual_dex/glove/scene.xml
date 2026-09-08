@@ -1,0 +1,330 @@
+<mujoco model="Manual-Dex glove | kinematic visualization">
+  <compiler angle="radian" meshdir="meshes" autolimits="true" />
+  <option gravity="0 0 0" />
+  <visual>
+    <global offwidth="980" offheight="800" fovy="36" />
+    <quality shadowsize="4096" offsamples="4" />
+    <headlight ambient=".28 .28 .28" diffuse=".4 .4 .4" specular=".08 .08 .08" />
+    <map znear=".01" zfar="20" shadowclip="2" />
+  </visual>
+  <default>
+    <geom contype="0" conaffinity="0" group="1" density="0" />
+  </default>
+  <asset>
+    <material name="frame" rgba="0.68 0.72 0.76 1" specular=".15" shininess=".15" />
+    <material name="link" rgba="0.33 0.46 0.53 1" specular=".15" shininess=".15" />
+    <material name="tip" rgba="0.66 0.71 0.74 1" specular=".15" shininess=".15" />
+    <material name="sensor" rgba="0.54 0.34 0.17 1" specular=".15" shininess=".15" />
+    <material name="servo" rgba="0.22 0.26 0.29 1" specular=".15" shininess=".15" />
+    <material name="metal" rgba="0.61 0.63 0.66 1" specular=".15" shininess=".15" />
+    <material name="mount" rgba="0.39 0.49 0.53 1" specular=".15" shininess=".15" />
+    <material name="electronics" rgba="0.24 0.38 0.34 1" specular=".15" shininess=".15" />
+    <material name="controller" rgba="0.69 0.71 0.71 1" specular=".15" shininess=".15" />
+    <material name="enclosure" rgba="0.66 0.71 0.75 0.32" specular=".15" shininess=".15" />
+    <texture name="background" type="skybox" builtin="flat" rgb1="1 1 1" rgb2="1 1 1" width="64" height="64" />
+    <mesh name="part_000" file="part_000.stl" />
+    <mesh name="part_001" file="part_001.stl" />
+    <mesh name="part_002" file="part_002.stl" />
+    <mesh name="part_003" file="part_003.stl" />
+    <mesh name="part_004" file="part_004.stl" />
+    <mesh name="part_005" file="part_005.stl" />
+    <mesh name="part_006" file="part_006.stl" />
+    <mesh name="part_007" file="part_007.stl" />
+    <mesh name="part_008" file="part_008.stl" />
+    <mesh name="part_009" file="part_009.stl" />
+    <mesh name="part_010" file="part_010.stl" />
+    <mesh name="part_011" file="part_011.stl" />
+    <mesh name="part_012" file="part_012.stl" />
+    <mesh name="part_013" file="part_013.stl" />
+    <mesh name="part_014" file="part_014.stl" />
+    <mesh name="part_015" file="part_015.stl" />
+    <mesh name="part_016" file="part_016.stl" />
+    <mesh name="part_017" file="part_017.stl" />
+    <mesh name="part_018" file="part_018.stl" />
+    <mesh name="part_019" file="part_019.stl" />
+    <mesh name="part_020" file="part_020.stl" />
+    <mesh name="part_021" file="part_021.stl" />
+    <mesh name="part_022" file="part_022.stl" />
+    <mesh name="part_023" file="part_023.stl" />
+    <mesh name="part_024" file="part_024.stl" />
+    <mesh name="part_025" file="part_025.stl" />
+    <mesh name="part_026" file="part_026.stl" />
+    <mesh name="part_027" file="part_027.stl" />
+    <mesh name="part_028" file="part_028.stl" />
+    <mesh name="part_029" file="part_029.stl" />
+    <mesh name="part_030" file="part_030.stl" />
+    <mesh name="part_031" file="part_031.stl" />
+    <mesh name="part_032" file="part_032.stl" />
+    <mesh name="part_033" file="part_033.stl" />
+    <mesh name="part_034" file="part_034.stl" />
+    <mesh name="part_035" file="part_035.stl" />
+    <mesh name="part_036" file="part_036.stl" />
+    <mesh name="part_037" file="part_037.stl" />
+    <mesh name="part_038" file="part_038.stl" />
+    <mesh name="part_039" file="part_039.stl" />
+    <mesh name="part_040" file="part_040.stl" />
+    <mesh name="part_041" file="part_041.stl" />
+    <mesh name="part_042" file="part_042.stl" />
+    <mesh name="part_043" file="part_043.stl" />
+    <mesh name="part_044" file="part_044.stl" />
+    <mesh name="part_045" file="part_045.stl" />
+    <mesh name="part_046" file="part_046.stl" />
+    <mesh name="part_047" file="part_047.stl" />
+    <mesh name="part_048" file="part_048.stl" />
+    <mesh name="part_049" file="part_049.stl" />
+    <mesh name="part_050" file="part_050.stl" />
+    <mesh name="part_051" file="part_051.stl" />
+    <mesh name="part_052" file="part_052.stl" />
+    <mesh name="part_053" file="part_053.stl" />
+    <mesh name="part_054" file="part_054.stl" />
+    <mesh name="part_055" file="part_055.stl" />
+    <mesh name="part_056" file="part_056.stl" />
+    <mesh name="part_057" file="part_057.stl" />
+    <mesh name="part_058" file="part_058.stl" />
+    <mesh name="part_059" file="part_059.stl" />
+    <mesh name="part_060" file="part_060.stl" />
+    <mesh name="part_061" file="part_061.stl" />
+    <mesh name="part_062" file="part_062.stl" />
+    <mesh name="part_063" file="part_063.stl" />
+    <mesh name="part_064" file="part_064.stl" />
+    <mesh name="part_065" file="part_065.stl" />
+    <mesh name="part_066" file="part_066.stl" />
+    <mesh name="part_067" file="part_067.stl" />
+    <mesh name="part_068" file="part_068.stl" />
+    <mesh name="part_069" file="part_069.stl" />
+    <mesh name="part_070" file="part_070.stl" />
+    <mesh name="part_071" file="part_071.stl" />
+    <mesh name="part_072" file="part_072.stl" />
+    <mesh name="part_073" file="part_073.stl" />
+    <mesh name="part_074" file="part_074.stl" />
+    <mesh name="part_075" file="part_075.stl" />
+    <mesh name="part_076" file="part_076.stl" />
+    <mesh name="part_077" file="part_077.stl" />
+    <mesh name="part_078" file="part_078.stl" />
+    <mesh name="part_079" file="part_079.stl" />
+    <mesh name="part_080" file="part_080.stl" />
+    <mesh name="part_081" file="part_081.stl" />
+    <mesh name="part_082" file="part_082.stl" />
+    <mesh name="part_083" file="part_083.stl" />
+    <mesh name="part_084" file="part_084.stl" />
+    <mesh name="part_085" file="part_085.stl" />
+  </asset>
+  <worldbody>
+    <light pos="-.3 -.4 1" dir=".3 .4 -1" diffuse=".4 .4 .4" castshadow="true" />
+    <light pos=".5 .2 .5" dir="-.5 -.2 -.4" diffuse=".2 .2 .2" castshadow="false" />
+    <body name="frame">
+      <body name="index_proximal" pos="-0.0229298985 4.5313108e-18 0.115294861">
+        <inertial pos="0 0 0" mass=".001" diaginertia="1e-6 1e-6 1e-6" />
+        <joint name="index_proximal" axis="-0.984807753 2.71237708e-16 -0.173648178" type="hinge" range="-1.5 1.5" />
+        <site name="axis_index_proximal" type="sphere" size=".0018" rgba=".63 .36 .16 1" />
+        <body name="index_distal" pos="-0.00724899028 -4.66617836e-17 0.0302000324">
+          <inertial pos="0 0 0" mass=".001" diaginertia="1e-6 1e-6 1e-6" />
+          <joint name="index_distal" axis="-0.984807753 -2.12571928e-16 -0.173648178" type="hinge" range="-1.5 1.5" />
+          <site name="axis_index_distal" type="sphere" size=".0018" rgba=".63 .36 .16 1" />
+          <geom name="part_005" type="mesh" mesh="part_005" material="tip" />
+          <site name="label_5" pos="-0.00378457094 0.000299388746 0.0214633684" size=".0001" rgba="0 0 0 0" />
+          <geom name="part_006" type="mesh" mesh="part_006" material="sensor" />
+          <site name="label_6" pos="-0.0163833972 5.24010647e-05 -0.00290770559" size=".0001" rgba="0 0 0 0" />
+          <geom name="part_012" type="mesh" mesh="part_012" material="frame" />
+          <site name="label_12" pos="0.0151353687 -9.72477682e-18 0.00266877386" size=".0001" rgba="0 0 0 0" />
+        </body>
+        <geom name="part_002" type="mesh" mesh="part_002" material="link" />
+        <site name="label_2" pos="-0.0025277807 -0.00322357521 0.0143357567" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_007" type="mesh" mesh="part_007" material="mount" />
+        <site name="label_7" pos="-0.0226174639 -1.52943328e-17 0.0142896099" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_008" type="mesh" mesh="part_008" material="mount" />
+        <site name="label_8" pos="-0.0276800479 -3.40791854e-10 0.0228741988" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_011" type="mesh" mesh="part_011" material="sensor" />
+        <site name="label_11" pos="-0.0143046999 4.10366323e-05 -0.00253708261" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_070" type="mesh" mesh="part_070" material="mount" />
+        <site name="label_70" pos="-0.0289037681 0.00015 0.0208133273" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_081" type="mesh" mesh="part_081" material="sensor" />
+        <site name="label_81" pos="-0.0295727811 -6.47382168e-07 0.025456255" size=".0001" rgba="0 0 0 0" />
+      </body>
+      <body name="middle_proximal" pos="0.0143465924 2.97115867e-18 0.13">
+        <inertial pos="0 0 0" mass=".001" diaginertia="1e-6 1e-6 1e-6" />
+        <joint name="middle_proximal" axis="-1 2.3481095e-16 -1.00269979e-17" type="hinge" range="-1.5 1.5" />
+        <site name="axis_middle_proximal" type="sphere" size=".0018" rgba=".63 .36 .16 1" />
+        <body name="middle_distal" pos="-0.000893462661 -5.80382207e-17 0.032">
+          <inertial pos="0 0 0" mass=".001" diaginertia="1e-6 1e-6 1e-6" />
+          <joint name="middle_distal" axis="-1 0 7.50150692e-16" type="hinge" range="-1.5 1.5" />
+          <site name="axis_middle_distal" type="sphere" size=".0018" rgba=".63 .36 .16 1" />
+          <geom name="part_013" type="mesh" mesh="part_013" material="tip" />
+          <site name="label_13" pos="1.73472348e-17 0.000177796266 0.0229537771" size=".0001" rgba="0 0 0 0" />
+          <geom name="part_014" type="mesh" mesh="part_014" material="frame" />
+          <site name="label_14" pos="-0.0152469648 8.02851725e-17 0" size=".0001" rgba="0 0 0 0" />
+          <geom name="part_015" type="mesh" mesh="part_015" material="sensor" />
+          <site name="label_15" pos="0.0167046858 -2.82464508e-05 4.46868697e-05" size=".0001" rgba="0 0 0 0" />
+        </body>
+        <geom name="part_003" type="mesh" mesh="part_003" material="link" />
+        <site name="label_3" pos="0 -0.00267969742 0.0180003214" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_009" type="mesh" mesh="part_009" material="frame" />
+        <site name="label_9" pos="-0.0160724705 -5.40076605e-18 -0.0109662983" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_016" type="mesh" mesh="part_016" material="frame" />
+        <site name="label_16" pos="-0.0145731861 3.64413054e-18 0" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_024" type="mesh" mesh="part_024" material="frame" />
+        <site name="label_24" pos="0.0212416977 -8.0033157e-05 -0.0130870918" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_069" type="mesh" mesh="part_069" material="sensor" />
+        <site name="label_69" pos="0.0127199961 -6.47382168e-07 0.0312047768" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_072" type="mesh" mesh="part_072" material="sensor" />
+        <site name="label_72" pos="0.0168346748 3.8240413e-05 -2.61693556e-05" size=".0001" rgba="0 0 0 0" />
+      </body>
+      <body name="pinkyring_proximal" pos="0.0602503955 0.00442180311 0.110304729">
+        <inertial pos="0 0 0" mass=".001" diaginertia="1e-6 1e-6 1e-6" />
+        <joint name="pinkyring_proximal" axis="-0.951251243 -0.173648178 0.254887002" type="hinge" range="-1.5 1.5" />
+        <site name="axis_pinkyring_proximal" type="sphere" size=".0018" rgba=".63 .36 .16 1" />
+        <body name="pinkyring_distal" pos="0.0060121817 -0.000414387034 0.0315178785">
+          <inertial pos="0 0 0" mass=".001" diaginertia="1e-6 1e-6 1e-6" />
+          <joint name="pinkyring_distal" axis="-0.951251243 -0.173648178 0.254887002" type="hinge" range="-1.5 1.5" />
+          <site name="axis_pinkyring_distal" type="sphere" size=".0018" rgba=".63 .36 .16 1" />
+          <geom name="part_019" type="mesh" mesh="part_019" material="tip" />
+          <site name="label_19" pos="0.00714093299 -0.000336019759 0.0264214028" size=".0001" rgba="0 0 0 0" />
+          <geom name="part_020" type="mesh" mesh="part_020" material="sensor" />
+          <site name="label_20" pos="0.0217497089 0.00395666138 -0.00578929627" size=".0001" rgba="0 0 0 0" />
+          <geom name="part_023" type="mesh" mesh="part_023" material="frame" />
+          <site name="label_23" pos="-0.0173871699 -0.00317415971 0.00465887478" size=".0001" rgba="0 0 0 0" />
+        </body>
+        <geom name="part_004" type="mesh" mesh="part_004" material="link" />
+        <site name="label_4" pos="0.0051588652 -0.00429862828 0.0163245985" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_017" type="mesh" mesh="part_017" material="mount" />
+        <site name="label_17" pos="0.0267675302 0.00398864887 0.0124979093" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_018" type="mesh" mesh="part_018" material="mount" />
+        <site name="label_18" pos="0.0315585021 0.00442226101 0.0208766929" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_022" type="mesh" mesh="part_022" material="sensor" />
+        <site name="label_22" pos="0.0181544753 0.00326790812 -0.00486627213" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_079" type="mesh" mesh="part_079" material="sensor" />
+        <site name="label_79" pos="0.0336481919 0.00466871614 0.0232895563" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_083" type="mesh" mesh="part_083" material="mount" />
+        <site name="label_83" pos="0.0326001723 0.00454595087 0.0187164136" size=".0001" rgba="0 0 0 0" />
+      </body>
+      <body name="thumb_proximal" pos="0.00124131631 0.0372215857 0.0876031042">
+        <inertial pos="0 0 0" mass=".001" diaginertia="1e-6 1e-6 1e-6" />
+        <joint name="thumb_proximal" axis="-1.38777878e-17 0.258819045 -0.965925826" type="hinge" range="-1.5 1.5" />
+        <site name="axis_thumb_proximal" type="sphere" size=".0018" rgba=".63 .36 .16 1" />
+        <body name="thumb_distal" pos="0.000370467351 0.029947032 0.00140402477">
+          <inertial pos="0 0 0" mass=".001" diaginertia="1e-6 1e-6 1e-6" />
+          <joint name="thumb_distal" axis="1 -1.12675729e-15 -7.40117673e-16" type="hinge" range="-1.5 1.5" />
+          <site name="axis_thumb_distal" type="sphere" size=".0018" rgba=".63 .36 .16 1" />
+          <geom name="part_027" type="mesh" mesh="part_027" material="frame" />
+          <site name="label_27" pos="-0.0153593025 0 0" size=".0001" rgba="0 0 0 0" />
+          <geom name="part_030" type="mesh" mesh="part_030" material="tip" />
+          <site name="label_30" pos="3.25260652e-17 0.0236936005 0.00502741038" size=".0001" rgba="0 0 0 0" />
+          <geom name="part_031" type="mesh" mesh="part_031" material="sensor" />
+          <site name="label_31" pos="0.0163213279 -4.72516965e-05 -1.13429083e-05" size=".0001" rgba="0 0 0 0" />
+        </body>
+        <geom name="part_026" type="mesh" mesh="part_026" material="link" />
+        <site name="label_26" pos="0.00133619353 0.0152959551 0.00409853882" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_068" type="mesh" mesh="part_068" material="sensor" />
+        <site name="label_68" pos="0.0130215884 0.0291787379 0.00119883119" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_073" type="mesh" mesh="part_073" material="sensor" />
+        <site name="label_73" pos="1.2869419e-05 0.000899865787 -0.00352473581" size=".0001" rgba="0 0 0 0" />
+        <geom name="part_074" type="mesh" mesh="part_074" material="frame" />
+        <site name="label_74" pos="2.16840434e-18 -0.00175717564 0.00655786876" size=".0001" rgba="0 0 0 0" />
+      </body>
+      <geom name="part_000" type="mesh" mesh="part_000" material="frame" />
+      <site name="label_0" pos="0.0239435588 -0.0113730146 0.0920118033" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_001" type="mesh" mesh="part_001" material="frame" />
+      <site name="label_1" pos="0.0249917714 0.0269059409 0.0850345102" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_010" type="mesh" mesh="part_010" material="mount" />
+      <site name="label_10" pos="-0.0428665905 -0.00450772653 0.111779484" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_021" type="mesh" mesh="part_021" material="mount" />
+      <site name="label_21" pos="0.084239627 0.00422370284 0.103876834" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_025" type="mesh" mesh="part_025" material="enclosure" />
+      <site name="label_25" pos="0.0658364581 -0.022120607 0.083860287" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_028" type="mesh" mesh="part_028" material="mount" />
+      <site name="label_28" pos="-0.0539365163 0.00128546454 0.0815137051" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_029" type="mesh" mesh="part_029" material="mount" />
+      <site name="label_29" pos="-0.0802335363 0.0159815252 0.0980091393" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_032" type="mesh" mesh="part_032" material="mount" />
+      <site name="label_32" pos="0.00755291023 -0.0352135367 0.0850828342" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_033" type="mesh" mesh="part_033" material="mount" />
+      <site name="label_33" pos="0.00986688742 -0.0569233324 0.0833592836" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_034" type="mesh" mesh="part_034" material="mount" />
+      <site name="label_34" pos="0.00317351603 -0.0215771315 0.0830748015" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_035" type="mesh" mesh="part_035" material="metal" />
+      <site name="label_35" pos="0.00119819979 -0.0477180823 0.114" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_036" type="mesh" mesh="part_036" material="metal" />
+      <site name="label_36" pos="0.00776725952 -0.0497646725 0.059" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_037" type="mesh" mesh="part_037" material="metal" />
+      <site name="label_37" pos="0.00613148279 -0.042068948 0.059" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_038" type="mesh" mesh="part_038" material="controller" />
+      <site name="label_38" pos="-0.0248785701 -0.0532798369 0.0856980421" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_039" type="mesh" mesh="part_039" material="electronics" />
+      <site name="label_39" pos="0.065085977 -0.0214756169 0.087756331" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_040" type="mesh" mesh="part_040" material="electronics" />
+      <site name="label_40" pos="0.0569182252 -0.0200698739 0.080118" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_041" type="mesh" mesh="part_041" material="electronics" />
+      <site name="label_41" pos="0.0629072252 -0.0200698739 0.075566" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_042" type="mesh" mesh="part_042" material="electronics" />
+      <site name="label_42" pos="0.0577672252 -0.0200698739 0.077329" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_043" type="mesh" mesh="part_043" material="electronics" />
+      <site name="label_43" pos="0.0572592252 -0.0200698739 0.083616" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_044" type="mesh" mesh="part_044" material="electronics" />
+      <site name="label_44" pos="0.0708992252 -0.0200698739 0.072884" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_045" type="mesh" mesh="part_045" material="electronics" />
+      <site name="label_45" pos="0.0710262252 -0.01997 0.074390907" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_046" type="mesh" mesh="part_046" material="electronics" />
+      <site name="label_46" pos="0.0716103183 -0.01997 0.067169" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_047" type="mesh" mesh="part_047" material="electronics" />
+      <site name="label_47" pos="0.0547192252 -0.01997 0.066787907" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_048" type="mesh" mesh="part_048" material="electronics" />
+      <site name="label_48" pos="0.0584653183 -0.01997 0.08025" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_049" type="mesh" mesh="part_049" material="electronics" />
+      <site name="label_49" pos="0.0620853183 -0.01997 0.068693" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_050" type="mesh" mesh="part_050" material="electronics" />
+      <site name="label_50" pos="0.0600531322 -0.01997 0.083806" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_051" type="mesh" mesh="part_051" material="electronics" />
+      <site name="label_51" pos="0.0587833183 -0.01997 0.083806" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_052" type="mesh" mesh="part_052" material="electronics" />
+      <site name="label_52" pos="0.0683082252 -0.01997 0.068057907" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_053" type="mesh" mesh="part_053" material="electronics" />
+      <site name="label_53" pos="0.0613231322 -0.01997 0.083933" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_054" type="mesh" mesh="part_054" material="electronics" />
+      <site name="label_54" pos="0.0609422252 -0.0202138504 0.0791683556" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_055" type="mesh" mesh="part_055" material="electronics" />
+      <site name="label_55" pos="0.0642442252 -0.0202138504 0.0790456444" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_056" type="mesh" mesh="part_056" material="electronics" />
+      <site name="label_56" pos="0.0636092252 -0.0202460456 0.070979" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_057" type="mesh" mesh="part_057" material="electronics" />
+      <site name="label_57" pos="0.0568504565 -0.0217156085 0.071995" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_058" type="mesh" mesh="part_058" material="electronics" />
+      <site name="label_58" pos="0.0702082252 -0.0200253866 0.0636781204" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_059" type="mesh" mesh="part_059" material="electronics" />
+      <site name="label_59" pos="0.0584702252 -0.0200253866 0.0639928796" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_060" type="mesh" mesh="part_060" material="electronics" />
+      <site name="label_60" pos="0.0695782287 -0.0203511984 0.070239912" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_061" type="mesh" mesh="part_061" material="electronics" />
+      <site name="label_61" pos="0.0693398839 -0.0200125541 0.0781066586" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_062" type="mesh" mesh="part_062" material="electronics" />
+      <site name="label_62" pos="0.0643712206 -0.0208533703 0.0637798299" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_063" type="mesh" mesh="part_063" material="electronics" />
+      <site name="label_63" pos="0.063483829 -0.0201224365 0.083958" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_064" type="mesh" mesh="part_064" material="electronics" />
+      <site name="label_64" pos="0.0698936215 -0.0201224365 0.083679" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_065" type="mesh" mesh="part_065" material="electronics" />
+      <site name="label_65" pos="0.0643486663 -0.0206900441 0.0978931997" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_066" type="mesh" mesh="part_066" material="electronics" />
+      <site name="label_66" pos="0.0654486215 -0.0201224365 0.074154" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_067" type="mesh" mesh="part_067" material="electronics" />
+      <site name="label_67" pos="0.0666822252 -0.01982 0.083767" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_071" type="mesh" mesh="part_071" material="mount" />
+      <site name="label_71" pos="-0.0463876236 -0.00548378725 0.111006317" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_075" type="mesh" mesh="part_075" material="enclosure" />
+      <site name="label_75" pos="0.0657413163 -0.0326954425 0.0835" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_076" type="mesh" mesh="part_076" material="servo" />
+      <site name="label_76" pos="-0.0820378183 0.0193215901 0.101349246" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_077" type="mesh" mesh="part_077" material="sensor" />
+      <site name="label_77" pos="0.00203653949 0.0392470192 0.0800415824" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_078" type="mesh" mesh="part_078" material="sensor" />
+      <site name="label_78" pos="0.0354334116 -0.00079522318 0.129999353" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_080" type="mesh" mesh="part_080" material="sensor" />
+      <site name="label_80" pos="0.0850044649 0.00813312707 0.103671226" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_082" type="mesh" mesh="part_082" material="sensor" />
+      <site name="label_82" pos="-0.0443033643 -0.00079522318 0.111526799" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_084" type="mesh" mesh="part_084" material="mount" />
+      <site name="label_84" pos="0.0859700759 0.00354138626 0.103568453" size=".0001" rgba="0 0 0 0" />
+      <geom name="part_085" type="mesh" mesh="part_085" material="mount" />
+      <site name="label_85" pos="0.0355807983 -0.00544378725 0.12985" size=".0001" rgba="0 0 0 0" />
+    </body>
+  </worldbody>
+</mujoco>
