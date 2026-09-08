@@ -1,0 +1,21 @@
+# Intentionally disabled. Complete HARDWARE.md before enabling physical motion.
+teleop:
+  type: manual_dex_glove
+  id: YOUR_GLOVE_ID
+  calibration_dir: build/lerobot/metadata
+  source: serial
+  port: /dev/serial/by-id/REPLACE_WITH_GLOVE
+  mapping_file: build/lerobot/calibration/YOUR_GLOVE_ID.json
+robot:
+  type: manual_dex_hardware
+  id: YOUR_HAND_ID
+  calibration_dir: build/lerobot/metadata
+  driver_factory: lerobot_robot_manual_dex.driver_template:HandDriverTemplate
+  port: /dev/serial/by-id/REPLACE_WITH_HAND_CONTROLLER
+  profile_file: lerobot/configs/hand_profile.example.json
+  glove_mapping_file: build/lerobot/calibration/YOUR_GLOVE_ID.json
+  enable_motion: false
+  watchdog_s: 0.25
+fps: 30
+teleop_time_s: 10.0
+display_data: false

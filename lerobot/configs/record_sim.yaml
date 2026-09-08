@@ -1,0 +1,25 @@
+teleop:
+  type: manual_dex_glove
+  id: synthetic-glove
+  calibration_dir: build/lerobot/metadata
+  source: synthetic
+  mapping_file: build/lerobot/calibration/synthetic-glove.json
+robot:
+  type: manual_dex_sim
+  id: manual-dex-sim
+  calibration_dir: build/lerobot/metadata
+  engine: mujoco
+  repo_root: .
+  headless: true
+dataset:
+  repo_id: local/manual-dex-sim
+  root: build/lerobot/datasets/manual-dex-sim
+  single_task: Flex the Manual-Dex fingers in simulation
+  fps: 30
+  num_episodes: 1
+  episode_time_s: 5
+  reset_time_s: 0
+  video: false
+  push_to_hub: false
+display_data: false
+play_sounds: false

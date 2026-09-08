@@ -1,0 +1,7 @@
+lerobot[core-scripts]==0.6.1
+torch==2.7.0
+torchcodec==0.3.0
+torchvision==0.22.0
+numpy==2.2.6
+pyserial==3.5
+pytest==8.4.2

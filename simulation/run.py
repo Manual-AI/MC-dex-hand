@@ -70,6 +70,7 @@ def main():
     parser.add_argument("--headless", action="store_true")
     parser.add_argument("--steps", type=int, default=1200)
     parser.add_argument("--screenshot", action="store_true")
+    parser.add_argument("--trace", action="store_true")
     parser.add_argument("--backend", choices=["cpu", "gpu"], default="cpu")
     parser.add_argument("--python", type=Path, help="Use an existing engine interpreter without modifying its packages")
     parser.add_argument("--prepare-python", type=Path, help="Use an existing model-builder interpreter")
@@ -126,6 +127,8 @@ def main():
         command.append("--headless")
     if args.screenshot:
         command.append("--screenshot")
+    if args.trace:
+        command.append("--trace")
     logs = BUILD / "logs"
     logs.mkdir(exist_ok=True)
     log = logs / f"{args.engine}.log"

@@ -5,10 +5,12 @@ import time
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from simulation.common import arguments, PACKAGE, BUILD, JOINT_NAMES, DT, target_positions, report
+from simulation.common import TraceRecorder
 
 
 def main():
     args = arguments("Genesis")
+    trace = TraceRecorder("genesis", args.trace)
     import genesis as gs
     import numpy as np
 
@@ -35,6 +37,8 @@ def main():
         robot.set_dofs_position(np.array([target[name] for name in JOINT_NAMES]),
                                 dofs_idx_local=dofs, zero_velocity=True)
         scene.step()
+        if trace.wants(step):
+            trace.capture(step, dict(zip(JOINT_NAMES, robot.get_dofs_position(dofs_idx_local=dofs).cpu().numpy().reshape(-1))))
         if not args.headless:
             time.sleep(max(0, DT - (time.monotonic() - tick)))
     if camera is not None:
@@ -43,6 +47,7 @@ def main():
         (BUILD / "results").mkdir(parents=True, exist_ok=True)
         Image.fromarray(rgb).save(BUILD / "results/genesis.png")
     values = robot.get_dofs_position(dofs_idx_local=dofs).cpu().numpy().reshape(-1)
+    trace.save()
     report("genesis", dict(zip(JOINT_NAMES, values)), args.steps,
            {"backend": args.backend, "genesis_version": gs.__version__})
     gs.destroy()

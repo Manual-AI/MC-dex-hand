@@ -9,6 +9,10 @@ They run inside the actual engines and read back joint states, but deliberately 
 zero gravity and disabled contacts. The hand's inertias and drive limits are placeholders.
 Do not interpret successful playback as validation of dynamics, payload or grasp stability.
 
+See the [synchronized 2×2 engine comparison](COMPARISON.md), with setup links for every
+panel. For live glove input, use the [LeRobot teleoperation tutorial](../lerobot/README.md),
+which includes YAML configuration, calibration and an isolated worker for each engine.
+
 ## 1. Prerequisites
 
 - Linux x86-64; the reference machine runs Ubuntu 24.04. Other platforms are not covered

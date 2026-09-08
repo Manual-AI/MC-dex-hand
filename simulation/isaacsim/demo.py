@@ -5,10 +5,12 @@ import traceback
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from simulation.common import arguments, PACKAGE, BUILD, JOINT_NAMES, DT, target_positions, report
+from simulation.common import TraceRecorder
 
 
 def main():
     args = arguments("Isaac Sim")
+    trace = TraceRecorder("isaacsim", args.trace)
     # Isaac Sim must bootstrap Kit BEFORE importing omni, pxr or its core APIs.
     # EULA acceptance is the launcher's explicit user choice, never set here.
     from isaacsim import SimulationApp
@@ -78,6 +80,8 @@ def main():
             robot.set_joint_positions(np.array([target[name] for name in JOINT_NAMES]), joint_indices=dofs)
             robot.set_joint_velocities(np.zeros(15), joint_indices=dofs)
             world.step(render=not args.headless or args.screenshot)
+            if trace.wants(step):
+                trace.capture(step, dict(zip(JOINT_NAMES, robot.get_joint_positions(joint_indices=dofs))))
         if args.screenshot:
             from omni.kit.viewport.utility import get_active_viewport, capture_viewport_to_file
             (BUILD / "results").mkdir(parents=True, exist_ok=True)
@@ -85,6 +89,7 @@ def main():
             for _ in range(20):
                 app.update()
         positions = robot.get_joint_positions(joint_indices=dofs)
+        trace.save()
         report("isaacsim", dict(zip(JOINT_NAMES, positions)), args.steps,
                {"usd": str(usd_path), "importer_root": root_path})
     except Exception:

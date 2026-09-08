@@ -1,0 +1,57 @@
+{
+  "schema": "manual-dex-hand-profile-v1",
+  "hardware_verified": false,
+  "hand_id": "REPLACE_WITH_PHYSICAL_HAND_ID",
+  "servo_model": "HLS3606",
+  "note": "Inert template. IDs, encoder conversion and mechanical limits must be measured; see HARDWARE.md.",
+  "joints": {
+    "md_index_proximal": {
+      "motor_id": null,
+      "min_rad": null,
+      "max_rad": null,
+      "max_velocity_rad_s": null
+    },
+    "md_index_distal": {
+      "motor_id": null,
+      "min_rad": null,
+      "max_rad": null,
+      "max_velocity_rad_s": null
+    },
+    "md_middle_proximal": {
+      "motor_id": null,
+      "min_rad": null,
+      "max_rad": null,
+      "max_velocity_rad_s": null
+    },
+    "md_middle_distal": {
+      "motor_id": null,
+      "min_rad": null,
+      "max_rad": null,
+      "max_velocity_rad_s": null
+    },
+    "md_pinkyring_proximal": {
+      "motor_id": null,
+      "min_rad": null,
+      "max_rad": null,
+      "max_velocity_rad_s": null
+    },
+    "md_pinkyring_distal": {
+      "motor_id": null,
+      "min_rad": null,
+      "max_rad": null,
+      "max_velocity_rad_s": null
+    },
+    "md_thumb_proximal": {
+      "motor_id": null,
+      "min_rad": null,
+      "max_rad": null,
+      "max_velocity_rad_s": null
+    },
+    "md_thumb_distal": {
+      "motor_id": null,
+      "min_rad": null,
+      "max_rad": null,
+      "max_velocity_rad_s": null
+    }
+  }
+}

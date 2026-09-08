@@ -12,6 +12,7 @@
   <a href="hardware/LICENSE"><img src="https://img.shields.io/badge/Hardware-CERN--OHL--P%202.0-blue" alt="Hardware license: CERN-OHL-P 2.0"></a>
   <a href="tools/"><img src="https://img.shields.io/badge/Tooling-Python%203-3776AB?logo=python&logoColor=white" alt="Python 3 tooling"></a>
   <a href="docs/visualization/README.md"><img src="https://img.shields.io/badge/Rendering-MuJoCo%203.6-286778" alt="MuJoCo 3.6 rendering"></a>
+  <a href="lerobot/README.md"><img src="https://img.shields.io/badge/Teleoperation-LeRobot%200.6.1-FFD21E" alt="LeRobot 0.6.1 teleoperation"></a>
   <img src="https://img.shields.io/badge/Kinematics-8%20DOF-526777" alt="Eight degrees of freedom">
   <a href="hardware/step/"><img src="https://img.shields.io/badge/CAD-STL%20%2F%20STEP-526777" alt="STL and STEP CAD"></a>
   <a href="firmware/esp32_glove/"><img src="https://img.shields.io/badge/Glove%20MCU-ESP32-526777" alt="ESP32 glove microcontroller"></a>
@@ -23,6 +24,7 @@
   <a href="hardware/step/">CAD assemblies</a> ·
   <a href="docs/assembly/README.md">Assembly guide</a> ·
   <a href="simulation/README.md">Simulation tutorials</a> ·
+  <a href="lerobot/README.md">LeRobot teleoperation</a> ·
   <a href="docs/visualization/README.md">Visualization methods</a>
 </p>
 
@@ -39,20 +41,49 @@ glove measures the corresponding joints with eight rotary potentiometers. Shared
 mounts and a rigid Quest-controller mount provide a common mechanical basis for visual
 and spatial observations. The repository contains the mechanical design, bill of
 materials, CAD export tooling, reproducible MuJoCo visualizations, and OpenArm integration
-examples for four simulation engines. Firmware,
-host-side acquisition, calibration, and quantitative validation remain under development.
+examples for four simulation engines, plus LeRobot teleoperation adapters and calibration
+tutorials. Physical glove firmware, a verified hand driver, measured calibration and
+quantitative validation remain under development.
 
 ## Simulation quick start
 
 Run Manual-Dex attached to a **seven-joint OpenArm v1**, with all eight hand joints
 flexing in one connected articulation. From this repository's root on Linux:
 
-| Engine | Single-command setup and launch | Tutorial |
-|---|---|---|
-| MuJoCo | `python3 simulation/run.py mujoco` | [Native MJCF, viewer and headless test](simulation/mujoco/README.md) |
-| Genesis | `python3 simulation/run.py genesis` | [URDF import, CPU/GPU and control hooks](simulation/genesis/README.md) |
-| SuperDex | `python3 simulation/run.py superdex` | [URDF runtime import and debugger](simulation/superdex/README.md) |
-| Isaac Sim | `python3 simulation/run.py isaacsim --accept-isaac-eula` | [URDF-to-USD import and PhysX articulation](simulation/isaacsim/README.md) |
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/assets/simulation/mujoco.gif" alt="MuJoCo: OpenArm and Manual-Dex, actual joint states in the shared visualization" width="100%"><br>
+      <a href="simulation/mujoco/README.md">MuJoCo — MJCF setup and tutorial</a><br>
+      <code>python3 simulation/run.py mujoco</code>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/assets/simulation/genesis.gif" alt="Genesis: OpenArm and Manual-Dex, actual joint states in the shared visualization" width="100%"><br>
+      <a href="simulation/genesis/README.md">Genesis — URDF setup and tutorial</a><br>
+      <code>python3 simulation/run.py genesis</code>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/assets/simulation/superdex.gif" alt="SuperDex: OpenArm and Manual-Dex, actual joint states in the shared visualization" width="100%"><br>
+      <a href="simulation/superdex/README.md">SuperDex — runtime and debugger setup</a><br>
+      <code>python3 simulation/run.py superdex</code>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/assets/simulation/isaacsim.gif" alt="Isaac Sim: OpenArm and Manual-Dex, actual PhysX joint states rendered with MuJoCo, not an RTX screenshot" width="100%"><br>
+      <a href="simulation/isaacsim/README.md">Isaac Sim — URDF-to-USD setup and tutorial</a><br>
+      <code>python3 simulation/run.py isaacsim &#92;</code><br>
+      <code>--accept-isaac-eula</code> (after agreement)
+    </td>
+  </tr>
+</table>
+
+*Four engines, one visualization convention. Each five-second panel uses actual
+post-step joint states recorded in the named engine, displayed through the same
+MuJoCo renderer, camera and scene. These are not four native-engine screenshots.*
+Open the [single synchronized 2×2 animation and methods](simulation/COMPARISON.md)
+for frame-aligned playback and provenance; individual README panels can load at
+slightly different times.
 
 The launcher obtains pinned dependencies and OpenArm assets, creates isolated environments,
 builds and checks the model, then runs five simulated seconds. Git, Git LFS and Python
@@ -68,6 +99,25 @@ the [native MJCF models](models/manual_dex/README.md).
 These are **kinematic integration examples**, not validated grasp dynamics. All four
 engines passed the 15-joint headless playback test; local Isaac Sim rendering remains
 unverified because its renderer crashed during startup. See [validation and limitations](simulation/VALIDATION.md).
+
+## LeRobot teleoperation quick start
+
+Use the latest stable LeRobot release checked for this integration, **0.6.1**, to drive
+the eight hand joints from a synthetic glove—no hardware or Hub account needed:
+
+```bash
+python3 lerobot/run.py mujoco
+```
+
+The [dedicated LeRobot tutorial](lerobot/README.md) includes one-command setup for all
+four engines, editable YAML files, [glove-to-hand calibration](lerobot/CALIBRATION.md),
+an explicit [ESP32 serial protocol](lerobot/PROTOCOL.md) and local dataset recording.
+The OpenArm stays in a fixed pose during glove teleoperation; wrist/arm IK is not included.
+
+Simulation is implemented and headless-tested. Real hardware additionally needs the
+still-pending glove firmware and a verified HLS3606 driver, wiring, watchdog and measured
+joint limits. The [physical-hand integration guide](lerobot/HARDWARE.md) identifies these
+requirements; its driver template is inert and motion is disabled by default.
 
 ## 1. Design motivation
 
@@ -104,8 +154,9 @@ where $p$ and $d$ denote the proximal and distal joints. The ring and little fin
 one mechanical group. The glove potentiometer signals must be calibrated to robot servo
 encoder values for each corresponding joint. A synchronized demonstration would combine
 these eight joint coordinates, the controller's six-degree-of-freedom pose, and camera
-frames. Acquisition, time synchronization, calibration parameters, and replay software
-are not yet released.
+frames. The [LeRobot examples](lerobot/README.md) now provide host-side sensor mapping,
+simulation teleoperation and state-only recording. Synchronized camera/Quest acquisition,
+measured hardware calibration and physical replay remain pending.
 
 ## 3. Mechanical structure and kinematics
 
@@ -178,6 +229,8 @@ link-connection sequence.
    and diagrams using the [visualization workflow](docs/visualization/README.md).
 6. Follow the [simulation tutorials](simulation/README.md) to attach the hand to OpenArm
    in MuJoCo, Isaac Sim, SuperDex or Genesis.
+7. Follow the [LeRobot tutorial](lerobot/README.md) for teleoperation, calibration and
+   state-only local demonstration recording.
 
 The existing BOM and export utilities require Python 3. The visualization workflow uses
 Python 3.11 or newer and has been exercised with Python 3.13 and MuJoCo 3.6.0.
@@ -197,8 +250,10 @@ are recorded in [`bom/rename_map.csv`](bom/rename_map.csv).
 
 The release includes CAD, a BOM, mechanical connection diagrams, a reproducible
 visualization pipeline, native MJCF and derived hand URDF assets, and four-engine OpenArm
-kinematic integration tutorials. It does not yet include finished firmware, host software, wiring
-instructions, calibration data, a validated dynamics model, or experimental benchmarks.
+kinematic integration tutorials, LeRobot host adapters, calibration workflows and a local
+recording example. It does not yet include finished glove firmware, a verified physical-hand
+driver, complete wiring instructions, measured calibration data, a validated dynamics model
+or experimental benchmarks.
 Some bought-part specifications and quantities are unresolved in the BOM.
 
 Original software is released under Apache-2.0; original hardware designs and robot
@@ -224,8 +279,11 @@ simulation/            OpenArm model builder, one-command launcher, and validati
   isaacsim/            URDF-to-USD / PhysX tutorial and executable example
   superdex/            URDF runtime / debugger tutorial and executable example
   genesis/             URDF CPU/GPU tutorial and executable example
+lerobot/               LeRobot 0.6.1 plugin, setup, calibration and teleoperation tutorials
+  configs/             Simulation, serial-glove, guarded hardware and recording examples
+  tests/               Calibration, protocol and device-guard tests (fake hardware only)
 firmware/esp32_glove/    Glove acquisition firmware (pending)
-software/               Host acquisition, calibration, and control (pending)
+software/               Host software index and remaining hardware integrations
 tools/
   visualization/        STEP extraction, MJCF generation, and diagram renderer
   solidworks/           CAD naming and export macros

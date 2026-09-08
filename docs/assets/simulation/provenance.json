@@ -1,0 +1,37 @@
+{
+  "rendering": "MuJoCo 3.6.0 shared scene",
+  "native_engine_screenshots": false,
+  "duration_s": 5,
+  "fps": 20,
+  "dynamics_validated": false,
+  "engines": {
+    "mujoco": {
+      "version": "MuJoCo 3.6.0",
+      "run_id": "4c54ce776a264dfea95b829fbca6551f",
+      "trace_sha256": "03536904461d0f6a9fa3afe1a8586d91ca9500a1c08f0a23ec2106a8e40ffcc0",
+      "steps": 1200,
+      "source": "actual post-step joint readbacks"
+    },
+    "genesis": {
+      "version": "Genesis 1.0.0",
+      "run_id": "1b989cc1561343dba61786a31f8cd705",
+      "trace_sha256": "e80dfed694a9ca1bf4bac5851e1b0925cc3d832b774ad9dc40b27a1eba32e505",
+      "steps": 1200,
+      "source": "actual post-step joint readbacks"
+    },
+    "superdex": {
+      "version": "SuperDex 1.0.0",
+      "run_id": "a447b49eacc34802ae982a79d9cf1e8f",
+      "trace_sha256": "c9aec85745bc6f9fa7ee9c434cd37371bd5b2c43b71970f09e99ea2257d45879",
+      "steps": 1200,
+      "source": "actual post-step joint readbacks"
+    },
+    "isaacsim": {
+      "version": "Isaac Sim 5.1.0",
+      "run_id": "bbba4e77d1c54867880449029910590d",
+      "trace_sha256": "0ce7b55cbc8b7f41c017673149da089754e9a28156d0780131e5080c62570b0a",
+      "steps": 1200,
+      "source": "actual post-step joint readbacks"
+    }
+  }
+}

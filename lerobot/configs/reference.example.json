@@ -1,0 +1,25 @@
+{
+  "reviewed": false,
+  "kind": "virtual",
+  "note": "Display-only reference angles, not measured mechanical limits. See CALIBRATION.md before editing.",
+  "open_rad": {
+    "md_index_proximal": 0,
+    "md_index_distal": 0,
+    "md_middle_proximal": 0,
+    "md_middle_distal": 0,
+    "md_pinkyring_proximal": 0,
+    "md_pinkyring_distal": 0,
+    "md_thumb_proximal": 0,
+    "md_thumb_distal": 0
+  },
+  "closed_rad": {
+    "md_index_proximal": 0.55,
+    "md_index_distal": 0.78,
+    "md_middle_proximal": 0.55,
+    "md_middle_distal": 0.78,
+    "md_pinkyring_proximal": 0.55,
+    "md_pinkyring_distal": 0.78,
+    "md_thumb_proximal": 0.55,
+    "md_thumb_distal": 0.78
+  }
+}

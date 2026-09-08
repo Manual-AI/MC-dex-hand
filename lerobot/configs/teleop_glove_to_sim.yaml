@@ -1,0 +1,21 @@
+# Requires firmware matching PROTOCOL.md and a calibration for this device ID.
+teleop:
+  type: manual_dex_glove
+  id: YOUR_GLOVE_ID
+  calibration_dir: build/lerobot/metadata
+  source: serial
+  port: /dev/serial/by-id/REPLACE_WITH_GLOVE
+  baudrate: 115200
+  mapping_file: build/lerobot/calibration/YOUR_GLOVE_ID.json
+robot:
+  type: manual_dex_sim
+  id: manual-dex-sim
+  calibration_dir: build/lerobot/metadata
+  engine: mujoco
+  repo_root: .
+  headless: false
+  max_velocity_rad_s: 0.5
+  control_dt_s: 0.03333333333333333
+fps: 30
+teleop_time_s: 30.0
+display_data: false

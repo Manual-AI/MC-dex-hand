@@ -6,10 +6,12 @@ import time
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from simulation.common import arguments, PACKAGE, BUILD, JOINT_NAMES, DT, target_positions, report
+from simulation.common import TraceRecorder
 
 
 def main():
     args = arguments("MuJoCo")
+    trace = TraceRecorder("mujoco", args.trace)
     if args.headless:
         os.environ.setdefault("MUJOCO_GL", "egl")
     import mujoco
@@ -43,6 +45,8 @@ def main():
             mujoco.mj_forward(model, data)
             assert np.isfinite(data.qpos).all()
             completed += 1
+            if trace.wants(step):
+                trace.capture(step, {name: data.joint(name).qpos[0] for name in JOINT_NAMES})
             if viewer is not None:
                 viewer.sync()
                 time.sleep(max(0, DT - (time.monotonic() - tick)))
@@ -59,6 +63,7 @@ def main():
                 draw.text((24, 24), "OpenArm v1 + Manual-Dex | 7 arm + 8 hand joints | Orange marker: wrist flange", fill="white")
                 (BUILD / "results").mkdir(parents=True, exist_ok=True)
                 image.save(BUILD / "results/mujoco.png")
+        trace.save()
         report("mujoco", {name: data.joint(name).qpos[0] for name in JOINT_NAMES}, completed,
                {"mujoco_version": mujoco.__version__})
     finally:

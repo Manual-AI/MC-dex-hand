@@ -33,11 +33,36 @@ def arguments(engine):
     parser.add_argument("--headless", action="store_true", help="No interactive window")
     parser.add_argument("--steps", type=int, default=1200, help="Finite 240 Hz steps (default: five simulated seconds)")
     parser.add_argument("--screenshot", action="store_true", help="Save an engine-rendered PNG where supported")
+    parser.add_argument("--trace", action="store_true", help="Record actual joint states at 20 Hz for the shared comparison viewer")
     parser.add_argument("--backend", choices=["cpu", "gpu"], default="cpu", help="Genesis backend")
     args = parser.parse_args()
     if args.steps < 1:
         parser.error("--steps must be positive")
     return args
+
+
+class TraceRecorder:
+    """Record readbacks, never the requested targets, for cross-engine visualization."""
+
+    def __init__(self, engine, enabled):
+        self.engine, self.enabled, self.states = engine, enabled, []
+
+    def wants(self, step):
+        return self.enabled and step % 12 == 0
+
+    def capture(self, step, positions):
+        if self.wants(step):
+            values = {name: float(positions[name]) for name in JOINT_NAMES}
+            if not all(math.isfinite(v) for v in values.values()):
+                raise RuntimeError("Non-finite state in engine trace")
+            self.states.append({"step": step, "positions": values})
+
+    def save(self):
+        if self.enabled:
+            path = BUILD / "results" / f"{self.engine}-trace.json"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps({"engine": self.engine, "dt": DT, "sample_every": 12,
+                "run_id": os.environ.get("MANUAL_DEX_RUN_ID", "direct"), "states": self.states}) + "\n")
 
 
 def report(engine, positions, steps, extra=None):

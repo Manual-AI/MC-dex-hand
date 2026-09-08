@@ -1,5 +1,11 @@
 # Manual-Dex ESP32 glove firmware
 
-Reads the 8 Bourns 3382G joint potentiometers on an Adafruit HUZZAH32 ESP32 Feather and streams
-joint angles to the host. **TODO:** add source, pin map, and the pot -> servo-encoder calibration
-procedure used during data collection.
+Planned firmware reads the eight Bourns 3382G joint potentiometers on an Adafruit
+HUZZAH32 ESP32 Feather and streams measurements to the host. **TODO:** source, exact
+board variant, ADC pin map and verified wiring.
+
+The new [LeRobot host adapter](../../lerobot/README.md) expects the versioned
+[raw-ADC serial contract](../../lerobot/PROTOCOL.md). This is a proposed interface,
+not a protocol already implemented by released firmware. The host-side
+[two-pose calibration tutorial](../../lerobot/CALIBRATION.md) is included; measured
+glove/hand calibration and physical acquisition remain unverified.

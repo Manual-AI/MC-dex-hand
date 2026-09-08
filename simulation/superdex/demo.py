@@ -5,10 +5,12 @@ import time
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from simulation.common import arguments, PACKAGE, JOINT_NAMES, DT, target_positions, report
+from simulation.common import TraceRecorder
 
 
 def main():
     args = arguments("SuperDex")
+    trace = TraceRecorder("superdex", args.trace)
     if args.screenshot:
         raise SystemExit("SuperDex screenshots use the desktop debugger; omit --screenshot for headless JSON validation.")
     import numpy as np
@@ -57,10 +59,15 @@ def main():
             actor.set_articulated_joint_velocities(velocity)
             scene.step(DT)
             completed += 1
+            if trace.wants(step):
+                sampled = physics.DynamicArrayReal(15)
+                actor.get_articulated_pose(sampled)
+                trace.capture(step, {name: sampled[index] for name, index in name_to_dof.items()})
             if not args.headless:
                 time.sleep(max(0, DT - (time.monotonic() - tick)))
         values = physics.DynamicArrayReal(15)
         actor.get_articulated_pose(values)
+        trace.save()
         report("superdex", {name: values[index] for name, index in name_to_dof.items()}, completed)
     finally:
         robotics.destroy_bot(scene, bot)

@@ -64,6 +64,16 @@ compatible installation, but it is not presented as locally verified.
 
 ## Reproduce
 
+For the README comparison, all four 1,200-step tests were also rerun with `--trace`.
+Each produced 100 actual post-step samples with 15 finite named coordinates. The
+[comparison renderer](COMPARISON.md) validated trace/report run IDs and generated
+four panel GIFs plus a single synchronized 2×2 GIF, each 100 frames and exactly five
+seconds. First and midpoint frames were visually inspected. These use one shared
+MuJoCo renderer; they do not extend the native rendering coverage above.
+
+The separate [LeRobot validation record](../lerobot/VALIDATION.md) covers real-time
+host commands through all four engine workers, calibration and local recording.
+
 From the repository root, after reviewing the prerequisites and NVIDIA terms where relevant:
 
 ```bash
