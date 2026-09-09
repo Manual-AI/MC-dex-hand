@@ -1,8 +1,8 @@
 {
   "mujoco": {
     "bytes_before": 4235019,
-    "bytes_after": 1131984,
-    "fraction": 0.267291362801442,
+    "bytes_after": 1192391,
+    "fraction": 0.2815550532358887,
     "size": [
       414,
       393
@@ -49,8 +49,8 @@
   },
   "all-engines": {
     "bytes_before": 15329215,
-    "bytes_after": 6022729,
-    "fraction": 0.3928921996331841,
+    "bytes_after": 5998059,
+    "fraction": 0.3912828543405517,
     "size": [
       829,
       786

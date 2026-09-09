@@ -18,6 +18,12 @@ evidence are under `build/simulation/native/`; see [scene, validation and GIF pu
 The camera, table, gains and illustrative inertias are in [`native_scene.json`](../native_scene.json).
 This smoke test is not a calibrated grasp or hardware-control demonstration.
 
+The native renderer uses an 8,192-pixel shadow map and 8× offscreen multisampling.
+Its visual bounds are centered on the workbench rather than the large floor, keeping
+directional shadows detailed instead of spreading the map over empty space. These
+settings change rendering only; they do not alter the geometry, lighting direction,
+controller or physics. See MuJoCo's [shadow-map settings](https://mujoco.readthedocs.io/en/3.6.0/XMLreference.html#visual-quality).
+
 The sections below retain the simpler zero-gravity import/playback example.
 
 ## Run

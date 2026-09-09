@@ -282,7 +282,7 @@
       "version": "3.6.0",
       "renderer": "MuJoCo OpenGL/EGL",
       "status": "passed",
-      "run_id": "1a9ab44b3ad745beade94c88237b4241",
+      "run_id": "9c98740707514006a183d9c88158489e",
       "native_physics": true,
       "native_rendering": true,
       "mode": "scripted physics-driven pick and place",
@@ -313,7 +313,18 @@
       "frames": 100,
       "fps": 20,
       "contact_steps": 1199,
-      "capture_sha256": "80dc4d24f77336add71022046227ee81445494f0c2f7f544e4298690eb88b796",
+      "render_settings": {
+        "shadow_map_size": 8192,
+        "offscreen_samples": 8,
+        "visual_extent_m": 1.2,
+        "visual_center_m": [
+          0.25,
+          0.0,
+          0.1
+        ],
+        "shadow_clip": 1.2000000476837158
+      },
+      "capture_sha256": "19134c542731b569dce2ff377f0709aae530a35caebae95abb4da541ed8232a9",
       "physics_states_sha256": "d80ecf30b55a062bafa79e31e3897ea3628c0b30d4702bfaa638b098b95e1e2c",
       "full_physics_sha256": "fd91e898e70b550e48c76f2713eb23f96f38b759809e801072a86ca8db4be359"
     },

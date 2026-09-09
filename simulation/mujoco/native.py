@@ -16,6 +16,23 @@ def fmt(values):
     return " ".join(map(str, values))
 
 
+def configure_visuals(tree):
+    """Keep the floor from expanding the directional-light shadow map to 40 m."""
+    def element(parent, tag, **attributes):
+        node = parent.find(tag)
+        if node is None:
+            node = ET.SubElement(parent, tag)
+        node.attrib.update(attributes)
+        return node
+
+    # These statistics affect visualization, not masses/inertias or the solver.
+    element(tree, "statistic", center=".25 0 .1", extent="1.2")
+    visual = element(tree, "visual")
+    element(visual, "global", offwidth="580", offheight="460")
+    element(visual, "quality", shadowsize="8192", offsamples="8")
+    element(visual, "map", shadowclip="1.2")
+
+
 def build_model():
     tree = ET.parse(NATIVE / "robot.xml").getroot()
     tree.set("model", "Manual-Dex native MuJoCo tabletop drive demo")
@@ -27,10 +44,7 @@ def build_model():
     option.set("integrator", "implicitfast")
     option.set("cone", "elliptic")
     option.set("iterations", "80")
-    visual = tree.find("visual")
-    if visual is None:
-        visual = ET.SubElement(tree, "visual")
-    ET.SubElement(visual, "global", offwidth="580", offheight="460")
+    configure_visuals(tree)
     asset = tree.find("asset")
     for mesh in asset.findall("mesh"):
         path = Path(mesh.get("file"))
@@ -114,7 +128,13 @@ def main():
                     evidence.frame(renderer.render())
                 if step % 240 == STRIDE-1:
                     print(f"MuJoCo native: {step+1}/{STEPS} physics steps", flush=True)
-    evidence.finish(mujoco.__version__, preview=args.preview, rendered=not args.no_render)
+    evidence.finish(mujoco.__version__, preview=args.preview, rendered=not args.no_render,
+        extra={"render_settings": {
+            "shadow_map_size": int(model.vis.quality.shadowsize),
+            "offscreen_samples": int(model.vis.quality.offsamples),
+            "visual_extent_m": float(model.stat.extent),
+            "visual_center_m": model.stat.center.tolist(),
+            "shadow_clip": float(model.vis.map.shadowclip)}})
 
 
 if __name__ == "__main__":

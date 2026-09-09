@@ -59,6 +59,15 @@ were not published and their diagnostic physics readbacks remain under `build/`.
 
 ## Native montage and GIF checks
 
+Rendering-only update **2026-09-09**: MuJoCo now uses an 8,192-pixel shadow map,
+8× offscreen multisampling, and workbench-centered visual bounds (extent 1.2 m,
+shadow clip 1.2). Previously the large floor produced a 20 m visual extent, spreading
+the 4,096-pixel directional shadow map across 40 m. The focused shadow map covers
+2.88 m instead, removing the coarse stair-step edges. This changes no geometry,
+lighting direction, controller or dynamics: all 1,200 physics records are byte-for-byte
+identical to the prior pick-and-place capture. The other three engines' captures are
+unchanged. Native before/after frames and the compressed output were inspected.
+
 The [comparison publisher](comparison.py) accepts only successful native manifests,
 checks their capture-directory identity and expected frame/sample counts, and loads
 each engine's actual PNGs. It adds labels and makes the 2×2 layout with PIL; it does
@@ -127,9 +136,9 @@ Two offline vendor-checkout regression tests passed, including preservation of
 locally modified vendor files. Native tests cover timing/trajectory, scene geometry,
 forbidden cross-engine MuJoCo imports, rejection of incomplete/motionless/nonfinite
 captures, opposing-finger grasp and transport, target placement/release, stale protocol
-hashes, GIF byte/duration budgets and static-label stability. All 12 simulation tests
-and all 32 existing
-LeRobot unit tests also passed in its isolated environment with inherited ROS paths removed.
+hashes, focused MuJoCo shadow settings, GIF byte/duration budgets and static-label stability.
+All 13 simulation tests and all 32 existing LeRobot unit tests also passed in their
+isolated environments with inherited ROS paths removed for LeRobot.
 
 ## Original playback and LeRobot coverage
 

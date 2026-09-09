@@ -1,18 +1,39 @@
 """Offline checks for scene/control contracts and genuine native capture publishing."""
 import ast
 import copy
+import importlib.util
 import json
 import math
 import os
 from pathlib import Path
 import tempfile
 import unittest
+import xml.etree.ElementTree as ET
 from unittest.mock import patch
 
 import native_common as nc
 
 
 class NativeContracts(unittest.TestCase):
+    def test_mujoco_shadow_map_is_focused_without_changing_physics(self):
+        spec = importlib.util.spec_from_file_location("manual_dex_mujoco_native", nc.ROOT / "simulation/mujoco/native.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        tree = ET.fromstring('<mujoco><statistic meaninertia="3"/><option timestep="0.0041666666667"/>'
+                             '<worldbody><geom type="plane" size="100 100 .1"/></worldbody></mujoco>')
+        before = [ET.tostring(tree.find(tag)) for tag in ("option", "worldbody")]
+        module.configure_visuals(tree)
+        module.configure_visuals(tree)
+        self.assertEqual(before, [ET.tostring(tree.find(tag)) for tag in ("option", "worldbody")])
+        self.assertEqual(len(tree.findall("statistic")), 1)
+        self.assertEqual(tree.find("statistic").get("meaninertia"), "3")
+        self.assertEqual(len(tree.findall("visual/quality")), 1)
+        quality = tree.find("visual/quality")
+        self.assertEqual(int(quality.get("shadowsize")), 8192)
+        self.assertEqual(int(quality.get("offsamples")), 8)
+        width = 2*float(tree.find("statistic").get("extent"))*float(tree.find("visual/map").get("shadowclip"))
+        self.assertLess(width/int(quality.get("shadowsize")), .0004)
+
     def test_trajectory_and_timing(self):
         self.assertEqual(nc.STEPS, 1200)
         self.assertEqual(nc.STRIDE, 12)
