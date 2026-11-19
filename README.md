@@ -48,8 +48,8 @@ encoder values, so a recorded glove trajectory is a servo trajectory.
 
 > **Status:** hardware release in progress. A [visual assembly guide](docs/assembly/README.md)
 > covers the main link connections. Firmware, host software and detailed build instructions are TODO.
-> **License:** not yet chosen - repository is private until it is. See `bom/THIRD_PARTY.md` for the
-> current Quest mount authorship and historical third-party attribution.
+> **License:** open for commercial use - Apache-2.0 (software), CERN-OHL-P-2.0 (hardware),
+> CC BY 4.0 (docs). See [License](#license).
 
 ## Paper
 
@@ -58,7 +58,7 @@ manipulation. The glove costs about $300 to build and records wrist-camera video
 and 8 finger joints without a robot in the loop. Two offline steps adapt each demonstration to the
 robot, and neither replays it on the robot hand:
 
-1. **Appearance normalization.** SAM 2 segments visible skin in the wrist camera and recolors it to
+1. **Appearance normalization.** [SAM 2](https://ai.meta.com/sam2) segments visible skin in the wrist camera and recolors it to
    the glove's black, RGB(18, 18, 20).
 2. **Temporal alignment.** Ten teleoperated trajectories, collected once per arm and shared across
    tasks, set the robot's execution speed. Every glove episode (video, wrist pose, fingers) is
@@ -146,6 +146,10 @@ The imported Quest mount retains its source filenames;
 - `tools/solidworks/export_cad.bas` - exports one STL per printed part and the assembly STEP.
 - `python tools/place_exports.py <export folder>` - sorts exported STL/STEP into `hardware/` and
   checks them against the BOM.
+
+## License
+
+See the [licenses and attribution](NOTICE).
 
 ## Citation
 
