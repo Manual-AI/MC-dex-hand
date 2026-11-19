@@ -1,7 +1,28 @@
 # Third-party designs
 
-This file records source and attribution status for the current Quest mount and the
-superseded controller cradle. The repository license has not yet been chosen.
+This file records the licenses of third-party software and hardware used with MC-dex-hand, and
+source and attribution status for the Quest mount and the superseded controller cradle.
+MC-dex-hand itself is Apache-2.0 (software), CERN-OHL-P-2.0 (hardware) and CC BY 4.0 (docs);
+see `NOTICE`. Every component below also permits commercial use under its own license.
+
+## Software and models used by the pipeline
+
+These are dependencies, not copied into this repository. Each keeps its own license.
+
+| Component | Used for | License | Source |
+|---|---|---|---|
+| SAM 2 (Meta) | segmenting visible skin in the wrist camera | Apache-2.0 (code and checkpoints) | <https://ai.meta.com/sam2> |
+| LeRobot (Hugging Face) | recording, dataset format, ACT training | Apache-2.0 | <https://github.com/huggingface/lerobot> |
+| ACT | policy architecture | MIT | <https://github.com/tonyzhaozh/act> |
+| Isaac GR00T (NVIDIA) | policy architecture | Apache-2.0 (code); NVIDIA Open Model License (weights) | <https://github.com/NVIDIA/Isaac-GR00T> |
+| Feetech servo SDK (`ftservo`) | robot hand servo bus | MIT | vendored in the host software |
+| OpenArm (Enactic) | robot arm used in the paper | Apache-2.0 (software); CERN-OHL-S-2.0 (hardware) | <https://github.com/enactic/openarm> |
+
+`rh_openarm_adaptor` is an original part that bolts to the OpenArm flange. It contains no OpenArm
+design files, so OpenArm's CERN-OHL-S hardware license does not apply to it.
+
+The GR00T weights are not redistributed here. Download them from NVIDIA and accept the NVIDIA
+Open Model License yourself.
 
 ## Current Quest mount
 
@@ -11,8 +32,7 @@ superseded controller cradle. The repository license has not yet been chosen.
   `01_Base`, `02_Hinged_cap` and `03_Receiver_8x9`.
 - **Author:** Roman (Manual Cognition), who confirmed that the new mount is his own design.
 - **Source / license:** original project design; no third-party attribution is required for
-  this mount. It follows the project's licensing decision; the repository license has not
-  yet been chosen.
+  this mount. It is covered by the repository's hardware license, CERN-OHL-P-2.0.
 - **Receiver modification:** four rectangular pads retained at 8 x 5 x 3 mm;
   centered edge-to-edge gaps changed from 6 x 11 mm to 8 x 9 mm.
 

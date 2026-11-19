@@ -1,0 +1,10 @@
+MC-dex-hand
+Copyright 2026 Manual Cognition
+
+This repository is released under three licenses, all of which permit commercial use:
+
+  Software and firmware (software/, firmware/, tools/)   Apache-2.0      LICENSE
+  Hardware designs (hardware/, bom/)                      CERN-OHL-P-2.0  LICENSE-HARDWARE
+  Documentation and images (docs/, *.md)                  CC BY 4.0       LICENSE-DOCS
+
+Third-party components and their licenses are listed in bom/THIRD_PARTY.md.
