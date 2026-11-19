@@ -2,14 +2,14 @@
 
 <p align="center">
   <b>Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations</b><br>
-  TODO: author list &middot; Manual Cognition<br>
-  <i>TODO: workshop name, NeurIPS 2026</i>
+  Amir Belder<sup>*</sup>, Omri Berman, Roman Rabinovich, Navot Oz, Nir Barazida, Aaron Wetzler<br>
+  Manual Cognition &middot; <sup>*</sup>corresponding author<br>
+  <i><a href="http://www.robot-learning.ml/2026/">8th Robot Learning Workshop: Is Physical AI Going Zero-Shot?</a>, NeurIPS 2026</i>
 </p>
 
 <p align="center">
   <a href="docs/paper/mc-dex-hand-neurips2026.pdf"><b>Paper (PDF)</b></a> &middot;
-  <a href="https://arxiv.org/abs/TODO">arXiv</a> &middot;
-  <a href="https://openreview.net/forum?id=TODO">OpenReview</a> &middot;
+  <a href="http://www.robot-learning.ml/2026/">Workshop</a> &middot;
   <a href="software/">Code</a> &middot;
   <a href="bom/BOM.md">Bill of materials</a> &middot;
   <a href="#citation">BibTeX</a>
@@ -54,15 +54,20 @@ encoder values, so a recorded glove trajectory is a servo trajectory.
 ## Paper
 
 Collecting robot demonstrations by teleoperation ties up the robot and is slower than natural human
-manipulation. The glove costs about $300 to build and records wrist-camera video, 6-DOF wrist motion
-and 8 finger joints without a robot in the loop. Two offline steps adapt each demonstration to the
-robot, and neither replays it on the robot hand:
+manipulation. The glove costs about $80 in components, or about $430 with the Meta Quest 3S used for wrist
+tracking. It records wrist-camera video, 6-DOF wrist motion
+and 8 finger joints without a robot in the loop. Three offline steps adapt each demonstration to the
+robot, and none replays it on the robot hand:
 
-1. **Appearance normalization.** [SAM 2](https://ai.meta.com/sam2) segments visible skin in the wrist camera and recolors it to
+1. **Retargeting.** Each finger group maps to its robot actuators with a fixed per-joint scale and
+   offset, calibrated once per hand. Wrist poses go through a rigid Quest-to-robot-base transform,
+   calibrated once per arm, then inverse kinematics. Poses outside the reachable workspace are dropped.
+2. **Appearance normalization.** [SAM 2](https://ai.meta.com/sam2) segments visible skin in the wrist camera and recolors it to
    the glove's black, RGB(18, 18, 20).
-2. **Temporal alignment.** Ten teleoperated trajectories, collected once per arm and shared across
-   tasks, set the robot's execution speed. Every glove episode (video, wrist pose, fingers) is
-   resampled to that tempo.
+3. **Temporal alignment.** Ten teleoperated trajectories, collected once per arm and shared across
+   tasks, give the robot's typical execution time. Each glove episode is stretched uniformly in time
+   by the ratio of that time to its own duration; wrist and finger trajectories are interpolated and
+   video frames resampled together.
 
 A glove demonstration takes about 6 s to collect. DexUMI's collect-and-replay pipeline takes about
 14 s, and its teleoperation baseline about 26 s.
@@ -154,10 +159,10 @@ See the [licenses and attribution](NOTICE).
 ## Citation
 
 ```bibtex
-@inproceedings{TODO2026democratizing,
+@inproceedings{belder2026democratizing,
   title     = {Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations},
-  author    = {TODO},
-  booktitle = {TODO Workshop at the 40th Conference on Neural Information Processing Systems (NeurIPS)},
+  author    = {Belder, Amir and Berman, Omri and Rabinovich, Roman and Oz, Navot and Barazida, Nir and Wetzler, Aaron},
+  booktitle = {8th Robot Learning Workshop: Is Physical AI Going Zero-Shot? at the 40th Conference on Neural Information Processing Systems (NeurIPS)},
   year      = {2026},
   url       = {https://github.com/Manual-AI/MC-dex-hand}
 }
