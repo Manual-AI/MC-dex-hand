@@ -7,7 +7,7 @@
 </p>
 <p align="center">
   <a href="docs/assets/mc-dex-hand-demo.gif">Watch the full prototype demo</a><br>
-  <sub>Physical prototype footage. The released teleoperation tutorial runs in simulation.</sub>
+  <sub>Two seconds of physical prototype footage at the original 15 fps. The released teleoperation tutorial runs in simulation.</sub>
 </p>
 
 MC-dex-hand pairs a wearable sensing glove with an eight-joint robot hand. The two
