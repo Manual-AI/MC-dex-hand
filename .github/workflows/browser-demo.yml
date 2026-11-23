@@ -1,0 +1,56 @@
+name: Publish browser demo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'simulation/browser/**'
+      - '.github/workflows/browser-demo.yml'
+      - 'simulation/LICENSE'
+      - 'simulation/NOTICE'
+  workflow_dispatch:
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: simulation/browser
+      - name: Fetch the recording and test the released actor
+        run: |
+          git lfs install --local
+          git lfs pull --include="simulation/browser/bowl/media/bowl-policy.mp4" --exclude=""
+          node simulation/browser/bowl/check.mjs
+      - name: Prepare the static site
+        working-directory: simulation/browser
+        run: |
+          site="$RUNNER_TEMP/mc-dex-site"
+          mkdir -p "$site/bowl/media"
+          cp -R assets licenses vendor index.html *.js *.css "$site/"
+          cp bowl/index.html bowl/*.js bowl/*.json bowl/*.xml bowl/*.css "$site/bowl/"
+          cp bowl/media/bowl-policy.mp4 "$site/bowl/media/"
+          cp ../LICENSE ../NOTICE "$site/licenses/"
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: ${{ runner.temp }}/mc-dex-site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the browser demo
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

@@ -4,7 +4,7 @@ The seven-joint OpenArm carries the eight-joint MC-Dex hand on a vertical pedest
 
 | To do this | Start here |
 |---|---|
-| Throw and move objects while a learned policy picks them up | [Download the offline browser demo](https://github.com/Manual-AI/MC-dex-hand/releases/download/bowl-demo-v1/MC-Dex-Bowl.html) · [Controls](browser/bowl/README.md#play-in-your-browser) |
+| Throw and move objects while a learned policy picks them up | [Run the live browser demo](https://manual-ai.github.io/MC-dex-hand/) · [Controls](browser/bowl/README.md#play-in-your-browser) |
 | Reproduce the native object-to-bowl montage and force estimates | [Engine videos and measurements](COMPARISON.md) · [Capture commands](bowl_showcase/README.md) |
 | Exercise joint drives and opposing finger contact on a cube | [Four-engine cube tutorial](CUBE_COMPARISON.md) |
 | Drive the simulator with a synthetic glove | [LeRobot teleoperation](../lerobot/README.md) |
