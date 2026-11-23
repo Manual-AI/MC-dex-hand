@@ -16,7 +16,7 @@
 
 MC-dex-hand pairs a wearable sensing glove with an eight-joint robot hand. The two
 shells have matching finger linkages and contact surfaces. After calibration, each
-glove joint angle maps to the corresponding robot joint. Both assemblies are right-handed.
+glove joint angle maps to the corresponding robot joint.
 
 ## Paper
 
