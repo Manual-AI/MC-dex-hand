@@ -14,14 +14,17 @@
   <a href="docs/assets/mc-dex-hand-demo.gif"><img src="docs/assets/prototype-preview.gif" alt="The robot hand mirroring the operator’s wearable glove" width="614"></a>
 </p>
 
-MC-Dex lets you record demonstrations for a robot hand without having the robot in the room.
-Put on the glove and do the task at your own pace. As you move, the glove records your
-wrist motion and finger angles in sync with video from the wrist camera.
+Collecting high-quality robot demonstrations remains a major practical bottleneck for robot learning.
+Teleoperation requires continuous access to the target robot and can be substantially slower than
+natural human manipulation. MC-DexHand is a co-designed glove and robot gripper intended to
+facilitate data-efficient robot learning from demonstrations collected without the target robot.
 
-We designed the glove and the eight-joint robot hand together. Their finger linkages and
-contact surfaces match, so after calibration each glove joint angle maps directly to the
-corresponding robot joint. You can build the glove for about $80 in parts, or about $430
-including the Quest wrist-tracking kit.
+During manipulation, the glove records synchronized wrist-camera images, six-degree-of-freedom
+wrist poses, and eight finger joint angles. The gripper has eight active degrees of freedom and
+shares the glove’s finger linkages and contact surfaces, so each calibrated glove angle maps
+directly to its corresponding gripper joint. Lightweight post-processing recolors visible skin
+to match the glove and aligns each demonstration with the robot’s execution speed. The estimated
+component cost is $80 for the glove, or $430 including the Quest wrist-tracking kit.
 
 ## Paper
 
