@@ -1,0 +1,21 @@
+{
+  "duration_s": 5,
+  "fps": 20,
+  "physics_dt_s": 0.004166666666666667,
+  "gravity_m_s2": [0, 0, -9.81],
+  "camera": {"eye": [0.80, -0.65, 0.55], "target": [0.25, 0, 0.19], "fov_deg": 42},
+  "table": {"center": [0.25, 0, -0.04], "size": [1.15, 0.9, 0.08], "color": [0.29, 0.35, 0.40]},
+  "cube": {"center": [0.43, -0.10, 0.0255], "size": [0.05, 0.05, 0.05], "mass_kg": 0.08, "color": [0.95, 0.39, 0.10]},
+  "place_center_m": [0.43, 0.10, 0.025],
+  "placement_tolerance_m": 0.03,
+  "minimum_lift_m": 0.06,
+  "contact_friction": 1.0,
+  "arm_kp": 1500,
+  "arm_kd": 80,
+  "hand_kp": 5,
+  "hand_kd": 0.15,
+  "hand_link_mass_kg": 0.08,
+  "hand_link_diagonal_inertia_kg_m2": 0.00004,
+  "hand_frame_mass_kg": 0.4,
+  "note": "Scripted contact-driven pick and place, not a learned policy. Illustrative simulated masses, friction and drive gains, not measured hardware parameters."
+}

@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>MC-Dex browser policy</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>
+  const dest = new URL('./bowl/', location.href);
+  const source = new URLSearchParams(location.search);
+  for (const key of ['object', 'mode', 'seed']) if (source.has(key)) dest.searchParams.set(key, source.get(key));
+  location.replace(dest);
+</script></head><body><a href="./bowl/">Open the interactive bowl policy</a></body></html>

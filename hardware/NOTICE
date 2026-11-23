@@ -1,0 +1,22 @@
+Manual-Dex hardware designs and CAD-derived robot models
+Copyright 2026 Manual-Dex contributors
+SPDX-License-Identifier: CERN-OHL-P-2.0
+
+This source describes Open Hardware and is licensed under the CERN Open
+Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0).
+You may use, modify and distribute this source and make and distribute
+products based on it under that license's terms, including commercially.
+Retain applicable notices and license copies, identify modifications, and
+make applicable notices available to recipients as required by the license.
+
+This source and any resulting products are provided AS IS, without warranty
+of any kind, to the extent permitted by the license and applicable law.
+Third-party rights, notices and license terms are not replaced by this notice.
+
+Source: https://github.com/Manual-AI/MC-dex-hand
+Scope and third-party records: LICENSING.md, bom/THIRD_PARTY.md and
+simulation/THIRD_PARTY.md in the source repository.
+
+Thank you to the open-source community. Manual-Dex is free to use and modify,
+including for commercial use, under the applicable licenses. This
+acknowledgment adds no restrictions or conditions to the license.

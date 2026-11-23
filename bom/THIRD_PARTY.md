@@ -2,8 +2,8 @@
 
 This file records the licenses of third-party software and hardware used with MC-dex-hand, and
 source and attribution status for the Quest mount and the superseded controller cradle.
-MC-dex-hand itself is Apache-2.0 (software), CERN-OHL-P-2.0 (hardware) and CC BY 4.0 (docs);
-see `NOTICE`. Every component below also permits commercial use under its own license.
+See the [licensing guide](../LICENSING.md) for original project material and the
+[simulation notices](../simulation/THIRD_PARTY.md) for the OpenArm model and engine dependencies.
 
 ## Software and models used by the pipeline
 
@@ -15,7 +15,7 @@ These are dependencies, not copied into this repository. Each keeps its own lice
 | LeRobot (Hugging Face) | recording, dataset format, ACT training | Apache-2.0 | <https://github.com/huggingface/lerobot> |
 | ACT | policy architecture | MIT | <https://github.com/tonyzhaozh/act> |
 | Isaac GR00T (NVIDIA) | policy architecture | Apache-2.0 (code); NVIDIA Open Model License (weights) | <https://github.com/NVIDIA/Isaac-GR00T> |
-| Feetech servo SDK (`ftservo`) | robot hand servo bus | MIT | vendored in the host software |
+| Feetech servo SDK (`ftservo`) | robot hand servo bus | MIT | [Feetech SDK](https://github.com/ftservo/FTServo_Python) |
 | OpenArm (Enactic) | robot arm used in the paper | Apache-2.0 (software); CERN-OHL-S-2.0 (hardware) | <https://github.com/enactic/openarm> |
 
 `rh_openarm_adaptor` is an original part that bolts to the OpenArm flange. It contains no OpenArm
@@ -42,11 +42,11 @@ Open Model License yourself.
   <https://udcap-vr-gloves-document.gitbook.io/udcap/hardware-setup/other-adapter-3d-print-file>
 - **Modifications:** minor geometry changes to mount the cradle to this glove / robot hand
   (TODO: describe exactly what changed).
-- **License:** the source page states no license. udCap were contacted on TODO-date to ask for
-  permission to redistribute the modified files; status: **pending**.
-  Until permission is granted these files are **not covered by the repository license** and are
-  provided for personal, non-commercial use only. If you need different terms, download the
-  originals from udCap and apply the modifications described above yourself.
+- **License:** no license was identified in the existing source record; permission to
+  redistribute the modified files remains **pending**, with no dated grant recorded here.
+  These historical files are **not covered by Apache-2.0 or CERN-OHL-P-2.0**. The project
+  cannot grant personal, non-commercial or commercial permissions on udCap's behalf.
+  Obtain permission or applicable terms from the original rightsholder before reusing them.
 
 These two legacy adapter STLs have been removed from the current release and BOM.
 This attribution is retained for the files in earlier revisions.

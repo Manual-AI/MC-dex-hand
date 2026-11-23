@@ -1,0 +1,26 @@
+{
+  "manual-dex-demo.gif": {
+    "bytes_before": 30970422,
+    "bytes_after": 15092661,
+    "fraction": 0.48732500319175504,
+    "size": [
+      771,
+      754
+    ],
+    "frames": 60,
+    "duration_ms": 4000,
+    "palette_colors": 256
+  },
+  "manual-dex-paired-kinematics.gif": {
+    "bytes_before": 31652231,
+    "bytes_after": 12896328,
+    "fraction": 0.40743819922203905,
+    "size": [
+      1250,
+      688
+    ],
+    "frames": 200,
+    "duration_ms": 10000,
+    "palette_colors": 128
+  }
+}

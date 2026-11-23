@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f5ef" />
+    <link rel="icon" href="data:," />
+    <title>MC-Dex · Objects into a bowl</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./bowl.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <div>
+          <a class="back" href="./media/bowl-policy.mp4">Watch two recorded throws</a>
+          <h1>Objects into a bowl</h1>
+        </div>
+      </header>
+      <section class="workspace">
+        <div class="stage">
+          <canvas
+            id="viewport"
+            aria-label="Interactive MC-Dex hand and thrown object on a table"
+          ></canvas>
+          <div class="views">
+            <button id="table" aria-pressed="true">Table view</button
+            ><button id="hand">Hand view</button
+            ><button id="arm" aria-pressed="false">Arm view</button>
+          </div>
+        </div>
+        <aside>
+          <h2>Policy run</h2>
+          <label class="object-label" for="controller">Controller</label
+          ><select id="controller">
+            <option value="preview">Policy + physics preview</option>
+            <option value="actor">Policy only</option>
+          </select>
+          <div id="run-status" role="status" data-source="idle">
+            <span id="control-source"></span
+            ><strong id="status">Loading physics…</strong>
+          </div>
+          <label class="object-label" for="object">Object to throw</label
+          ><select id="object">
+            <option value="random">Random object</option>
+          </select>
+          <dl>
+            <div>
+              <dt>Current object</dt>
+              <dd id="name">—</dd>
+            </div>
+            <div>
+              <dt>Shape set</dt>
+              <dd id="split">—</dd>
+            </div>
+            <div>
+              <dt>Attempt</dt>
+              <dd id="attempt">—</dd>
+            </div>
+            <div>
+              <dt>Simulation time</dt>
+              <dd id="time">0.0 s</dd>
+            </div>
+          </dl>
+          <div class="playback">
+            <button id="play" disabled>Pause</button
+            ><button id="throw" class="primary" disabled>Throw object</button>
+          </div>
+          <button id="push" disabled>Push object</button>
+          <span id="notice" role="status"></span>
+          <p class="help">
+            Drag the object to move it. Once it rests in the bowl, drag it back
+            onto the table to start another pickup.
+          </p>
+        </aside>
+      </section>
+      <footer>
+        <span>MC-Dex hand on OpenArm</span><span>MuJoCo · 24 Hz control</span>
+      </footer>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

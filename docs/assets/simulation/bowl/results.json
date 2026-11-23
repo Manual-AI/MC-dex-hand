@@ -1,0 +1,137 @@
+{
+  "sceneSha256": "57f7520a86b6c8f56b36ddde0d7d13b19a7e845dd2a8559ce900e87e5b6ecf71",
+  "programSha256": "3b417c1913539296f16b568c8a20f6e4035523c79672bc90b86546f82ae43cb1",
+  "physicsHz": 240,
+  "motionHz": 24,
+  "videoFps": 12,
+  "frames": 130,
+  "object": "building-brick",
+  "engines": {
+    "isaacsim": {
+      "version": "6.0.1.0",
+      "renderer": "Isaac Sim RTX / Replicator",
+      "massKg": 0.025260525613547167,
+      "gripTick": 96,
+      "releaseTick": 194,
+      "dt": 0.004166666666666667,
+      "forceWindowSeconds": 0.041666666666666664,
+      "peakWindowN": 0.7499854660730286,
+      "maxGraspN": 0.34682304905653594,
+      "liftHeightM": 0.09355109184980392,
+      "settledMeanN": 0.24780575626889775,
+      "finalCenter": [
+        0.4319797456264496,
+        0.12820972502231598,
+        0.13046003878116608
+      ],
+      "nativeFrameCount": 130,
+      "nativeFramesSHA256": "6b9749f02f0fa3e624a510adcdc82ba78fdd68fe8472fab14e7dd1d8699afa40",
+      "nativeSamplesSHA256": "8588fcd86c72956b5880d29381b0135dec07db377275f8bec1d029a508aba302"
+    },
+    "mujoco": {
+      "version": "3.6.0",
+      "renderer": "MuJoCo offscreen OpenGL",
+      "massKg": 0.025260525613547167,
+      "gripTick": 96,
+      "releaseTick": 194,
+      "dt": 0.004166666666666667,
+      "forceWindowSeconds": 0.041666666666666664,
+      "peakWindowN": 0.7786913124620152,
+      "maxGraspN": 0.34675421568456444,
+      "liftHeightM": 0.09355112564464255,
+      "settledMeanN": 0.24793073451291595,
+      "finalCenter": [
+        0.43434690010259613,
+        0.12653334425619683,
+        0.12823675869432188
+      ],
+      "nativeFrameCount": 130,
+      "nativeFramesSHA256": "90c43cc7042c4155c6b659e3cc9ab5b9abb19cf479d579ad3b72895f160ec0a8",
+      "nativeSamplesSHA256": "6a4cafb51957c3e16b5e33c36515c8079cea37f09da04d876506c43fe040ae5d"
+    },
+    "genesis": {
+      "version": "1.4.6",
+      "renderer": "Genesis rasterizer",
+      "massKg": 0.025260525613547167,
+      "gripTick": 96,
+      "releaseTick": 194,
+      "dt": 0.004166666666666667,
+      "forceWindowSeconds": 0.041666666666666664,
+      "peakWindowN": 0.7624251022211909,
+      "maxGraspN": 0.34675572735211724,
+      "liftHeightM": 0.09355112165212631,
+      "settledMeanN": 0.24780575626889775,
+      "finalCenter": [
+        0.43400996923446655,
+        0.1263117790222168,
+        0.1304517686367035
+      ],
+      "nativeFrameCount": 130,
+      "nativeFramesSHA256": "d9477d3d1b2abfe377bdd3a7256ec96c7a7e67bef2abb92b96399f864c82f67b",
+      "nativeSamplesSHA256": "cd1df7e3cd6c63acc04973ce593ee48c9f688b3687386bf1a826af52efe2f303"
+    },
+    "superdex": {
+      "version": "1.0.0",
+      "renderer": "SuperDex SDK / Polyscope EGL",
+      "massKg": 0.025260525613547167,
+      "gripTick": 96,
+      "releaseTick": 194,
+      "dt": 0.004166666666666667,
+      "forceWindowSeconds": 0.041666666666666664,
+      "peakWindowN": 0.7460004462490073,
+      "maxGraspN": 0.346753530437152,
+      "liftHeightM": 0.0935511514544487,
+      "settledMeanN": 0.24780575626889775,
+      "finalCenter": [
+        0.43376415967941284,
+        0.12637470662593842,
+        0.13047243654727936
+      ],
+      "nativeFrameCount": 130,
+      "nativeFramesSHA256": "8c0e3411a61312fb1fae4132b1cbf8e78301eb2277ff59ea9e447f68fb197f6d",
+      "nativeSamplesSHA256": "2cd129088e235abc2de10bd6e6fa1ef2c919c40bd6cee6b84a5dbcf6a11f98b1"
+    },
+    "alloy": {
+      "version": "0.1.2",
+      "renderer": "Alloy path-traced camera",
+      "massKg": 0.025260525613547167,
+      "gripTick": 96,
+      "releaseTick": 194,
+      "dt": 0.004166666666666667,
+      "forceWindowSeconds": 0.041666666666666664,
+      "peakWindowN": 0.7500299127032748,
+      "maxGraspN": 0.3467373964874486,
+      "liftHeightM": 0.09355124086141586,
+      "settledMeanN": 0.24780575626889775,
+      "finalCenter": [
+        0.43401089310646057,
+        0.1263156682252884,
+        0.13045528531074524
+      ],
+      "nativeFrameCount": 130,
+      "nativeFramesSHA256": "50d4b7391b7295118c5610b761588b1e3b8843304a88d386b87842edd67ce7f5",
+      "nativeSamplesSHA256": "bb60118cdbc24822b44054b17a6267f6491688c2dfab6ecf16fb652efdc2f5e3"
+    },
+    "steel": {
+      "version": "1.9.0.dev0",
+      "renderer": "Newton ViewerGL / SolverSteel",
+      "massKg": 0.025260525613547167,
+      "gripTick": 96,
+      "releaseTick": 194,
+      "dt": 0.004166666666666667,
+      "forceWindowSeconds": 0.041666666666666664,
+      "peakWindowN": 0.7529698946844352,
+      "maxGraspN": 0.34675526133164153,
+      "liftHeightM": 0.09355112910270691,
+      "settledMeanN": 0.24780684033305,
+      "finalCenter": [
+        0.43398094177246094,
+        0.12626326084136963,
+        0.13046012818813324
+      ],
+      "nativeFrameCount": 130,
+      "nativeFramesSHA256": "dbc30a01bf44136964229dedc4d10176fb913f9445d264fcf0be99c69767c090",
+      "nativeSamplesSHA256": "f3ab73d417389ca71f6f109709ed0df24985be60ab3c353b108934016761a06e"
+    }
+  }
+}

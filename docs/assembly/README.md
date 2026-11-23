@@ -1,19 +1,23 @@
 # Visual assembly guide
 
-A quick guide to the main parts and link connections. These are views of the actual
-SolidWorks assemblies, including the current Quest mount. The close-ups isolate an
-index-finger chain; surrounding parts are hidden, and the links remain in their assembled positions.
+The figures show the right-hand SolidWorks assemblies. The close-ups isolate the index-finger
+linkages in their assembled positions. Use the [bill of materials](../../bom/README.md) for
+the print and purchase lists and the [STEP assemblies](../../hardware/step/) for placement.
+
+Print the specified quantities in ABS or PETG, with 100% infill for printed pins. The glove
+uses three tip hinge pins and five encoder lids. For a left-hand variant, consult the
+`mirror_for_left` column in the BOM. Left-hand compatibility of the Quest mount is unverified.
 
 ## Wearable glove
 
-![Wearable glove CAD overview with labels for the finger links, hand frame, Quest mount and electronics enclosure](../images/wearable-glove-overview.png)
+![Wearable glove CAD overview with labels for the finger links, joint sensors, wrist tracker and electronics enclosure](../images/wearable-glove-wrist-side.png)
 
-Your hand moves the printed links. Eight rotary position sensors measure the joints:
-two each for the index, middle, combined ring/pinky, and thumb groups.
+The glove backplate supports four pairs of links. Each proximal and distal hinge has a
+rotary potentiometer. The ring and little fingers operate one pair together.
 
 ![Isolated glove index-finger chain showing the backplate pivot, fingertip pivot and sensor housing](../images/wearable-glove-link-connections.png)
 
-Build each main finger chain from the frame outward:
+Assemble each finger chain from the frame outward.
 
 1. **Backplate to proximal link.** Align the lower pivot holes and install the matching
    printed hinge pin. The proximal link is the first moving link next to the hand frame.
@@ -27,14 +31,14 @@ own matching parts. The thumb connects at the palm plate and uses its dedicated 
 
 ## Robot hand
 
-![Robot hand CAD overview with labels for the servo-driven finger chains, hand frame, Quest mount and electronics enclosure](../images/robot-hand-overview.png)
+![Robot hand CAD overview with labels for the servo-driven finger chains, hand frame, Quest mount and electronics enclosure](../images/robot-hand-wrist-side.png)
 
-The robot uses matching finger groups and fingertip geometry. Each group has two servos:
-one drives the proximal link and the other drives the fingertip.
+Each finger group has one frame-mounted servo for the proximal joint and one servo in
+the proximal link for the distal joint. The fingertip follows the glove’s contact geometry.
 
 ![Isolated robot index-finger chain showing the base servo output, distal servo output and distal servo body inside the proximal link](../images/robot-hand-link-connections.png)
 
-Build the main finger chains from the frame outward:
+Install the servos and links from the frame outward.
 
 1. **Frame to base servo.** Mount the base servo in the frame at the corresponding finger position.
 2. **Base servo to proximal link.** Attach the proximal link to the servo outputs using the
@@ -50,9 +54,10 @@ The OpenArm adaptor connects the completed hand frame to the robot arm.
 
 - Attach the camera mount and adaptor in the matching pose on both assemblies.
 - Fit the electronics enclosure and lid.
-- Fit the Quest receiver and controller mount. The mount uses the printed base, hinged cap
-  and receiver, plus one 2 x 20 mm pin, one M3 x 12 mm screw and one M3 nut per assembly.
+- Fit the Quest receiver and controller mount. Each mount uses one `cm_quest_mount_base`, one
+  `cm_quest_mount_hinged_cap` and one `cm_quest_mount_receiver`, plus one 2 × 20 mm pin,
+  one M3 × 12 mm screw and one M3 nut. The receiver pads have centered 8 × 9 mm edge-to-edge gaps.
 
-Use the [BOM](../../bom/BOM.md) for quantities and the [STEP assemblies](../../hardware/step/)
-for exact part placement. This guide covers the mechanical connection pattern; detailed
-fastener specifications, servo alignment, wiring and calibration are still to be documented.
+For commissioning, see the [glove calibration guide](../../lerobot/CALIBRATION.md)
+and [physical-hand integration status](../../lerobot/HARDWARE.md). Some fastener
+specifications, servo alignment details and wiring details are still unverified.

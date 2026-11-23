@@ -1,0 +1,930 @@
+{
+  "controller": "MC-Dex object-to-bowl",
+  "actorSha256": "710a1d685d4a8fe7f5fb1931f88de6d329e841d4a766be10aa142f99f49f5aa6",
+  "physics": "MuJoCo WASM, physical contacts at 240 Hz and controls at 24 Hz",
+  "horizonSeconds": 80,
+  "shapes": 16,
+  "trainingShapes": 12,
+  "seedBase": 92000000,
+  "seedFormula": "base + 59 * trialIndex + 1477 * objectIndex",
+  "throwsPerShape": 32,
+  "success": "Lift with opposed fingers, carry at least 35 mm with robot contact, release inside bowl, stable support, and observed in waiting state after at least one additional second from first deposit.",
+  "modes": {
+    "actor": {
+      "all/clean": {
+        "trials": 512,
+        "deposited": 394,
+        "lifted": 492,
+        "falls": 55,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 237,
+        "medianSuccessfulSeconds": 13.33
+      },
+      "all/disturbed": {
+        "trials": 512,
+        "deposited": 372,
+        "lifted": 472,
+        "falls": 71,
+        "interventionsReceived": 512,
+        "firstAttemptDeposits": 83,
+        "medianSuccessfulSeconds": 21.19
+      },
+      "training/clean": {
+        "trials": 384,
+        "deposited": 299,
+        "lifted": 370,
+        "falls": 40,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 181,
+        "medianSuccessfulSeconds": 13.17
+      },
+      "training/disturbed": {
+        "trials": 384,
+        "deposited": 281,
+        "lifted": 359,
+        "falls": 54,
+        "interventionsReceived": 384,
+        "firstAttemptDeposits": 65,
+        "medianSuccessfulSeconds": 21.17
+      },
+      "held-out/clean": {
+        "trials": 128,
+        "deposited": 95,
+        "lifted": 122,
+        "falls": 15,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 56,
+        "medianSuccessfulSeconds": 13.5
+      },
+      "held-out/disturbed": {
+        "trials": 128,
+        "deposited": 91,
+        "lifted": 113,
+        "falls": 17,
+        "interventionsReceived": 128,
+        "firstAttemptDeposits": 18,
+        "medianSuccessfulSeconds": 21.54
+      }
+    },
+    "preview": {
+      "all/clean": {
+        "trials": 512,
+        "deposited": 510,
+        "lifted": 511,
+        "falls": 0,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 381,
+        "medianSuccessfulSeconds": 11.67
+      },
+      "all/disturbed": {
+        "trials": 512,
+        "deposited": 477,
+        "lifted": 493,
+        "falls": 20,
+        "interventionsReceived": 512,
+        "firstAttemptDeposits": 100,
+        "medianSuccessfulSeconds": 14.38
+      },
+      "training/clean": {
+        "trials": 384,
+        "deposited": 383,
+        "lifted": 384,
+        "falls": 0,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 292,
+        "medianSuccessfulSeconds": 11.75
+      },
+      "training/disturbed": {
+        "trials": 384,
+        "deposited": 359,
+        "lifted": 374,
+        "falls": 15,
+        "interventionsReceived": 384,
+        "firstAttemptDeposits": 78,
+        "medianSuccessfulSeconds": 14.58
+      },
+      "held-out/clean": {
+        "trials": 128,
+        "deposited": 127,
+        "lifted": 127,
+        "falls": 0,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 89,
+        "medianSuccessfulSeconds": 11.25
+      },
+      "held-out/disturbed": {
+        "trials": 128,
+        "deposited": 118,
+        "lifted": 119,
+        "falls": 5,
+        "interventionsReceived": 128,
+        "firstAttemptDeposits": 22,
+        "medianSuccessfulSeconds": 13.92
+      }
+    }
+  },
+  "shapeAblation": {
+    "matchedActor": {
+      "all/clean": {
+        "trials": 256,
+        "deposited": 195,
+        "lifted": 244,
+        "falls": 27,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 112,
+        "medianSuccessfulSeconds": 13.46
+      },
+      "all/disturbed": {
+        "trials": 256,
+        "deposited": 194,
+        "lifted": 242,
+        "falls": 33,
+        "interventionsReceived": 256,
+        "firstAttemptDeposits": 41,
+        "medianSuccessfulSeconds": 21.42
+      },
+      "training/clean": {
+        "trials": 192,
+        "deposited": 146,
+        "lifted": 183,
+        "falls": 20,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 83,
+        "medianSuccessfulSeconds": 13.46
+      },
+      "training/disturbed": {
+        "trials": 192,
+        "deposited": 147,
+        "lifted": 184,
+        "falls": 24,
+        "interventionsReceived": 192,
+        "firstAttemptDeposits": 30,
+        "medianSuccessfulSeconds": 21.33
+      },
+      "held-out/clean": {
+        "trials": 64,
+        "deposited": 49,
+        "lifted": 61,
+        "falls": 7,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 29,
+        "medianSuccessfulSeconds": 13.46
+      },
+      "held-out/disturbed": {
+        "trials": 64,
+        "deposited": 47,
+        "lifted": 58,
+        "falls": 9,
+        "interventionsReceived": 64,
+        "firstAttemptDeposits": 11,
+        "medianSuccessfulSeconds": 21.79
+      }
+    },
+    "meanGeometry": {
+      "all/clean": {
+        "trials": 256,
+        "deposited": 191,
+        "lifted": 242,
+        "falls": 24,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 105,
+        "medianSuccessfulSeconds": 13.29
+      },
+      "all/disturbed": {
+        "trials": 256,
+        "deposited": 189,
+        "lifted": 237,
+        "falls": 27,
+        "interventionsReceived": 256,
+        "firstAttemptDeposits": 41,
+        "medianSuccessfulSeconds": 22.58
+      },
+      "training/clean": {
+        "trials": 192,
+        "deposited": 142,
+        "lifted": 181,
+        "falls": 15,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 81,
+        "medianSuccessfulSeconds": 12.94
+      },
+      "training/disturbed": {
+        "trials": 192,
+        "deposited": 138,
+        "lifted": 176,
+        "falls": 20,
+        "interventionsReceived": 192,
+        "firstAttemptDeposits": 30,
+        "medianSuccessfulSeconds": 22.6
+      },
+      "held-out/clean": {
+        "trials": 64,
+        "deposited": 49,
+        "lifted": 61,
+        "falls": 9,
+        "interventionsReceived": 0,
+        "firstAttemptDeposits": 24,
+        "medianSuccessfulSeconds": 20.71
+      },
+      "held-out/disturbed": {
+        "trials": 64,
+        "deposited": 51,
+        "lifted": 61,
+        "falls": 7,
+        "interventionsReceived": 64,
+        "firstAttemptDeposits": 11,
+        "medianSuccessfulSeconds": 22.54
+      }
+    }
+  },
+  "perObject": {
+    "Building brick": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 29,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 28,
+          "medianSuccessfulSeconds": 10.83
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 29,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 11,
+          "medianSuccessfulSeconds": 12.08
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 32,
+          "medianSuccessfulSeconds": 10.77
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 31,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 13,
+          "medianSuccessfulSeconds": 12.08
+        }
+      }
+    },
+    "Wine cork": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 27,
+          "lifted": 30,
+          "falls": 2,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 8,
+          "medianSuccessfulSeconds": 21.08
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 23,
+          "lifted": 30,
+          "falls": 6,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 2,
+          "medianSuccessfulSeconds": 33.04
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 13,
+          "medianSuccessfulSeconds": 20.9
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 2,
+          "medianSuccessfulSeconds": 22.5
+        }
+      }
+    },
+    "Eraser": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 29,
+          "lifted": 31,
+          "falls": 2,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 26,
+          "medianSuccessfulSeconds": 10.58
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 30,
+          "lifted": 32,
+          "falls": 2,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 13,
+          "medianSuccessfulSeconds": 12.04
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 32,
+          "medianSuccessfulSeconds": 10.56
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 16,
+          "medianSuccessfulSeconds": 11.17
+        }
+      }
+    },
+    "Lemon": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 16,
+          "lifted": 31,
+          "falls": 7,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 11,
+          "medianSuccessfulSeconds": 23.94
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 12,
+          "lifted": 25,
+          "falls": 7,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 0,
+          "medianSuccessfulSeconds": 32.9
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 31,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 22,
+          "medianSuccessfulSeconds": 16.25
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 25,
+          "lifted": 28,
+          "falls": 4,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 0,
+          "medianSuccessfulSeconds": 23.75
+        }
+      }
+    },
+    "Spool": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 24,
+          "lifted": 30,
+          "falls": 6,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 11,
+          "medianSuccessfulSeconds": 21.04
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 25,
+          "lifted": 30,
+          "falls": 5,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 4,
+          "medianSuccessfulSeconds": 21.33
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 20,
+          "medianSuccessfulSeconds": 13.33
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 29,
+          "lifted": 31,
+          "falls": 2,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 4,
+          "medianSuccessfulSeconds": 16.79
+        }
+      }
+    },
+    "Toy mushroom": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 27,
+          "lifted": 32,
+          "falls": 2,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 10,
+          "medianSuccessfulSeconds": 22.5
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 20,
+          "lifted": 29,
+          "falls": 9,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 1,
+          "medianSuccessfulSeconds": 40.88
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 25,
+          "medianSuccessfulSeconds": 14.21
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 30,
+          "lifted": 31,
+          "falls": 2,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 1,
+          "medianSuccessfulSeconds": 22.6
+        }
+      }
+    },
+    "Wooden mallet": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 19,
+          "lifted": 31,
+          "falls": 5,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 13,
+          "medianSuccessfulSeconds": 20.83
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 18,
+          "lifted": 30,
+          "falls": 8,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 3,
+          "medianSuccessfulSeconds": 23.21
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 28,
+          "medianSuccessfulSeconds": 10.58
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 29,
+          "lifted": 31,
+          "falls": 2,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 5,
+          "medianSuccessfulSeconds": 12.29
+        }
+      }
+    },
+    "Dice block": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 29,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 28,
+          "medianSuccessfulSeconds": 10.62
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 28,
+          "lifted": 32,
+          "falls": 1,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 13,
+          "medianSuccessfulSeconds": 12.06
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 32,
+          "medianSuccessfulSeconds": 10.67
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 16,
+          "medianSuccessfulSeconds": 11.15
+        }
+      }
+    },
+    "Soap bar": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 18,
+          "lifted": 27,
+          "falls": 3,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 7,
+          "medianSuccessfulSeconds": 33.46
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 17,
+          "lifted": 30,
+          "falls": 6,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 2,
+          "medianSuccessfulSeconds": 44.38
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 20,
+          "medianSuccessfulSeconds": 22.65
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 30,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 2,
+          "medianSuccessfulSeconds": 31.23
+        }
+      }
+    },
+    "Toy pear": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 27,
+          "lifted": 31,
+          "falls": 5,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 9,
+          "medianSuccessfulSeconds": 23.04
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 20,
+          "lifted": 26,
+          "falls": 6,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 2,
+          "medianSuccessfulSeconds": 26.9
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 22,
+          "medianSuccessfulSeconds": 13.35
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 27,
+          "lifted": 29,
+          "falls": 3,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 2,
+          "medianSuccessfulSeconds": 22.88
+        }
+      }
+    },
+    "Cross block": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 30,
+          "lifted": 32,
+          "falls": 2,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 23,
+          "medianSuccessfulSeconds": 10.98
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 31,
+          "lifted": 32,
+          "falls": 1,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 10,
+          "medianSuccessfulSeconds": 12.62
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 30,
+          "medianSuccessfulSeconds": 10.71
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 31,
+          "lifted": 32,
+          "falls": 1,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 12,
+          "medianSuccessfulSeconds": 12.04
+        }
+      }
+    },
+    "Jar": {
+      "split": "training",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 24,
+          "lifted": 31,
+          "falls": 6,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 7,
+          "medianSuccessfulSeconds": 22.12
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 28,
+          "lifted": 31,
+          "falls": 3,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 4,
+          "medianSuccessfulSeconds": 26.38
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 16,
+          "medianSuccessfulSeconds": 19.56
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 31,
+          "lifted": 32,
+          "falls": 1,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 5,
+          "medianSuccessfulSeconds": 22.0
+        }
+      }
+    },
+    "Domino": {
+      "split": "held-out",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 29,
+          "lifted": 32,
+          "falls": 2,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 20,
+          "medianSuccessfulSeconds": 10.67
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 26,
+          "lifted": 29,
+          "falls": 1,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 11,
+          "medianSuccessfulSeconds": 11.96
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 30,
+          "medianSuccessfulSeconds": 10.48
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 31,
+          "lifted": 31,
+          "falls": 0,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 11,
+          "medianSuccessfulSeconds": 12.0
+        }
+      }
+    },
+    "Acorn": {
+      "split": "held-out",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 23,
+          "lifted": 31,
+          "falls": 3,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 14,
+          "medianSuccessfulSeconds": 19.75
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 20,
+          "lifted": 27,
+          "falls": 6,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 2,
+          "medianSuccessfulSeconds": 22.77
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 31,
+          "lifted": 31,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 18,
+          "medianSuccessfulSeconds": 14.33
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 29,
+          "lifted": 29,
+          "falls": 1,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 3,
+          "medianSuccessfulSeconds": 22.12
+        }
+      }
+    },
+    "Barbell": {
+      "split": "held-out",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 18,
+          "lifted": 27,
+          "falls": 5,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 7,
+          "medianSuccessfulSeconds": 25.23
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 22,
+          "lifted": 26,
+          "falls": 5,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 0,
+          "medianSuccessfulSeconds": 32.25
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 16,
+          "medianSuccessfulSeconds": 22.15
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 27,
+          "lifted": 27,
+          "falls": 3,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 0,
+          "medianSuccessfulSeconds": 25.29
+        }
+      }
+    },
+    "T block": {
+      "split": "held-out",
+      "actor": {
+        "clean": {
+          "trials": 32,
+          "deposited": 25,
+          "lifted": 32,
+          "falls": 5,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 15,
+          "medianSuccessfulSeconds": 10.75
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 23,
+          "lifted": 31,
+          "falls": 5,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 5,
+          "medianSuccessfulSeconds": 20.96
+        }
+      },
+      "preview": {
+        "clean": {
+          "trials": 32,
+          "deposited": 32,
+          "lifted": 32,
+          "falls": 0,
+          "interventionsReceived": 0,
+          "firstAttemptDeposits": 25,
+          "medianSuccessfulSeconds": 10.58
+        },
+        "disturbed": {
+          "trials": 32,
+          "deposited": 31,
+          "lifted": 32,
+          "falls": 1,
+          "interventionsReceived": 32,
+          "firstAttemptDeposits": 8,
+          "medianSuccessfulSeconds": 12.0
+        }
+      }
+    }
+  }
+}

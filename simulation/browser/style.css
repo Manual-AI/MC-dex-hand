@@ -1,0 +1,134 @@
+:root {
+  color-scheme: light;
+  --ink: #1b2c27;
+  --muted: #52635d;
+  --line: #d0d7cd;
+  --paper: #f6f6f0;
+  font:
+    16px/1.45 'Inter',
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.wrap {
+  max-width: 1360px;
+  width: 92%;
+  margin: auto;
+}
+header {
+  border-bottom: 1px solid var(--line);
+}
+h1 {
+  font:
+    500 clamp(2.6rem, 5.4vw, 5rem) / 1 Georgia,
+    'Times New Roman',
+    serif;
+  letter-spacing: -0.065em;
+  margin: 34px 0 12px;
+}
+aside {
+  border-left: 1px solid var(--line);
+  padding: 24px 20px;
+}
+h2 {
+  font-size: 0.9rem;
+  margin: 0;
+  font-weight: 700;
+}
+#run-status {
+  margin: 8px 0 22px;
+  padding: 10px 12px;
+  border-radius: 7px;
+  background: #192c34;
+  color: #e2e8e8;
+}
+#control-source {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+#status {
+  display: block;
+  font-size: 1.19rem;
+  letter-spacing: -0.035em;
+}
+dl {
+  margin: 0 0 20px;
+  font-size: 0.8rem;
+}
+dl div {
+  border-top: 1px solid var(--line);
+  padding: 9px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+}
+dt {
+  color: var(--muted);
+}
+dt small {
+  font-size: 0.65rem;
+}
+dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 550;
+  text-align: right;
+}
+button {
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  border: 1px solid #b7c1b5;
+  border-radius: 6px;
+  background: #fbfcf6;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+button:hover:not(:disabled) {
+  filter: brightness(0.94);
+}
+button:focus-visible,
+select:focus-visible,
+canvas:focus-visible {
+  outline: 3px solid #dd762e;
+  outline-offset: -3px;
+}
+.playback {
+  display: flex;
+  gap: 7px;
+}
+.playback button {
+  font-size: 0.86rem;
+  padding: 8px 12px;
+  flex: 1;
+}
+.primary {
+  color: #fff;
+  background: #245540;
+  border-color: #245540;
+}
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  padding: 12px 0 30px;
+}
+@media (max-width: 850px) {
+  aside { border-left: 0; border-top: 1px solid var(--line); }
+  #run-status { margin: 2px 0 10px; }
+  dl { margin-bottom: 10px; }
+  footer { flex-direction: column; }
+}

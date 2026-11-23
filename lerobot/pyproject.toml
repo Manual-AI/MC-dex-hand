@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=71,<82"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lerobot_robot_manual_dex"
+version = "0.1.0"
+description = "Manual-Dex glove and hand plugins for LeRobot 0.6.1"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+dependencies = ["lerobot[core-scripts]==0.6.1", "pyserial==3.5",
+                "torch==2.7.0", "torchvision==0.22.0", "torchcodec==0.3.0", "numpy==2.2.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,9 @@
+Manual-Dex simulation, teleoperation and browser demo
+Copyright 2026 Manual-Dex contributors
+MC-DexHand by Manual Cognition and the MC-DexHand contributors
+https://github.com/Manual-AI/MC-dex-hand
+
+The simulation software, controller and original recordings in the browser
+demo retain Apache-2.0. The contributor CAD-derived hand models retain
+CERN-OHL-P-2.0. The accompanying hardware and upstream licenses and notices
+apply to their respective materials. This notice is specific to the demo.

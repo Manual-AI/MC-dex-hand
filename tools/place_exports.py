@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Sort files produced by tools/solidworks/export_cad.bas into the repo and check them against the BOM.
+"""Place SolidWorks STL and STEP exports in the release directories and check the BOM.
 
-Usage:  python tools/place_exports.py <export_dir>
-        <export_dir> is the folder containing stl/ and step/ as written by the macro
-        (or any folder containing the .stl / .step files).
+Pass a combined export directory or separate hand and glove export directories.
 """
+import argparse
 import csv
+import filecmp
 import shutil
 import sys
 from pathlib import Path
@@ -17,46 +17,59 @@ DEST = {
     "cm_": ROOT / "hardware/common/stl",
 }
 STEP_DIR = ROOT / "hardware/step"
+LEGACY_STEP_NAMES = {
+    "manu_dex_hand_robot_hand": "mc_dex_hand_robot_hand",
+    "manu_dex_hand_glove": "mc_dex_hand_glove",
+}
 
 
 def expected_names():
     with open(ROOT / "bom/rename_map.csv", newline="") as f:
-        return {r["proposed_name"] for r in csv.DictReader(f)}
+        return {row["proposed_name"] for row in csv.DictReader(f)}
 
 
-def main(export_dir):
-    export_dir = Path(export_dir)
+def main(export_dir, *other_dirs):
     expected = expected_names()
-    found = {}
-    for p in export_dir.rglob("*"):
-        if p.suffix.lower() == ".stl":
-            found[p.stem] = p
-        elif p.suffix.lower() in (".step", ".stp"):
-            STEP_DIR.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(p, STEP_DIR / (p.stem + ".step"))
-            print(f"step  {p.name} -> hardware/step/")
+    copies = {}
+    found = set()
+    unknown = set()
+    for directory in map(Path, (export_dir, *other_dirs)):
+        if not directory.is_dir():
+            print(f"Export directory does not exist: {directory}", file=sys.stderr)
+            return 1
+        for source in sorted(directory.rglob("*")):
+            suffix = source.suffix.lower()
+            stem = source.stem
+            if suffix == ".stl":
+                if stem not in expected:
+                    unknown.add(stem)
+                    continue
+                dest = DEST[stem[:3]] / f"{stem}.stl"
+                found.add(stem)
+            elif suffix in {".step", ".stp"}:
+                dest = STEP_DIR / (LEGACY_STEP_NAMES.get(stem, stem) + ".step")
+            else:
+                continue
+            previous = copies.get(dest)
+            if previous is not None and not filecmp.cmp(previous, source, shallow=False):
+                print(f"Conflicting exports for {dest.name}: {previous} and {source}", file=sys.stderr)
+                return 1
+            copies[dest] = source
 
-    placed, unknown = 0, []
-    for stem, p in sorted(found.items()):
-        dest = next((d for pre, d in DEST.items() if stem.startswith(pre)), None)
-        if dest is None or stem not in expected:
-            unknown.append(stem)
-            continue
-        dest.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(p, dest / (stem + ".stl"))
-        placed += 1
-    missing = sorted(expected - set(found))
-    print(f"\nplaced {placed} STL files")
+    for dest, source in copies.items():
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if dest.resolve() != source.resolve():
+            shutil.copy2(source, dest)
+    print(f"Placed {len(found)} STL files and {len(copies) - len(found)} STEP assemblies.")
     if unknown:
-        print("NOT in BOM (left in export folder):", ", ".join(unknown))
+        print("STLs outside the BOM (left in the export directories):", ", ".join(sorted(unknown)))
+    missing = expected - found
     if missing:
-        print("MISSING - in BOM but no STL exported:", ", ".join(missing))
-    else:
-        print("all BOM printed parts have an STL")
-    return 0 if not missing else 1
+        print("Missing BOM STLs:", ", ".join(sorted(missing)))
+    return int(bool(missing))
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        sys.exit(__doc__)
-    sys.exit(main(sys.argv[1]))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("export_dirs", nargs="+", metavar="EXPORT_DIR")
+    sys.exit(main(*parser.parse_args().export_dirs))

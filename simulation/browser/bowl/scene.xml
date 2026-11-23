@@ -1,0 +1,183 @@
+<mujoco model="openarm_manual_dex">
+  <compiler usethread="false" angle="radian" meshdir="./" />
+  <asset>
+    <mesh name="world_base" file="world_base.stl" />
+    <mesh name="openarm_link1" file="openarm_link1.stl" />
+    <mesh name="openarm_link2" file="openarm_link2.stl" />
+    <mesh name="openarm_link3" file="openarm_link3.stl" />
+    <mesh name="openarm_link4" file="openarm_link4.stl" />
+    <mesh name="openarm_link5" file="openarm_link5.stl" />
+    <mesh name="openarm_link6" file="openarm_link6.stl" />
+    <mesh name="openarm_link7" file="openarm_link7.stl" />
+    <mesh name="openarm_link7_collision" file="openarm_link7_collision.stl" />
+    <mesh name="md_index_proximal" file="md_index_proximal.stl" />
+    <mesh name="md_index_proximal_collision" file="md_index_proximal_collision.stl" />
+    <mesh name="md_index_distal" file="md_index_distal.stl" />
+    <mesh name="md_index_distal_collision" file="md_index_distal_collision.stl" />
+    <mesh name="md_middle_proximal" file="md_middle_proximal.stl" />
+    <mesh name="md_middle_proximal_collision" file="md_middle_proximal_collision.stl" />
+    <mesh name="md_middle_distal" file="md_middle_distal.stl" />
+    <mesh name="md_middle_distal_collision" file="md_middle_distal_collision.stl" />
+    <mesh name="md_pinkyring_proximal" file="md_pinkyring_proximal.stl" />
+    <mesh name="md_pinkyring_proximal_collision" file="md_pinkyring_proximal_collision.stl" />
+    <mesh name="md_pinkyring_distal" file="md_pinkyring_distal.stl" />
+    <mesh name="md_pinkyring_distal_collision" file="md_pinkyring_distal_collision.stl" />
+    <mesh name="md_thumb_proximal" file="md_thumb_proximal.stl" />
+    <mesh name="md_thumb_proximal_collision" file="md_thumb_proximal_collision.stl" />
+    <mesh name="md_thumb_distal" file="md_thumb_distal.stl" />
+    <mesh name="md_thumb_distal_collision" file="md_thumb_distal_collision.stl" />
+    <mesh name="torso_black" file="torso_black.stl" />
+    <mesh name="torso_silver" file="torso_silver.stl" />
+  </asset>
+  <worldbody>
+    <body name="openarm_pedestal" pos="0.15671104124654467 -0.08398621508161375 -0.23978428339652205" quat="0.09101323402287032 0 0 0.9958496830509603">
+      <geom name="torso_black" type="mesh" mesh="torso_black" rgba=".247 .247 .247 1" contype="0" conaffinity="0" group="1" />
+      <geom name="torso_silver" type="mesh" mesh="torso_silver" rgba=".796 .796 .796 1" contype="0" conaffinity="0" group="1" />
+      <body name="shoulder_mount" pos="0 -0.031 0.698" quat=".7071054825 .7071080799 0 0">
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.30 0.38 0.40 1" mesh="world_base" name="world_base_visual" />
+        <body name="openarm_link1" pos="0 0 0.0625">
+          <inertial pos="0.00114677 -3.31999e-05 0.0539528" mass="1.14167" diaginertia="0.00156853 0.001273 0.00101447" />
+          <joint name="openarm_joint1" pos="0 0 0" axis="0 0 1" range="-1.39626 3.49066" actuatorfrcrange="-150 150" damping="0.1" armature=".01" />
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.30 0.38 0.40 1" mesh="openarm_link1" name="openarm_link1_visual" />
+          <body name="openarm_link2" pos="-0.0301 0 0.06">
+            <inertial pos="0.00839629 2.01451e-08 0.0325665" mass="0.277509" diaginertia="0.000421651 0.000376006 0.000169343" />
+            <joint name="openarm_joint2" pos="0 0 0" axis="-1 0 0" range="-1.74533 1.74533" actuatorfrcrange="-150 150" damping="0.1" armature=".01" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.30 0.38 0.40 1" mesh="openarm_link2" name="openarm_link2_visual" />
+            <body name="openarm_link3" pos="0.0301 0 0.06625">
+              <inertial pos="-0.00210475 -0.000554909 0.0884747" mass="1.07386" diaginertia="0.00437205 0.00431934 0.000660613" />
+              <joint name="openarm_joint3" pos="0 0 0" axis="0 0 1" range="-1.5708 1.5708" actuatorfrcrange="-150 150" damping="0.1" armature=".01" />
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.30 0.38 0.40 1" mesh="openarm_link3" name="openarm_link3_visual" />
+              <body name="openarm_link4" pos="0 0.0315 0.15375">
+                <inertial pos="-0.00290068 -0.0303058 0.0633964" mass="1.36993" diaginertia="0.001577 0.001346 0.001104" />
+                <joint name="openarm_joint4" pos="0 0 0" axis="0 1 0" range="0 2.44346" actuatorfrcrange="-150 150" damping="0.1" armature=".01" />
+                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.30 0.38 0.40 1" mesh="openarm_link4" name="openarm_link4_visual" />
+                <body name="openarm_link5" pos="0 -0.0315 0.0955">
+                  <inertial pos="-0.00304967 -0.00088669 0.0430798" mass="0.550659" diaginertia="0.000448064 0.000420549 0.000323387" />
+                  <joint name="openarm_joint5" pos="0 0 0" axis="0 0 1" range="-1.5708 1.5708" actuatorfrcrange="-150 150" damping="0.1" armature=".01" />
+                  <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.30 0.38 0.40 1" mesh="openarm_link5" name="openarm_link5_visual" />
+                  <body name="openarm_link6" pos="0.0375 0 0.1205">
+                    <inertial pos="-0.0371366 0.000332305 -9.49837e-05" quat="0 0.707107 0 0.707107" mass="0.35402" diaginertia="0.000159 0.000157 0.000143" />
+                    <joint name="openarm_joint6" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398" actuatorfrcrange="-150 150" damping="0.1" armature=".01" />
+                    <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.30 0.38 0.40 1" mesh="openarm_link6" name="openarm_link6_visual" />
+                    <body name="openarm_link7" pos="-0.0375 0 0">
+                      <inertial pos="3.24218e-05 -0.0176344 0.066504" mass="0.950977" diaginertia="0.000640299 0.000498472 0.000343626" />
+                      <joint name="openarm_joint7" pos="0 0 0" axis="0 1 0" range="-1.5708 1.5708" actuatorfrcrange="-150 150" damping="0.1" armature=".01" />
+                      <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.57 0.65 0.64 1" mesh="openarm_link7" name="openarm_link7_visual" />
+                      <geom type="mesh" rgba="0.38 0.39 0.42 1" mesh="openarm_link7_collision" contype="1" conaffinity="2" group="3" friction="1 .01 .001" name="openarm_link7_collision" />
+                      <body name="md_index_proximal" pos="-0.0450491 -0.0026125 0.172914">
+                        <inertial pos="0 0 0" mass="0.08" diaginertia="4e-05 4e-05 4e-05" />
+                        <joint name="md_index_proximal" pos="0 0 0" axis="-0.984808 0 -0.173648" range="-1.5 1.5" actuatorfrcrange="-5 5" damping="0.01" armature=".001" />
+                        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.72 0.79 0.77 1" mesh="md_index_proximal" name="md_index_proximal_visual" />
+                        <geom type="mesh" rgba="0.36 0.48 0.55 1" mesh="md_index_proximal_collision" contype="1" conaffinity="2" group="3" friction="1 .006 .002" name="md_index_proximal_collision" priority="1" condim="6" solref=".01 1" />
+                        <body name="md_index_distal" pos="-0.00522412 1.69863e-12 0.0305591">
+                          <inertial pos="0 0 0" mass="0.08" diaginertia="4e-05 4e-05 4e-05" />
+                          <joint name="md_index_distal" pos="0 0 0" axis="-0.984808 0 -0.173648" range="-1.5 1.5" actuatorfrcrange="-5 5" damping="0.01" armature=".001" />
+                          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.15 0.48 0.5 1" mesh="md_index_distal" name="md_index_distal_visual" />
+                          <geom type="mesh" rgba="0.36 0.48 0.55 1" mesh="md_index_distal_collision" contype="1" conaffinity="2" group="3" friction="1 .006 .002" name="md_index_distal_collision" priority="1" condim="6" solref=".01 1" />
+                        </body>
+                      </body>
+                      <body name="md_middle_proximal" pos="-0.00670379 -0.0026125 0.188002">
+                        <inertial pos="0 0 0" mass="0.08" diaginertia="4e-05 4e-05 4e-05" />
+                        <joint name="md_middle_proximal" pos="0 0 0" axis="-1 0 0" range="-1.5 1.5" actuatorfrcrange="-5 5" damping="0.01" armature=".001" />
+                        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.72 0.79 0.77 1" mesh="md_middle_proximal" name="md_middle_proximal_visual" />
+                        <geom type="mesh" rgba="0.36 0.48 0.55 1" mesh="md_middle_proximal_collision" contype="1" conaffinity="2" group="3" friction="1 .006 .002" name="md_middle_proximal_collision" priority="1" condim="6" solref=".01 1" />
+                        <body name="md_middle_distal" pos="0.000197151 0 0.032002">
+                          <inertial pos="0 0 0" mass="0.08" diaginertia="4e-05 4e-05 4e-05" />
+                          <joint name="md_middle_distal" pos="0 0 0" axis="-1 0 0" range="-1.5 1.5" actuatorfrcrange="-5 5" damping="0.01" armature=".001" />
+                          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.15 0.48 0.5 1" mesh="md_middle_distal" name="md_middle_distal_visual" />
+                          <geom type="mesh" rgba="0.36 0.48 0.55 1" mesh="md_middle_distal_collision" contype="1" conaffinity="2" group="3" friction="1 .006 .002" name="md_middle_distal_collision" priority="1" condim="6" solref=".01 1" />
+                        </body>
+                      </body>
+                      <body name="md_pinkyring_proximal" pos="0.0375174 0.0013012 0.169052">
+                        <inertial pos="0 0 0" mass="0.08" diaginertia="4e-05 4e-05 4e-05" />
+                        <joint name="md_pinkyring_proximal" pos="0 0 0" axis="-0.951251 -0.173648 0.254887" range="-1.5 1.5" actuatorfrcrange="-5 5" damping="0.01" armature=".001" />
+                        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.72 0.79 0.77 1" mesh="md_pinkyring_proximal" name="md_pinkyring_proximal_visual" />
+                        <geom type="mesh" rgba="0.36 0.48 0.55 1" mesh="md_pinkyring_proximal_collision" contype="1" conaffinity="2" group="3" friction="1 .006 .002" name="md_pinkyring_proximal_collision" priority="1" condim="6" solref=".01 1" />
+                        <body name="md_pinkyring_distal" pos="0.0088387 0.000101585 0.0307605">
+                          <inertial pos="0 0 0" mass="0.08" diaginertia="4e-05 4e-05 4e-05" />
+                          <joint name="md_pinkyring_distal" pos="0 0 0" axis="-0.951251 -0.173648 0.254887" range="-1.5 1.5" actuatorfrcrange="-5 5" damping="0.01" armature=".001" />
+                          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.15 0.48 0.5 1" mesh="md_pinkyring_distal" name="md_pinkyring_distal_visual" />
+                          <geom type="mesh" rgba="0.36 0.48 0.55 1" mesh="md_pinkyring_distal_collision" contype="1" conaffinity="2" group="3" friction="1 .006 .002" name="md_pinkyring_distal_collision" priority="1" condim="6" solref=".01 1" />
+                        </body>
+                      </body>
+                      <body name="md_thumb_proximal" pos="-0.0187087 0.0338819 0.148317">
+                        <inertial pos="0 0 0" mass="0.08" diaginertia="4e-05 4e-05 4e-05" />
+                        <joint name="md_thumb_proximal" pos="0 0 0" axis="0 0.258819 -0.965926" range="-1.5 1.5" actuatorfrcrange="-5 5" damping="0.01" armature=".001" />
+                        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.72 0.79 0.77 1" mesh="md_thumb_proximal" name="md_thumb_proximal_visual" />
+                        <geom type="mesh" rgba="0.36 0.48 0.55 1" mesh="md_thumb_proximal_collision" contype="1" conaffinity="2" group="3" friction="1 .006 .002" name="md_thumb_proximal_collision" priority="1" condim="6" solref=".01 1" />
+                        <body name="md_thumb_distal" pos="0.00035733 0.0306742 -0.00130981">
+                          <inertial pos="0 0 0" mass="0.08" diaginertia="4e-05 4e-05 4e-05" />
+                          <joint name="md_thumb_distal" pos="0 0 0" axis="1 0 0" range="-1.5 1.5" actuatorfrcrange="-5 5" damping="0.01" armature=".001" />
+                          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.15 0.48 0.5 1" mesh="md_thumb_distal" name="md_thumb_distal_visual" />
+                          <geom type="mesh" rgba="0.36 0.48 0.55 1" mesh="md_thumb_distal_collision" contype="1" conaffinity="2" group="3" friction="1 .006 .002" name="md_thumb_distal_collision" priority="1" condim="6" solref=".01 1" />
+                        </body>
+                      </body>
+                      <site name="grasp_frame" pos="-0.00314198382 0.069974193 0.197144407" size=".001" rgba="0 0 0 0" />
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <geom name="bench" type="box" pos="0.456 0 0.084" size=".192 .225 .016" rgba="0.78 0.79 0.74 1" contype="2" conaffinity="3" friction="1 .008 .001" solref=".008 1" />
+    <geom name="bench_edge_1_1" type="box" pos="0.456 0.2265 0.10600000000000001" size="0.192 0.0015 0.006" rgba=".30 .47 .34 1" contype="2" conaffinity="3" friction=".45 .005 .001" solref=".012 1" />
+    <geom name="bench_edge_1_-1" type="box" pos="0.456 -0.2265 0.10600000000000001" size="0.192 0.0015 0.006" rgba=".30 .47 .34 1" contype="2" conaffinity="3" friction=".45 .005 .001" solref=".012 1" />
+    <geom name="bench_edge_0_1" type="box" pos="0.6495 0.0 0.10600000000000001" size="0.0015 0.228 0.006" rgba=".30 .47 .34 1" contype="2" conaffinity="3" friction=".45 .005 .001" solref=".012 1" />
+    <geom name="bench_edge_0_-1" type="box" pos="0.2625 0.0 0.10600000000000001" size="0.0015 0.228 0.006" rgba=".30 .47 .34 1" contype="2" conaffinity="3" friction=".45 .005 .001" solref=".012 1" />
+    <geom name="table_leg_00" type="box" size="0.009 0.009 0.153892141698" pos="0.289 -0.2 -0.0858921416983" rgba=".46 .49 .49 1" contype="0" conaffinity="0" group="1" />
+    <geom name="table_leg_01" type="box" size="0.009 0.009 0.153892141698" pos="0.289 0.2 -0.0858921416983" rgba=".46 .49 .49 1" contype="0" conaffinity="0" group="1" />
+    <geom name="table_leg_10" type="box" size="0.009 0.009 0.153892141698" pos="0.623 -0.2 -0.0858921416983" rgba=".46 .49 .49 1" contype="0" conaffinity="0" group="1" />
+    <geom name="table_leg_11" type="box" size="0.009 0.009 0.153892141698" pos="0.623 0.2 -0.0858921416983" rgba=".46 .49 .49 1" contype="0" conaffinity="0" group="1" />
+    <geom name="room_floor" type="box" size="3 3 .01" pos="0 0 -0.24978428339652206" rgba=".835 .85 .84 1" contype="2" conaffinity="2" group="1" />
+    <geom name="bowl_floor" type="cylinder" size=".058 .003" pos="0.451 0.12 .104" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_0" type="box" size=".010 .0023 .022" pos="0.514 0.12 .125" xyaxes="-0.0 1.0 0 -0.9047516632199634 -0.0 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_1" type="box" size=".010 .0023 .022" pos="0.5118533270562113 0.1363055998414588 .125" xyaxes="-0.25881904510252074 0.9659258262890683 0 -0.873922997882152 -0.23416696152950836 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_2" type="box" size=".010 .0023 .022" pos="0.5055596004384196 0.1515 .125" xyaxes="-0.49999999999999994 0.8660254037844387 0 -0.7835379244647113 -0.4523758316099816 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_3" type="box" size=".010 .0023 .022" pos="0.4955477272147525 0.16454772721475247 .125" xyaxes="-0.7071067811865475 0.7071067811865476 0 -0.6397560363526437 -0.6397560363526436 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_4" type="box" size=".010 .0023 .022" pos="0.48250000000000004 0.17455960043841962 .125" xyaxes="-0.8660254037844386 0.5000000000000001 0 -0.4523758316099818 -0.7835379244647112 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_5" type="box" size=".010 .0023 .022" pos="0.4673055998414588 0.1808533270562113 .125" xyaxes="-0.9659258262890683 0.25881904510252074 0 -0.23416696152950836 -0.873922997882152 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_6" type="box" size=".010 .0023 .022" pos="0.451 0.183 .125" xyaxes="-1.0 6.123233995736766e-17 0 -5.540006141927861e-17 -0.9047516632199634 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_7" type="box" size=".010 .0023 .022" pos="0.4346944001585412 0.1808533270562113 .125" xyaxes="-0.9659258262890683 -0.25881904510252063 0 0.23416696152950825 -0.873922997882152 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_8" type="box" size=".010 .0023 .022" pos="0.41950000000000004 0.17455960043841964 .125" xyaxes="-0.8660254037844387 -0.49999999999999983 0 0.4523758316099815 -0.7835379244647113 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_9" type="box" size=".010 .0023 .022" pos="0.40645227278524754 0.1645477272147525 .125" xyaxes="-0.7071067811865476 -0.7071067811865475 0 0.6397560363526436 -0.6397560363526437 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_10" type="box" size=".010 .0023 .022" pos="0.3964403995615804 0.1515 .125" xyaxes="-0.49999999999999994 -0.8660254037844387 0 0.7835379244647113 -0.4523758316099816 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_11" type="box" size=".010 .0023 .022" pos="0.3901466729437887 0.13630559984145882 .125" xyaxes="-0.258819045102521 -0.9659258262890682 0 0.8739229978821519 -0.2341669615295086 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_12" type="box" size=".010 .0023 .022" pos="0.388 0.12000000000000001 .125" xyaxes="-1.2246467991473532e-16 -1.0 0 0.9047516632199634 -1.1080012283855722e-16 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_13" type="box" size=".010 .0023 .022" pos="0.3901466729437887 0.10369440015854119 .125" xyaxes="0.2588190451025208 -0.9659258262890683 0 0.873922997882152 0.23416696152950842 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_14" type="box" size=".010 .0023 .022" pos="0.3964403995615804 0.08850000000000001 .125" xyaxes="0.4999999999999998 -0.8660254037844388 0 0.7835379244647114 0.45237583160998146 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_15" type="box" size=".010 .0023 .022" pos="0.4064522727852475 0.07545227278524752 .125" xyaxes="0.7071067811865471 -0.7071067811865479 0 0.6397560363526439 0.6397560363526432 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_16" type="box" size=".010 .0023 .022" pos="0.4195 0.06544039956158038 .125" xyaxes="0.8660254037844384 -0.5000000000000004 0 0.45237583160998207 0.7835379244647109 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_17" type="box" size=".010 .0023 .022" pos="0.4346944001585412 0.05914667294378869 .125" xyaxes="0.9659258262890683 -0.25881904510252063 0 0.23416696152950825 0.873922997882152 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_18" type="box" size=".010 .0023 .022" pos="0.451 0.056999999999999995 .125" xyaxes="1.0 -1.8369701987210297e-16 0 1.6620018425783582e-16 0.9047516632199634 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_19" type="box" size=".010 .0023 .022" pos="0.4673055998414588 0.05914667294378868 .125" xyaxes="0.9659258262890684 0.2588190451025203 0 -0.23416696152950794 0.8739229978821521 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_20" type="box" size=".010 .0023 .022" pos="0.48250000000000004 0.06544039956158036 .125" xyaxes="0.8660254037844386 0.5000000000000001 0 -0.4523758316099818 0.7835379244647112 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_21" type="box" size=".010 .0023 .022" pos="0.4955477272147525 0.07545227278524749 .125" xyaxes="0.7071067811865477 0.7071067811865474 0 -0.6397560363526434 0.6397560363526437 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_22" type="box" size=".010 .0023 .022" pos="0.5055596004384196 0.08849999999999997 .125" xyaxes="0.5000000000000004 0.8660254037844384 0 -0.7835379244647109 0.45237583160998207 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <geom name="bowl_wall_23" type="box" size=".010 .0023 .022" pos="0.5118533270562113 0.10369440015854114 .125" xyaxes="0.25881904510252157 0.9659258262890681 0 -0.8739229978821518 0.2341669615295091 0.4259394650659996" contype="2" conaffinity="3" friction=".65 .004 .0003" solref=".009 1" rgba=".42 .63 .68 1" />
+    <body name="object" pos=".4 -.08 .18">
+      <freejoint name="object_free" />
+      <!--OBJECT_GEOMETRY-->
+    </body>
+  </worldbody>
+  <option timestep="0.00416666666666667" gravity="0 0 -9.81" integrator="implicitfast" cone="elliptic" iterations="60" />
+  <actuator>
+    <position name="openarm_joint1" joint="openarm_joint1" kp="1500" kv="80" forcerange="-150 150" />
+    <position name="openarm_joint2" joint="openarm_joint2" kp="1500" kv="80" forcerange="-150 150" />
+    <position name="openarm_joint3" joint="openarm_joint3" kp="1500" kv="80" forcerange="-150 150" />
+    <position name="openarm_joint4" joint="openarm_joint4" kp="1500" kv="80" forcerange="-150 150" />
+    <position name="openarm_joint5" joint="openarm_joint5" kp="1500" kv="80" forcerange="-150 150" />
+    <position name="openarm_joint6" joint="openarm_joint6" kp="1500" kv="80" forcerange="-150 150" />
+    <position name="openarm_joint7" joint="openarm_joint7" kp="1500" kv="80" forcerange="-150 150" />
+    <position name="md_index_proximal" joint="md_index_proximal" kp="5" kv="0.15" forcerange="-5 5" />
+    <position name="md_index_distal" joint="md_index_distal" kp="5" kv="0.15" forcerange="-5 5" />
+    <position name="md_middle_proximal" joint="md_middle_proximal" kp="5" kv="0.15" forcerange="-5 5" />
+    <position name="md_middle_distal" joint="md_middle_distal" kp="5" kv="0.15" forcerange="-5 5" />
+    <position name="md_pinkyring_proximal" joint="md_pinkyring_proximal" kp="5" kv="0.15" forcerange="-5 5" />
+    <position name="md_pinkyring_distal" joint="md_pinkyring_distal" kp="5" kv="0.15" forcerange="-5 5" />
+    <position name="md_thumb_proximal" joint="md_thumb_proximal" kp="5" kv="0.15" forcerange="-5 5" />
+    <position name="md_thumb_distal" joint="md_thumb_distal" kp="5" kv="0.15" forcerange="-5 5" />
+  </actuator>
+</mujoco>

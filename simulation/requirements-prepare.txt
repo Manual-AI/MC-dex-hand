@@ -1,0 +1,5 @@
+mujoco==3.6.0
+numpy==2.2.6
+trimesh==4.11.5
+scipy==1.15.3
+Pillow==11.3.0

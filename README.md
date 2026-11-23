@@ -1,156 +1,73 @@
 # MC-dex-hand
 
-<p align="center">
-  <b>Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations</b><br>
-  Amir Belder<sup>*</sup>, Omri Berman, Roman Rabinovich, Navot Oz, Nir Barazida, Aaron Wetzler<br>
-  Manual Cognition &middot; <sup>*</sup>corresponding author<br>
-  <i><a href="http://www.robot-learning.ml/2026/">8th Robot Learning Workshop: Is Physical AI Going Zero-Shot?</a>, NeurIPS 2026</i>
-</p>
+[Paper](#paper) · [Simulation](#simulation) · [Hardware](#hardware) · [Bill of materials](bom/README.md) · [Teleoperation](lerobot/README.md) · [Contact](#contact) · [Citation](#citation)
 
 <p align="center">
-  <a href="docs/paper/mc-dex-hand-neurips2026.pdf"><b>Paper (PDF)</b></a> &middot;
-  <a href="http://www.robot-learning.ml/2026/">Workshop</a> &middot;
-  <a href="software/">Code</a> &middot;
-  <a href="bom/BOM.md">Bill of materials</a> &middot;
-  <a href="#citation">BibTeX</a>
+  <a href="docs/assets/mc-dex-hand-demo.gif"><img src="docs/assets/prototype-preview.gif" alt="The robot hand mirroring the operator’s wearable glove" width="768"></a>
 </p>
-
 <p align="center">
-  <img src="docs/assets/mc-dex-hand-demo.gif" alt="MC-dex-hand robot hand mirroring the wearable data-collection glove" width="800">
+  <a href="docs/assets/mc-dex-hand-demo.gif">Watch the full prototype demo</a><br>
+  <sub>Physical prototype footage. The released teleoperation tutorial runs in simulation.</sub>
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/NeurIPS-2026%20Workshop-8C1D40" alt="NeurIPS 2026 Workshop">
-  <img src="https://img.shields.io/badge/Python-3-3776AB?logo=python&logoColor=white" alt="Python 3">
-  <img src="https://img.shields.io/badge/Hardware-8--DOF-F97316" alt="8-DOF hardware">
-  <img src="https://img.shields.io/badge/Firmware-ESP32-E7352C?logo=espressif&logoColor=white" alt="ESP32 firmware">
-  <img src="https://img.shields.io/badge/CAD-STL%20%7C%20STEP-5C6BC0" alt="STL and STEP CAD files">
-  <img src="https://img.shields.io/badge/Git%20LFS-enabled-F64935?logo=git&logoColor=white" alt="Git LFS enabled">
-</p>
-
-An open-source dexterous robot hand and a matching wearable data-collection glove, built by
-[Manual Cognition](https://github.com/Manual-AI).
-
-The two share **identical kinematics and contact geometry**: what the glove's fingertips touch is what
-the robot's fingertips touch. Wearing the glove and manipulating objects therefore produces
-demonstrations that transfer directly to the robot hand (UMI-style data collection).
-
-| | Robot hand | Glove |
-|---|---|---|
-| Joints | 8 DOF: index, middle, ring+pinky (combined), thumb - 2 joints each | same 8 joints |
-| Actuation / sensing | 8x Feetech HLS3606 dual-shaft serial-bus servos | 8x Bourns 3382G-2-103G rotary potentiometers, read by an Adafruit HUZZAH32 ESP32 Feather |
-| 6-DOF pose | mounted on the robot arm (OpenArm flange adaptor included) | Meta Quest Touch Plus controller, rigidly mounted |
-| Wrist camera | 2 MP USB camera | same camera, same pose |
-| Structure | FDM printed, ABS or PETG | FDM printed, ABS or PETG |
-
-During data collection the glove's potentiometer readings are mapped to the corresponding robot servo
-encoder values, so a recorded glove trajectory is a servo trajectory.
-
-> **Status:** hardware release in progress. A [visual assembly guide](docs/assembly/README.md)
-> covers the main link connections. Firmware, host software and detailed build instructions are TODO.
-> **License:** open for commercial use - Apache-2.0 (software), CERN-OHL-P-2.0 (hardware),
-> CC BY 4.0 (docs). See [License](#license).
+MC-dex-hand pairs a wearable sensing glove with an eight-joint robot hand. The two
+shells have matching finger linkages and contact surfaces. After calibration, each
+glove joint angle maps to the corresponding robot joint. Both assemblies are right-handed.
 
 ## Paper
 
-Collecting robot demonstrations by teleoperation ties up the robot and is slower than natural human
-manipulation. The glove costs about $80 in components, or about $430 with the Meta Quest 3S used for wrist
-tracking. It records wrist-camera video, 6-DOF wrist motion
-and 8 finger joints without a robot in the loop. Three offline steps adapt each demonstration to the
-robot, and none replays it on the robot hand:
+The glove records finger angles, wrist pose and wrist-camera video while a person manipulates objects.
+Our NeurIPS 2026 workshop paper describes how we map those demonstrations to the robot and
+evaluate the resulting policies on the Cube in Cup and Egg Carton tasks.
+[Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations (PDF)](docs/paper/mc-dex-hand-neurips2026.pdf).
 
-1. **Retargeting.** Each finger group maps to its robot actuators with a fixed per-joint scale and
-   offset, calibrated once per hand. Wrist poses go through a rigid Quest-to-robot-base transform,
-   calibrated once per arm, then inverse kinematics. Poses outside the reachable workspace are dropped.
-2. **Appearance normalization.** [SAM 2](https://ai.meta.com/sam2) segments visible skin in the wrist camera and recolors it to
-   the glove's black, RGB(18, 18, 20).
-3. **Temporal alignment.** Ten teleoperated trajectories, collected once per arm and shared across
-   tasks, give the robot's typical execution time. Each glove episode is stretched uniformly in time
-   by the ratio of that time to its own duration; wrist and finger trajectories are interpolated and
-   video frames resampled together.
+## [Simulation](simulation/README.md)
 
-A glove demonstration takes about 6 s to collect. DexUMI's collect-and-replay pipeline takes about
-14 s, and its teleoperation baseline about 26 s.
+We wanted to make MC-Dex as easy as possible to work with, so we’ve prepared assets and initial simulation samples for a range of engines. Below you’ll find samples from Isaac Sim, MuJoCo, Genesis, SuperDex, Alloy and Steel, with force estimates from each.
 
-**Real-robot success, 150 glove demonstrations per task (20 trials each).** DexUMI rows are its
-published results, not a re-implementation.
+**New!** [Try out an interactive browser policy](simulation/browser/bowl/MC-Dex-Bowl.html?raw=1). Open the HTML file in Chrome. Throw an object onto the table, push it during the reach, or drag it back out of the bowl. The simulation and policy run entirely in your browser, even offline. [Controls and policy results](simulation/browser/bowl/README.md).
 
-| Method | Policy | Cube in Cup demos | Cube in Cup | Egg Carton demos | Egg Carton |
-|---|---|---|---|---|---|
-| DexUMI | Diffusion | 310 | 0.95 | 175 | 0.90 |
-| Ours | ACT | 150 | 0.80 | 150 | 0.75 |
-| Ours | GR00T | 150 | 0.75 | 150 | 0.80 |
+<p align="center">
+  <a href="docs/assets/simulation/bowl/bowl-engines.mp4"><img src="docs/assets/simulation/bowl/preview.gif" width="768" height="432" alt="Native simulator views of the MC-Dex hand carrying a brick to the bowl on OpenArm, with a force trace for each capture."></a>
+</p>
+<p align="center">
+  <a href="docs/assets/simulation/bowl/bowl-engines.mp4">Watch the full object-to-bowl comparison</a><br>
+  <sub>Close-up excerpt of the scripted carry and release. Each engine simulates the moving brick and renders its own camera.</sub>
+</p>
 
-**Scaling glove data on Cube in Cup**, against 60 teleoperated demonstrations:
+[Individual engine videos and force estimates](simulation/COMPARISON.md) · [Simulation assets and setup](simulation/README.md) · [Standalone hand models](models/manual_dex/README.md).
 
-| Training data | Demos | ACT | GR00T |
-|---|---|---|---|
-| Teleoperation | 60 | 0.95 | 0.95 |
-| Glove | 60 | 0.65 | 0.60 |
-| Glove | 90 | 0.70 | 0.65 |
-| Glove | 120 | 0.75 | 0.70 |
-| Glove | 150 | 0.80 | 0.75 |
-| Glove | 240 | 0.95 | 0.90 |
+<a id="meet-the-glove-and-robot-hand"></a>
 
-60 glove demonstrations take about a quarter of the collection time of 60 teleoperated ones. At 240,
-ACT matches teleoperation.
+## Hardware
 
-## Repository layout
+![Glove shell driven by human hand. Four finger groups pivot on a backplate. The glove carries a wrist-tracking controller and an ESP32 that reads eight rotary potentiometers.](docs/images/wearable-glove-wrist-side.png)
 
-```
-bom/                 Bill of materials (CSV = source of truth, BOM.md rendered from it)
-hardware/
-  robot_hand/stl/    printed parts unique to the robot hand   (rh_*)
-  glove/stl/         printed parts unique to the glove         (gl_*)
-  common/stl/        printed parts used on both                (cm_*)
-  step/              full assemblies as STEP (robot hand, glove)
-third_party/udcap/   attribution for the superseded Quest cradle (see THIRD_PARTY.md)
-firmware/esp32_glove ESP32 Feather firmware reading the glove encoders   (TODO)
-software/            host-side collection / control / mapping code       (TODO)
-docs/assembly/       visual guide to the main parts and link connections
-docs/paper/          camera-ready paper PDF
-tools/               BOM renderer + SolidWorks macros used to produce the release files
-```
+![Matched robot shell driven by compact actuators. The frame holds the proximal servos and each moving proximal link carries a distal servo. The controller mount and enclosure match the glove.](docs/images/robot-hand-wrist-side.png)
 
-## Building one
+Both wrist-side views use the same scale. The glove and robot share white printed shells, a white Quest controller with a black upper face, and an Arducam with a green board and black M12 lens holder. The robot’s finger links expose the red-and-black Feetech servos.
 
-1. Read `bom/BOM.md`. Buy everything in the *Buy* tables; rows marked `TODO` are still being
-   finalised.
-2. Print every part in the *Make* tables from `hardware/*/stl/`. Quantities are in the BOM
-   (most are 1; `gl_tip_hinge_pin` x3, `gl_encoder_lid` x5, `gl_encoder_case_*` x2).
-   ABS or PETG, 100 % infill for pins.
-3. Each assembly uses the same Quest mount: print `cm_quest_mount_base`,
-   `cm_quest_mount_hinged_cap` and `cm_quest_mount_receiver`. Add one 2 x 20 mm pin,
-   one M3 x 12 mm screw and one M3 nut. The receiver pads have centered 8 x 9 mm
-   edge-to-edge gaps. The previous two-piece udCap cradle is superseded.
-4. Follow the [visual assembly guide](docs/assembly/README.md) for the main link connections.
+The [paired kinematics animation](docs/assets/manual-dex-paired-kinematics.gif) shows the
+corresponding joints through a flexion cycle. The controller mounts match so that the
+two devices have the same controller silhouette in an overhead view. For the wrist-camera
+view, the operator wears a black fingerless glove and the paper’s preprocessing recolors exposed skin.
 
-## Meet the glove and robot hand
+To build either assembly, start with the [hardware comparison and parts lists](bom/README.md),
+then follow the [illustrated assembly guide](docs/assembly/README.md).
+The [STEP assemblies](hardware/step/) and printable meshes use Git LFS. Run `git lfs pull`
+after cloning to download the full assets.
 
-![Wearable glove CAD overview](docs/images/wearable-glove-overview.png)
+## Teleoperation
 
-![Robot hand CAD overview](docs/images/robot-hand-overview.png)
+The [LeRobot tutorial](lerobot/README.md) uses a synthetic glove to drive the simulated
+fingers with the arm held fixed. It includes calibration and local recording of joint
+commands and measured simulator positions. The physical setup still needs released glove
+firmware, a verified servo-bus driver and synchronized camera and wrist-pose capture.
+[Physical hardware integration](lerobot/HARDWARE.md)
 
-See the [link connection close-ups](docs/assembly/README.md) for a short guide to how the
-backplate, proximal links and fingertips fit together.
+## Contact
 
-Right hand only for now. Parts flagged `mirror_for_left = yes` in the BOM need a mirrored print for a
-left-hand variant. Quest mount handedness is marked TODO until checked.
-
-## Part naming
-
-`rh_` robot hand, `gl_` glove, `cm_` common to both; then finger (`index`, `middle`, `pinkyring`,
-`thumb`) and part. `bom/rename_map.csv` maps historical CAD names to release names.
-The imported Quest mount retains its source filenames;
-`export_cad.bas` maps these to the three `cm_quest_mount_*` release filenames.
-
-## Regenerating release files
-
-- `python tools/gen_bom_md.py` - re-render `bom/BOM.md` after editing the CSVs.
-- `tools/solidworks/rename_parts.bas` - renames CAD files per `rename_map.csv` (already applied).
-- `tools/solidworks/export_cad.bas` - exports one STL per printed part and the assembly STEP.
-- `python tools/place_exports.py <export folder>` - sorts exported STL/STEP into `hardware/` and
-  checks them against the BOM.
+For any questions about the glove, reach out to [amir@manualcognition.ai](mailto:amir@manualcognition.ai)
 
 ## License
 

@@ -1,0 +1,7 @@
+{
+  "parent_body": "openarm_link7",
+  "parent_xyz_m": [0, 0, 0.0945],
+  "parent_rpy_rad": [0, 0, 0],
+  "hand_flange_center_m": [0.019950041174933, 0.002612496949731387, 0.0365],
+  "notes": "OpenArm v1 link7 top face: CAD z=653 mm minus link7 origin z=558.5 mm. Manual-Dex adaptor mating face: center of its 28.5 mm-radius cylinder at CAD [19.950041,-93.5,-2.612497] mm, transformed to the released MJCF frame. Default clocking aligns the two Z axes. Verify bolt clocking and clearances for your hardware; this is not a calibrated mounting transform."
+}
