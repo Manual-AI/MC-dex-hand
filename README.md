@@ -54,8 +54,8 @@ view, the operator wears a black fingerless glove and the paper’s preprocessin
 
 To build either assembly, start with the [hardware comparison and parts lists](bom/README.md),
 then follow the [illustrated assembly guide](docs/assembly/README.md).
-The [STEP assemblies](hardware/step/) and printable meshes use Git LFS. Run `git lfs pull`
-after cloning to download the full assets.
+The [STEP assemblies](hardware/step/), printable meshes, images and videos use Git LFS.
+After cloning, run `git lfs install --local` and then `git lfs pull` from the repository root.
 
 ## Teleoperation
 

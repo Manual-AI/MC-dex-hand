@@ -30,7 +30,7 @@ Actual BOM materials and specifications are listed in the
 
 ## Load or inspect
 
-Fetch mesh files with `git lfs pull`. From the repository root, with the visualization
+After cloning, run `git lfs install --local` and then `git lfs pull` to fetch the meshes. From the repository root, with the visualization
 dependencies installed:
 
 ```bash

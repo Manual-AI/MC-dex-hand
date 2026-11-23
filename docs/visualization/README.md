@@ -120,6 +120,7 @@ installed under `/usr/share/fonts/truetype/`. No generative image model is used.
 From the repository root:
 
 ```bash
+git lfs install --local
 git lfs pull
 python3 -m venv .venv
 .venv/bin/python -m pip install -r tools/visualization/requirements.txt

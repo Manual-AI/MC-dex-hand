@@ -15,6 +15,7 @@ The [comparison and measurements](../COMPARISON.md) describe the compliant grasp
 Use Node.js 22 or newer with ES modules and WebAssembly, and a separate Python 3.11+ environment for MuJoCo, NumPy, trimesh and Pillow. Git LFS is required for the release media. The browser model, its mesh archive and the fixed motion program are bundled in the repository.
 
 ```sh
+git lfs install --local
 git lfs pull
 mkdir -p build/bowl-showcase
 python3 -m venv build/bowl-showcase/env

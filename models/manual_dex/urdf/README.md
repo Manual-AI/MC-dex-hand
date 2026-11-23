@@ -11,6 +11,7 @@ standalone directory. The glove remains available as [native MJCF](../glove/scen
 Fetch Git LFS objects first. With MuJoCo installed, from the repository root:
 
 ```bash
+git lfs install --local
 git lfs pull
 python -m mujoco.viewer --mjcf=models/manual_dex/urdf/manual_dex.urdf
 ```
