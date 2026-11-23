@@ -2,7 +2,6 @@
 
 Use the [print and purchase lists](BOM.md) for quantities, materials and part numbers.
 The [robot-hand CSV](robot_hand.csv) and [glove CSV](glove.csv) are the source data.
-A `TODO` marks an unconfirmed specification, quantity or sourcing detail.
 
 ## Hardware comparison
 
