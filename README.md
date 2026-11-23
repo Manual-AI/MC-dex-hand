@@ -18,9 +18,9 @@ evaluate the resulting policies on the Cube in Cup and Egg Carton tasks.
 
 [Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations (PDF)](docs/paper/mc-dex-hand-neurips2026.pdf).
 
-## [Simulation](https://github.com/Manual-AI/MC-dex-hand/blob/main/simulation/README.md)
+## Simulation
 
-We wanted to make MC-Dex as easy as possible to work with, so we’ve prepared assets and initial simulation samples for a range of engines. Below you’ll find samples from Isaac Sim, MuJoCo, Genesis, SuperDex, Alloy and Steel, with force estimates from each.
+We wanted to make MC-Dex as easy as possible to work with, so we’ve prepared assets and initial simulation samples for a range of engines. Below you’ll find samples from Isaac Sim, MuJoCo, Genesis, SuperDex, Alloy and Steel, with force estimates from each. [Get started with simulation of MC-DexHand](https://github.com/Manual-AI/MC-dex-hand/blob/main/simulation/README.md).
 
 📣 [<img src="docs/assets/new-badge.svg" alt="New!" width="42" height="20" align="middle"> Try the interactive browser policy](https://manual-ai.github.io/MC-dex-hand/). Throw an object onto the table, push it during the reach, or drag it back out of the bowl. The simulation and policy run in your browser. [Controls, results and offline version](simulation/browser/bowl/README.md).
 
