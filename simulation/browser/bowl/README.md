@@ -14,7 +14,7 @@ A seven-joint OpenArm carries the eight-joint MC-Dex hand. Reset throws a freely
 
 ## Play in your browser
 
-[Open or download the standalone demo](MC-Dex-Bowl.html?raw=1). If your browser downloads the file, double-click **MC-Dex-Bowl.html** or use **File → Open File** in Chrome. You can move it to another folder or computer and play offline. It includes MuJoCo, the hand meshes, all 16 objects, the trained actor, the physics-preview worker and the recorded throws. Use a browser with WebGL 2 and WebAssembly. Chrome is tested.
+[Download the standalone demo (HTML, 11.3 MB)](https://github.com/Manual-AI/MC-dex-hand/releases/download/bowl-demo-v1/MC-Dex-Bowl.html). Open **MC-Dex-Bowl.html** from Chrome’s Downloads, or use **File → Open File** to select it. If you already have a local checkout, open `simulation/browser/bowl/MC-Dex-Bowl.html` directly. You can move it to another folder or computer and play offline. It includes MuJoCo, the hand meshes, all 16 objects, the trained actor, the physics-preview worker and the recorded throws. Use a browser with WebGL 2 and WebAssembly. Chrome is tested.
 
 - **Throw object** starts a new release. Choose an object from the menu or leave it on random. The object and seed in the address reproduce the launch.
 - **Push object** applies a sideways impulse. Dragging applies a mouse force. The hand waits after a successful deposit and resumes when the object is removed. An object that falls off the table triggers a new throw.
@@ -50,3 +50,5 @@ For the programmed cross-engine version of this scene, see the [native videos an
 ## Rebuild the standalone file
 
 The editable browser app starts at [index.html](index.html). Changes to its JavaScript, weights, meshes or styles should be followed by a rebuild. With Python 3 and esbuild 0.25.11 on your path, run `python3 simulation/browser/bowl/standalone.py` from the repository root. You can pass `--esbuild /path/to/esbuild` to use an existing installation. The output is `simulation/browser/bowl/MC-Dex-Bowl.html`. Open a copy of this file by itself with networking disabled to check both controller modes.
+
+When releasing an updated demo, attach the verified HTML file to a GitHub release in this repository and update the download links in the project, simulation and demo READMEs. GitHub serves raw repository HTML as source text.
