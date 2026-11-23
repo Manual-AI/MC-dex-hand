@@ -3,7 +3,7 @@
 [Paper](#paper) · [Simulation](#simulation) · [Hardware](#hardware) · [Bill of materials](bom/README.md) · [Teleoperation](lerobot/README.md) · [Contact](#contact) · [Citation](#citation)
 
 <p align="center">
-  <a href="docs/assets/mc-dex-hand-demo.gif"><img src="docs/assets/prototype-preview.gif" alt="The robot hand mirroring the operator’s wearable glove" width="768"></a>
+  <a href="docs/assets/mc-dex-hand-demo.gif"><img src="docs/assets/prototype-preview.gif" alt="The robot hand mirroring the operator’s wearable glove" width="614"></a>
 </p>
 <p align="center">
   <a href="docs/assets/mc-dex-hand-demo.gif">Watch the full prototype demo</a><br>
