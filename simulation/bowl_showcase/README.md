@@ -5,7 +5,7 @@
 </p>
 <p align="center">
   <a href="../../docs/assets/simulation/bowl/bowl-engines.mp4">Watch the full comparison</a><br>
-  <sub>Close-up excerpt from the transport and release. Each native renderer receives the same camera, geometry and arm program.</sub>
+  <sub>Four seconds at simulation speed, from the carry through release and settling. Each native renderer receives the same camera, geometry and arm program.</sub>
 </p>
 
 The [comparison and measurements](../COMPARISON.md) describe the compliant grasp and the meaning of the forces. The [interactive browser task](../browser/bowl/README.md) uses a learned actor and physical finger contacts. All commands below run from the repository root.

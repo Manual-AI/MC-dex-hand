@@ -36,6 +36,18 @@ def digest(b):
     return hashlib.sha256(b).hexdigest()
 
 
+def phase_at(tick, capture):
+    if tick < 52:
+        return "Approach"
+    if tick < capture["gripTick"]:
+        return "Close"
+    if tick < 134:
+        return "Lift"
+    if tick < capture["releaseTick"]:
+        return "Carry"
+    return "Release" if tick < 209 else "Settle"
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     scene = (WORK / "scene/scene.json").read_bytes()
@@ -125,19 +137,7 @@ def main():
             draw.text((x + 18, y + 8), title, font=fonts[0], fill=colors["ink"])
             c = captures[name]
             step = min(tick, len(c["verticalForceN"]) - 1)
-            phase = (
-                "Approach"
-                if tick < 52
-                else "Close"
-                if tick < c["gripTick"]
-                else "Lift"
-                if tick < 134
-                else "Carry"
-                if tick < c["releaseTick"]
-                else "Release"
-                if tick < 209
-                else "Settle"
-            )
+            phase = phase_at(tick, c)
             draw.text(
                 (x + 620, y + 28), phase, font=fonts[1], anchor="rm", fill=colors["dim"]
             )
@@ -218,12 +218,14 @@ def main():
     preview_frames = WORK / "preview-frames"
     preview_frames.mkdir(exist_ok=True)
     label_font, phase_font = font(16, True), font(13)
-    for index, tick in enumerate(range(166, 214, 2)):
+    preview_ticks = range(142, 238, 2)  # Four seconds at the native 12 fps.
+    previous_pixels = None
+    for index, tick in enumerate(preview_ticks):
         card = Image.new("RGB", (768, 432), colors["paper"])
         draw = ImageDraw.Draw(card)
         for cell, (engine, title) in enumerate(ENGINES.items()):
             x, y = (cell % 3) * 256, (cell // 3) * 216
-            phase = "Carry" if tick < captures[engine]["releaseTick"] else "Release"
+            phase = phase_at(tick, captures[engine])
             draw.text((x + 7, y + 4), title, font=label_font, fill=colors["ink"])
             draw.text(
                 (x + 247, y + 15),
@@ -245,8 +247,17 @@ def main():
                 fill=colors["green"],
             )
             draw.line((x + 255, y, x + 255, y + 215), fill=colors["line"])
-        card.save(preview_frames / f"{index:03}.png")
-    filters = f"trim=end_frame={index + 1},split[a][b];[a]palettegen=max_colors=112[p];[b][p]paletteuse=dither=bayer:bayer_scale=4"
+        # Keep near-identical pixels stable between frames so small camera noise compresses well.
+        pixels = np.array(card, dtype=np.int16)
+        if previous_pixels is not None:
+            stable = np.abs(pixels - previous_pixels).max(axis=2) < 12
+            pixels[stable] = previous_pixels[stable]
+        Image.fromarray(pixels.astype(np.uint8)).save(preview_frames / f"{index:03}.png")
+        previous_pixels = pixels
+    filters = (
+        f"trim=end_frame={len(preview_ticks)},split[a][b];"
+        "[a]palettegen=max_colors=224[p];[b][p]paletteuse=dither=bayer:bayer_scale=4"
+    )
     subprocess.run(
         [
             "ffmpeg",
@@ -258,7 +269,7 @@ def main():
             "-i",
             str(preview_frames / "%03d.png"),
             "-frames:v",
-            str(index + 1),
+            str(len(preview_ticks)),
             "-filter_complex",
             filters,
             "-loop",
