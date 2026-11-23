@@ -14,14 +14,18 @@
   <a href="docs/assets/mc-dex-hand-demo.gif"><img src="docs/assets/prototype-preview.gif" alt="The robot hand mirroring the operator’s wearable glove" width="614"></a>
 </p>
 
-MC-dex-hand pairs a wearable sensing glove with an eight-joint robot hand. The two
-shells have matching finger linkages and contact surfaces. After calibration, each
-glove joint angle maps to the corresponding robot joint.
+MC-Dex lets you record demonstrations for a robot hand without having the robot in the room.
+Put on the glove and do the task at your own pace. As you move, the glove records your
+wrist motion and finger angles in sync with video from the wrist camera.
+
+We designed the glove and the eight-joint robot hand together. Their finger linkages and
+contact surfaces match, so after calibration each glove joint angle maps directly to the
+corresponding robot joint. You can build the glove for about $80 in parts, or about $430
+including the Quest wrist-tracking kit.
 
 ## Paper
 
-The glove records finger angles, wrist pose and wrist-camera video while a person manipulates objects.
-Our NeurIPS 2026 workshop paper describes how we map those demonstrations to the robot and
+Our NeurIPS 2026 workshop paper describes how we align the glove recordings with the robot’s timing and
 evaluate the resulting policies on the Cube in Cup and Egg Carton tasks.
 
 <p align="center">
@@ -40,11 +44,7 @@ We wanted to make MC-Dex as easy as possible to work with, so we’ve prepared a
   <a href="docs/assets/simulation/bowl/bowl-engines.mp4"><img src="docs/assets/simulation/bowl/preview.gif" width="768" height="432" alt="Native simulator views of the MC-Dex hand carrying a brick to the bowl on OpenArm, with a force trace for each capture."></a>
 </p>
 
-<p align="center">
-  📣 <a href="https://manual-ai.github.io/MC-dex-hand/"><img src="docs/assets/new-badge.svg" alt="New!" width="42" height="20" align="middle"> Try the interactive browser policy</a>.
-</p>
-
-Throw an object onto the table, push it during the reach, or drag it back out of the bowl. The simulation and policy run in your browser. [Controls, results and offline version](simulation/browser/bowl/README.md).
+📣 [<img src="docs/assets/new-badge.svg" alt="New!" width="42" height="20" align="middle"> Try the interactive browser policy](https://manual-ai.github.io/MC-dex-hand/). Throw an object onto the table, push it during the reach, or drag it back out of the bowl. The simulation and policy run in your browser. [Controls, results and offline version](simulation/browser/bowl/README.md).
 
 <a id="meet-the-glove-and-robot-hand"></a>
 
