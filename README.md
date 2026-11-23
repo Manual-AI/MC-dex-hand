@@ -24,7 +24,9 @@ The glove records finger angles, wrist pose and wrist-camera video while a perso
 Our NeurIPS 2026 workshop paper describes how we map those demonstrations to the robot and
 evaluate the resulting policies on the Cube in Cup and Egg Carton tasks.
 
-📄 [Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations (PDF)](docs/paper/mc-dex-hand-neurips2026.pdf).
+<p align="center">
+  📖 <a href="docs/paper/mc-dex-hand-neurips2026.pdf">Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations (PDF)</a>.
+</p>
 
 ## Simulation
 
