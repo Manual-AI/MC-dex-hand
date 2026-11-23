@@ -218,7 +218,7 @@ def main():
     preview_frames = WORK / "preview-frames"
     preview_frames.mkdir(exist_ok=True)
     label_font, phase_font = font(16, True), font(13)
-    preview_ticks = range(142, 238, 2)  # Four seconds at the native 12 fps.
+    preview_ticks = range(118, 259, 2)  # From the lift through the last native capture.
     previous_pixels = None
     for index, tick in enumerate(preview_ticks):
         card = Image.new("RGB", (768, 432), colors["paper"])
@@ -239,7 +239,8 @@ def main():
                 (256, 169), Image.Resampling.LANCZOS
             )
             card.paste(crop, (x, y + 25))
-            force = captures[engine]["verticalForceN"][tick]
+            forces = captures[engine]["verticalForceN"]
+            force = forces[min(tick, len(forces) - 1)]
             draw.text(
                 (x + 7, y + 197),
                 f"Fz   {force:.2f} N",
@@ -250,13 +251,13 @@ def main():
         # Keep near-identical pixels stable between frames so small camera noise compresses well.
         pixels = np.array(card, dtype=np.int16)
         if previous_pixels is not None:
-            stable = np.abs(pixels - previous_pixels).max(axis=2) < 12
+            stable = np.abs(pixels - previous_pixels).max(axis=2) < 22
             pixels[stable] = previous_pixels[stable]
         Image.fromarray(pixels.astype(np.uint8)).save(preview_frames / f"{index:03}.png")
         previous_pixels = pixels
     filters = (
         f"trim=end_frame={len(preview_ticks)},split[a][b];"
-        "[a]palettegen=max_colors=224[p];[b][p]paletteuse=dither=bayer:bayer_scale=4"
+        "[a]palettegen=max_colors=176[p];[b][p]paletteuse=dither=bayer:bayer_scale=4"
     )
     subprocess.run(
         [
@@ -274,6 +275,9 @@ def main():
             filters,
             "-loop",
             "0",
+            # Hold the settled frame for one extra frame interval to complete six seconds.
+            "-final_delay",
+            str(round(2 * 100 / FPS)),
             str(OUT / "preview.gif"),
         ],
         check=True,

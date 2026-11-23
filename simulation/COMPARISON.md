@@ -5,7 +5,7 @@
 </p>
 <p align="center">
   <a href="../docs/assets/simulation/bowl/bowl-engines.mp4">Watch the complete synchronized montage</a><br>
-  <sub>The four-second excerpt shows the carry, release and settling at simulation speed. The full video also shows the approach, grasp and lift, with a vertical force trace for each engine.</sub>
+  <sub>The six-second excerpt starts during the lift and ends with the brick settled in the bowl. The full video also shows the approach and grasp, with a vertical force trace for each engine.</sub>
 </p>
 
 The vertical OpenArm, eight-joint MC-Dex hand, table, bowl and red building brick come from the [interactive demo](browser/bowl/README.md). Each panel uses the same programmed arm and finger trajectory. Each engine advances its own rigid brick at 240 Hz and renders the resulting motion with its own camera. [Reproduce the captures](bowl_showcase/README.md).
