@@ -31,17 +31,13 @@ component cost is $80 for the glove, or $430 including the Quest wrist-tracking 
 Our NeurIPS 2026 workshop paper describes how we align the glove recordings with the robot’s timing and
 evaluate the resulting policies on the Cube in Cup and Egg Carton tasks.
 
-<p align="center">
-  📖 <a href="docs/paper/mc-dex-hand-neurips2026.pdf">Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations (PDF)</a>.
-</p>
+📖 [Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations (PDF)](docs/paper/mc-dex-hand-neurips2026.pdf).
 
 ## Simulation
 
 We wanted to make MC-Dex as easy as possible to work with, so we’ve prepared assets and initial simulation samples for a range of engines. Below you’ll find samples from Isaac Sim, MuJoCo, Genesis, SuperDex, Alloy and Steel, with force estimates from each.
 
-<p align="center">
-  <a href="https://github.com/Manual-AI/MC-dex-hand/blob/main/simulation/README.md">Get started with simulation of MC-DexHand</a>.
-</p>
+[Get started with simulation of MC-DexHand](https://github.com/Manual-AI/MC-dex-hand/blob/main/simulation/README.md).
 
 <p align="center">
   <a href="docs/assets/simulation/bowl/bowl-engines.mp4"><img src="docs/assets/simulation/bowl/preview.gif" width="768" height="432" alt="Native simulator views of the MC-Dex hand carrying a brick to the bowl on OpenArm, with a force trace for each capture."></a>
