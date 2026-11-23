@@ -1,6 +1,14 @@
 # MC-dex-hand
 
-[Paper](#paper) · [Simulation](#simulation) · [Hardware](#hardware) · [Bill of materials](bom/README.md) · [Teleoperation](lerobot/README.md) · [Contact](#contact) · [Citation](#citation)
+<p align="center">
+  <a href="#paper">Paper</a> ·
+  <a href="#simulation">Simulation</a> ·
+  <a href="#hardware">Hardware</a> ·
+  <a href="bom/README.md">Bill of materials</a> ·
+  <a href="lerobot/README.md">Teleoperation</a> ·
+  <a href="#contact">Contact</a> ·
+  <a href="#citation">Citation</a>
+</p>
 
 <p align="center">
   <a href="docs/assets/mc-dex-hand-demo.gif"><img src="docs/assets/prototype-preview.gif" alt="The robot hand mirroring the operator’s wearable glove" width="614"></a>
@@ -16,7 +24,7 @@ The glove records finger angles, wrist pose and wrist-camera video while a perso
 Our NeurIPS 2026 workshop paper describes how we map those demonstrations to the robot and
 evaluate the resulting policies on the Cube in Cup and Egg Carton tasks.
 
-[Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations (PDF)](docs/paper/mc-dex-hand-neurips2026.pdf).
+📄 [Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations (PDF)](docs/paper/mc-dex-hand-neurips2026.pdf).
 
 ## Simulation
 
