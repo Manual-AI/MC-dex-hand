@@ -1,16 +1,21 @@
 # Simulate the MC-Dex hand on OpenArm
 
-The seven-joint OpenArm carries the eight-joint MC-Dex hand on a vertical pedestal. Start with the browser for an interactive task, or use a native engine to inspect the programmed motion and force traces.
+## Try the object-to-bowl policy
 
-| To do this | Start here |
-|---|---|
-| Throw and move objects while a learned policy picks them up | [Run the live browser demo](https://manual-ai.github.io/MC-dex-hand/) · [Controls](browser/bowl/README.md#play-in-your-browser) |
-| Reproduce the native object-to-bowl montage and force estimates | [Engine videos and measurements](COMPARISON.md) · [Capture commands](bowl_showcase/README.md) |
-| Exercise joint drives and opposing finger contact on a cube | [Four-engine cube tutorial](CUBE_COMPARISON.md) |
-| Drive the simulator with a synthetic glove | [LeRobot teleoperation](../lerobot/README.md) |
-| Load the hand without OpenArm | [Hand MJCF](../models/manual_dex/README.md) · [Hand URDF](../models/manual_dex/urdf/README.md) |
+[Run the interactive browser demo](https://manual-ai.github.io/MC-dex-hand/). Throw one of 16 objects onto the table and watch the MC-Dex hand pick it up and drop it in the bowl. Push the object during a reach or drag it back out to trigger another attempt. The learned policy and MuJoCo physics run in your browser. [Controls](browser/bowl/README.md#play-in-your-browser) · [Policy evaluation](browser/bowl/README.md#browser-evaluation).
 
-The prerequisites and launcher below cover the four-engine cube and joint-playback tutorials. The interactive bowl demo opens directly from a single HTML file. Each bowl capture has its own native runtime.
+## Compare six simulation engines
+
+Isaac Sim, MuJoCo, Genesis, SuperDex, Alloy and Steel each render the same programmed brick transfer with the hand mounted on a vertical OpenArm. A compliant grasp carries the brick until release. Each engine simulates the landing and produces a vertical force estimate from the brick’s motion. [Videos and force traces](COMPARISON.md) · [Force data (CSV)](../docs/assets/simulation/bowl/forces.csv) · [Reproduce the captures](bowl_showcase/README.md).
+
+## Models and tutorials
+
+- Import the standalone eight-joint hand using [MuJoCo MJCF](../models/manual_dex/README.md) or [URDF](../models/manual_dex/urdf/README.md).
+- Test a grasp driven by opposing finger contacts in the [four-engine cube tutorial](CUBE_COMPARISON.md).
+- Drive the simulated hand with a synthetic glove in the [LeRobot teleoperation tutorial](../lerobot/README.md).
+
+<details>
+<summary><strong>OpenArm setup for the four-engine cube and joint-playback tutorials</strong></summary>
 
 ## 1. Prerequisites
 
@@ -205,3 +210,5 @@ For a calibrated experiment:
 5. Test controllers and contacts in simulation before attempting hardware integration.
 
 No example here opens a CAN bus, serial port, robot driver or network control endpoint.
+
+</details>
