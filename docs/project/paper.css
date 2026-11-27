@@ -59,10 +59,10 @@ a:focus-visible, video:focus-visible { outline: 3px solid var(--accent); outline
 .teaser-media a { display: block; }
 figcaption { font-size: .89rem; line-height: 1.55; color: var(--muted); margin-top: .65rem; }
 figcaption strong { color: var(--ink); }
-.paper-section, .demo-panel { width: min(740px, calc(100% - 3rem)); margin-inline: auto; }
+.paper-section { width: min(740px, calc(100% - 3rem)); margin-inline: auto; }
 .paper-section { padding: 2.8rem 0; border-bottom: 1px solid var(--rule); }
 .abstract { padding-top: 3.5rem; }
-.paper-section .title, .demo-panel .title { color: var(--ink); font-weight: 650; letter-spacing: -.036em; margin-bottom: .85rem; }
+.paper-section .title { color: var(--ink); font-weight: 650; letter-spacing: -.036em; margin-bottom: .85rem; }
 .paper-section p + p { margin-top: .9rem; }
 .paper-section p a, figcaption a, .footer a, .citation-heading a { text-decoration: underline; text-underline-offset: .18em; }
 .method-figure { margin: 1.5rem 0; }
@@ -74,8 +74,6 @@ th:first-child { text-align: left !important; }
 thead { background: #e9eee9; }
 thead th { font-size: .88rem; }
 tbody th { font-weight: 500; }
-.demo-panel { display: flex; align-items: center; gap: 1.5rem; justify-content: space-between; background: #eaf0f8; border-radius: 6px; padding: 1.55rem; margin-top: 2.8rem; }
-.demo-panel p { font-size: .98rem; }
 .citation { border: 0; }
 .citation-heading { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
 .citation-heading a { font-size: .9rem; }
@@ -83,11 +81,9 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #eef0ec; color
 .footer { border-top: 1px solid var(--rule); padding: 1.75rem 1.5rem 2rem; background: transparent; text-align: center; font-size: .85rem; color: var(--muted); }
 .footer p + p { margin-top: .3rem; }
 @media (max-width: 600px) {
-  .site-nav, .teaser, .paper-section, .demo-panel { width: calc(100% - 2rem); }
+  .site-nav, .teaser, .paper-section { width: calc(100% - 2rem); }
   .hero-body { padding-bottom: 1.6rem; }
   .publication-links { gap: .45rem; }
   .publication-links .button { font-size: .83rem; padding-inline: .85rem; }
-  .demo-panel { display: block; }
-  .demo-panel .button { margin-top: 1rem; }
   .paper-section { padding-block: 2rem; }
 }
