@@ -14,9 +14,9 @@ A seven-joint OpenArm carries the eight-joint MC-Dex hand. Reset throws a freely
 
 ## Play in your browser
 
-[Play the live demo](https://manual-ai.github.io/MC-dex-hand/). The robot starts automatically in your browser. Chrome is tested. The simulator uses WebGL 2, WebAssembly and a worker for the optional physics preview.
+[Play the live demo](https://manual-ai.github.io/MC-dex-hand/bowl/). The robot starts automatically in your browser. Chrome is tested. The simulator uses WebGL 2, WebAssembly and a worker for the optional physics preview.
 
-For offline use, [download the standalone HTML (11.3 MB)](https://github.com/Manual-AI/MC-dex-hand/releases/download/bowl-demo-v1/MC-Dex-Bowl.html) and open **MC-Dex-Bowl.html** in Chrome. The file includes all 16 objects, the inference weights, the physics engine and the recorded throws.
+For offline use, [download the offline demo (ZIP)](https://manual-ai.github.io/MC-dex-hand/downloads/MC-Dex-Bowl.zip), unzip it and open **MC-Dex-Bowl.html** in Chrome. The file includes all 16 objects, the inference weights, the physics engine and the recorded throws.
 
 - **Throw object** starts a new release. Choose an object from the menu or leave it on random. The object and seed in the address reproduce the launch.
 - **Push object** applies a sideways impulse. Dragging applies a mouse force. The hand waits after a successful deposit and resumes when the object is removed. An object that falls off the table triggers a new throw.
@@ -53,4 +53,4 @@ For the programmed cross-engine version of this scene, see the [native videos an
 
 The editable browser app starts at [index.html](index.html). Changes to its JavaScript, weights, meshes or styles should be followed by a rebuild. With Python 3 and esbuild 0.25.11 on your path, run `python3 simulation/browser/bowl/standalone.py` from the repository root. You can pass `--esbuild /path/to/esbuild` to use an existing installation. The output is `simulation/browser/bowl/MC-Dex-Bowl.html`. Open a copy of this file by itself with networking disabled to check both controller modes.
 
-The [GitHub Pages workflow](../../../.github/workflows/browser-demo.yml) tests the actor and publishes changes to the browser app when they reach `main`. The live URL stays the same. To update the offline download, attach the rebuilt HTML file to a GitHub release and update the download link above.
+The [GitHub Pages workflow](../../../.github/workflows/browser-demo.yml) tests the actor and publishes changes to the browser app when they reach `main`. The live URL stays the same. The workflow also packages the tracked standalone HTML as the offline ZIP, so the download updates with the site.

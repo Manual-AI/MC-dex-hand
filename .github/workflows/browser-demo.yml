@@ -1,9 +1,12 @@
-name: Publish browser demo
+name: Publish paper and browser demo
 
 on:
   push:
     branches: [main]
     paths:
+      - 'README.md'
+      - 'docs/paper/*.pdf'
+      - 'docs/project/**'
       - 'simulation/browser/**'
       - '.github/workflows/browser-demo.yml'
       - 'simulation/LICENSE'
@@ -22,21 +25,17 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          sparse-checkout: simulation/browser
-      - name: Fetch the recording and test the released actor
+          sparse-checkout: |
+            docs/project
+            docs/paper
+            simulation/browser
+      - name: Fetch site media and test the released actor
         run: |
           git lfs install --local
-          git lfs pull --include="simulation/browser/bowl/media/bowl-policy.mp4" --exclude=""
+          git lfs pull --include="docs/project/media/**,simulation/browser/bowl/media/bowl-policy.mp4" --exclude=""
           node simulation/browser/bowl/check.mjs
       - name: Prepare the static site
-        working-directory: simulation/browser
-        run: |
-          site="$RUNNER_TEMP/mc-dex-site"
-          mkdir -p "$site/bowl/media"
-          cp -R assets licenses vendor index.html *.js *.css "$site/"
-          cp bowl/index.html bowl/*.js bowl/*.json bowl/*.xml bowl/*.css "$site/bowl/"
-          cp bowl/media/bowl-policy.mp4 "$site/bowl/media/"
-          cp ../LICENSE ../NOTICE "$site/licenses/"
+        run: docs/project/build.sh "$RUNNER_TEMP/mc-dex-site"
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: ${{ runner.temp }}/mc-dex-site
@@ -51,6 +50,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy the browser demo
+      - name: Deploy the project site
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

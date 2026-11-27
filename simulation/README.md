@@ -2,7 +2,7 @@
 
 ## Try the object-to-bowl policy
 
-[Run the interactive browser demo](https://manual-ai.github.io/MC-dex-hand/). Throw one of 16 objects onto the table and watch the MC-Dex hand pick it up and drop it in the bowl. Push the object during a reach or drag it back out to trigger another attempt. The learned policy and MuJoCo physics run in your browser. [Controls](browser/bowl/README.md#play-in-your-browser) · [Policy evaluation](browser/bowl/README.md#browser-evaluation).
+[Run the interactive browser demo](https://manual-ai.github.io/MC-dex-hand/bowl/). Throw one of 16 objects onto the table and watch the MC-Dex hand pick it up and drop it in the bowl. Push the object during a reach or drag it back out to trigger another attempt. The learned policy and MuJoCo physics run in your browser. [Controls](browser/bowl/README.md#play-in-your-browser) · [Policy evaluation](browser/bowl/README.md#browser-evaluation).
 
 ## Compare six simulation engines
 

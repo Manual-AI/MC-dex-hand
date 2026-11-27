@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations | MC-DexHand</title>
+  <meta name="description" content="MC-DexHand pairs a wearable glove with a matched robot hand to learn dexterous manipulation from robot-free demonstrations. Paper, hardware, results and interactive simulation.">
+  <meta name="citation_title" content="Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations">
+  <meta name="citation_author" content="Amir Belder">
+  <meta name="citation_author" content="Omri Berman">
+  <meta name="citation_author" content="Roman Rabinovich">
+  <meta name="citation_author" content="Navot Oz">
+  <meta name="citation_author" content="Nir Barazida">
+  <meta name="citation_author" content="Aaron Wetzler">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="8th Robot Learning Workshop at NeurIPS 2026">
+  <meta name="citation_pdf_url" content="https://manual-ai.github.io/MC-dex-hand/paper/mc-dex-hand-neurips2026.pdf">
+  <meta property="og:title" content="Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations">
+  <meta property="og:description" content="MC-DexHand · Manual Cognition · Robot Learning Workshop at NeurIPS 2026">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://manual-ai.github.io/MC-dex-hand/">
+  <meta property="og:image" content="https://manual-ai.github.io/MC-dex-hand/media/prototype.jpg">
+  <meta property="og:image:alt" content="An MC-DexHand robot and its matching wearable glove on a workbench">
+  <link rel="canonical" href="https://manual-ai.github.io/MC-dex-hand/">
+  <link rel="icon" href="data:,">
+  <script>
+    // Previously shared links identified individual throws at the site root.
+    const bowl = new URL('./bowl/', location.href);
+    const query = new URLSearchParams(location.search);
+    for (const key of ['object', 'mode', 'seed']) {
+      if (query.has(key)) bowl.searchParams.set(key, query.get(key));
+    }
+    if (bowl.search) location.replace(bowl);
+  </script>
+  <link rel="stylesheet" href="vendor/bulma.min.css">
+  <link rel="stylesheet" href="paper.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to paper</a>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Project navigation">
+      <a class="wordmark" href="./">MC-DexHand</a>
+      <div class="nav-links"><a href="#method">Method</a><a href="#results">Results</a><a href="#BibTeX">Citation</a></div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="paper-title">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <p class="venue"><a href="https://www.robot-learning.ml/2026/">8th Robot Learning Workshop at NeurIPS 2026</a></p>
+              <h1 id="paper-title" class="title is-1 publication-title">Democratizing <span>Data-Efficient</span> Robot Learning with <span>Robot-Free</span> Demonstrations</h1>
+              <p class="publication-authors">
+                <span class="author-block">Amir Belder,</span> <span class="author-block">Omri Berman,</span>
+                <span class="author-block">Roman Rabinovich,</span> <span class="author-block">Navot Oz,</span>
+                <span class="author-block">Nir Barazida,</span> <span class="author-block">Aaron Wetzler</span>
+              </p>
+              <p class="affiliation">Manual Cognition</p>
+              <div class="publication-links">
+                <a class="button is-rounded is-dark" href="paper/mc-dex-hand-neurips2026.pdf">Read the paper <span class="format">PDF</span></a>
+                <a class="button is-rounded" href="https://github.com/Manual-AI/MC-dex-hand">Code &amp; hardware</a>
+                <a class="button is-rounded" href="bowl/">Interactive demo <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <figure class="hero teaser">
+      <video controls muted loop playsinline preload="metadata" poster="media/prototype.jpg" width="1080" height="504" aria-label="The operator flexes the wearable glove and the robot hand mirrors the motion.">
+        <source src="media/prototype.mp4" type="video/mp4">
+        <a href="media/prototype.mp4">Watch the physical prototype video.</a>
+      </video>
+      <figcaption><strong>The MC-DexHand prototype.</strong> The robot hand on the left follows the operator’s glove on the right. Both use the same four finger linkages.</figcaption>
+    </figure>
+
+    <section class="paper-section abstract" id="abstract" aria-labelledby="abstract-title">
+      <h2 id="abstract-title" class="title is-3">Abstract</h2>
+      <p>Collecting demonstrations by teleoperation occupies the target robot and can be substantially slower than natural human manipulation. MC-DexHand pairs a wearable sensing glove with a robot hand that has eight active degrees of freedom. The glove records wrist-camera images, wrist motion and finger angles while an operator handles objects directly. The glove components cost about $80, or $430 with the Quest tracking kit.</p>
+      <p>We adapt these recordings offline by recoloring exposed skin and aligning the timing to the target arm. Each new demonstration can then enter the training set without a physical replay. On two real-robot tasks, policies trained from 150 glove demonstrations per task achieved 75–80% success across ACT and GR00T.</p>
+    </section>
+
+    <section class="paper-section" id="method" aria-labelledby="method-title">
+      <h2 id="method-title" class="title is-3">From glove to robot</h2>
+      <p>Two measured joint angles per finger group map to the corresponding actuators on the robot hand. A wrist camera and a six-degree-of-freedom tracker capture what the operator sees from the wrist and how the hand moves.</p>
+      <figure class="method-figure">
+        <a href="media/method.webp" aria-label="View Figure 1 at full resolution"><img src="media/method.webp" loading="lazy" width="1512" height="566" alt="The glove’s contact pads, finger mechanisms, wrist camera and tracker, alongside an example of skin recoloring and a plot of temporal alignment."></a>
+        <figcaption><strong>Figure 1.</strong> The wearable hardware and demonstration-processing pipeline. <a href="media/method.webp">Enlarge figure</a></figcaption>
+      </figure>
+      <p>Ten teleoperated trajectories calibrate execution speed once per arm. The same time transformation is applied to video, wrist poses and finger actions so they stay synchronized. These calibration trajectories are separate from the demonstrations used to train the policies.</p>
+    </section>
+
+    <section class="paper-section" id="results" aria-labelledby="results-title">
+      <h2 id="results-title" class="title is-3">Real-robot results</h2>
+      <p>We trained each policy on 150 glove demonstrations per task and evaluated it over 20 physical trials. Cube in Cup requires picking up a 2.5&nbsp;cm cube and placing it in a cup. Egg Carton requires the fingers to stabilize the carton while the thumb releases its latch.</p>
+      <table>
+        <caption>Task success with 150 robot-free demonstrations (paper Table 2)</caption>
+        <thead><tr><th scope="col">Task</th><th scope="col">ACT</th><th scope="col">GR00T</th></tr></thead>
+        <tbody><tr><th scope="row">Cube in Cup</th><td>80%</td><td>75%</td></tr><tr><th scope="row">Egg Carton</th><td>75%</td><td>80%</td></tr></tbody>
+      </table>
+      <p>On Cube in Cup, 240 glove demonstrations took about as long to collect as 60 teleoperated demonstrations. With those datasets, ACT achieved 95% success using either collection method. GR00T reached 90% with glove data and 95% with teleoperation. <a href="paper/mc-dex-hand-neurips2026.pdf#page=7">See Table 3 in the paper.</a></p>
+    </section>
+
+    <aside class="demo-panel" aria-labelledby="demo-title">
+      <div><h2 id="demo-title" class="title is-4">Try the hand in simulation</h2>
+      <p>Throw an object onto the table or push it mid-reach. A policy running in your browser controls the simulated hand as it picks up the object and places it in a bowl.</p></div>
+      <a class="button is-rounded is-dark" href="bowl/">Launch demo <span aria-hidden="true">↗</span></a>
+    </aside>
+
+    <section class="paper-section citation" id="BibTeX" aria-labelledby="citation-title">
+      <div class="citation-heading"><h2 id="citation-title" class="title is-3">BibTeX</h2><a href="paper/citation.bib" download>Download .bib</a></div>
+      <pre><code><!-- paper-citation --></code></pre>
+    </section>
+  </main>
+  <footer class="footer">
+    <p>MC-DexHand · <a href="mailto:aaron@manualcognition.ai">Contact Manual Cognition</a> · <a href="https://github.com/Manual-AI/MC-dex-hand/blob/main/LICENSING.md">Project licensing</a></p>
+    <p>Page layout adapted from the <a href="https://github.com/ripl/nerfies-template/tree/website">RIPL template</a> and <a href="https://nerfies.github.io/">Nerfies</a> under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+  </footer>
+  <script>
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelector('.teaser video').play().catch(() => {});
+    }
+  </script>
+</body>
+</html>

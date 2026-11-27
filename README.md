@@ -29,7 +29,7 @@ component cost is $80 for the glove, or $430 including the Quest wrist-tracking 
 ## Paper
 
 Our NeurIPS 2026 workshop paper describes how we align the glove recordings with the robot’s timing and
-evaluate the resulting policies on the Cube in Cup and Egg Carton tasks.
+evaluate the resulting policies on the Cube in Cup and Egg Carton tasks. [Visit the paper’s project page](https://manual-ai.github.io/MC-dex-hand/).
 
 📖 [Democratizing Data-Efficient Robot Learning with Robot-Free Demonstrations (PDF)](docs/paper/mc-dex-hand-neurips2026.pdf).
 
@@ -43,7 +43,7 @@ We wanted to make MC-Dex as easy as possible to work with, so we’ve prepared a
   <a href="docs/assets/simulation/bowl/bowl-engines.mp4"><img src="docs/assets/simulation/bowl/preview.gif" width="768" height="432" alt="Native simulator views of the MC-Dex hand carrying a brick to the bowl on OpenArm, with a force trace for each capture."></a>
 </p>
 
-📣 [<img src="docs/assets/new-badge.svg" alt="New!" width="42" height="20" align="middle"> Try the interactive browser policy](https://manual-ai.github.io/MC-dex-hand/). Throw an object onto the table, push it during the reach, or drag it back out of the bowl. The simulation and policy run in your browser. [Controls, results and offline version](simulation/browser/bowl/README.md).
+📣 [<img src="docs/assets/new-badge.svg" alt="New!" width="42" height="20" align="middle"> Try the interactive browser policy](https://manual-ai.github.io/MC-dex-hand/bowl/). Throw an object onto the table, push it during the reach, or drag it back out of the bowl. The simulation and policy run in your browser. [Controls, results and offline version](simulation/browser/bowl/README.md).
 
 <a id="meet-the-glove-and-robot-hand"></a>
 
