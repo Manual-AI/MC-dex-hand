@@ -167,3 +167,7 @@ rendering and model interfaces used by this pipeline.
 ## Hardware overview figures
 
 The two Hardware figures on the repository front page are rendered from the right-hand CAD assemblies. The matched wrist-side views expose the controller face, camera board and finger drives. Both use the same camera, scale and part palette. The insets show the tracker and the lens side of the camera board. Printed shells and mounts use the same warm white. The Feetech servos have red cases and black ends, the Quest controller has a white body and black upper face, and the camera has a green PCB and black lens holder. Run `python tools/visualization/overviews.py` in the visualization environment to regenerate both images. The assembly guide uses separate connection drawings. [Hardware figures](../../README.md#hardware) · [Assembly guide](../assembly/README.md) · [Color definitions](../../simulation/browser/assets/appearance.json).
+
+## Licenses
+
+The visualization tools, paired kinematics animation and [compressed prototype clip](../assets/manual-dex-demo.gif) use [Apache-2.0](../../simulation/LICENSE). The part register and linkage diagrams use [CERN-OHL-P-2.0](../../models/manual_dex/LICENSE).

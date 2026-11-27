@@ -17,14 +17,9 @@ The standalone versioned Manual-Dex URDF does not contain OpenArm geometry.
 
 ## Manual-Dex
 
-The hand comes from this repository's original CAD-derived MJCF and mesh assets.
-The contributor CAD-derived hand models in this package retain **CERN-OHL-P-2.0**.
-The simulation scripts and tutorials retain [Apache-2.0](LICENSE). See the [licensing scope](../LICENSING.md).
-OpenArm's license does **not** relicense Manual-Dex, and Manual-Dex's licenses do not
-replace OpenArm's. The builder includes `MANUAL_DEX_LICENSE` and `MANUAL_DEX_NOTICE`
-alongside `OPENARM_LICENSE` in the assembled output. Preserve the applicable notices
-and license copies when redistributing it. See [`../bom/THIRD_PARTY.md`](../bom/THIRD_PARTY.md)
-for existing component authorship and historical attribution.
+The CAD-derived hand models use [CERN-OHL-P-2.0](../models/manual_dex/LICENSE).
+The simulation software, tutorials and captures use [Apache-2.0](LICENSE). Generated packages
+include the OpenArm license and the Manual-Dex license and notice.
 
 ## Runtime packages
 
@@ -49,9 +44,9 @@ The vertical pedestal uses the six torso visual parts and the right shoulder tra
 
 The browser assigns materials to individual CAD surfaces. The MC-Dex palm and finger shells use the warm white visible in the prototype footage. The Quest has a white body and dark upper face, the camera has a green PCB and black M12 lens holder, and the eight Feetech servos have red housings with black ends. OpenArm uses the matte black and silver materials assigned to its links in the pinned model. [Appearance map](browser/assets/appearance.json) · [Prototype footage](../docs/assets/prototype-preview.gif) · [MC-Dex part register](../models/manual_dex/hand/parts.json) · [OpenArm materials](https://github.com/enactic/openarm_mujoco/blob/a8c979629f2591ad035d99d338ce114969e6cddc/v1/openarm.xml) · [Feetech product reference](https://ftservo.github.io/ftservo-wiki/products/models/hl-3606-c002/main/).
 
-The WebAssembly engine and JavaScript loader come from `@mujoco/mujoco@3.6.0`. The loader starts with an empty worker pool and the scene compiles serially so the demo can run on a plain local static server. The graphics modules come from `three@0.180.0`. [MuJoCo source](https://github.com/google-deepmind/mujoco/tree/3.6.0/wasm) · [MuJoCo license](browser/licenses/MUJOCO_LICENSE) · [Upstream third-party notices](browser/licenses/MUJOCO_THIRD_PARTY.txt) · [Three.js license](browser/licenses/THREE_LICENSE).
+The WebAssembly engine and JavaScript loader come from `@mujoco/mujoco@3.6.0`. The loader starts with an empty worker pool and the scene compiles serially so the demo can run on a plain local static server. The graphics modules come from `three@0.180.0`. [MuJoCo source](https://github.com/google-deepmind/mujoco/tree/3.6.0/wasm) · [MuJoCo license](browser/licenses/MUJOCO_LICENSE) · [Upstream third-party notices](browser/licenses/MUJOCO_THIRD_PARTY.txt) · [Three.js license](browser/licenses/THREE_LICENSE) · [Earcut license](browser/licenses/EARCUT_LICENSE).
 
-The bowl policy uses the SuperMimic actor architecture from Leor’s mc-lrl implementation, with an object-conditioned trajectory decoder developed for this task. [Upstream attribution](https://github.com/Manual-AI/mc-lrl/blob/75e20985340c5424b39e1bf0268885e6d6b89c27/NOTICE.md) · [Controller and browser tests](browser/bowl/README.md).
+The bowl policy uses the [SuperMimic](https://supermimic.github.io/) actor architecture via Leor’s mc-lrl implementation (adapted from Sharpa and UniSuperMimic). The object-conditioned decoder was developed for this task. [Controller and evaluation](browser/bowl/README.md).
 
 The bowl task reuses the same OpenArm and MC-Dex geometry, MuJoCo runtime and Three.js renderer. Its bowl and 16 object models were constructed for this project from simple solids. The browser loads sampled object surfaces and trained weights for a PointNet-style encoder and the task-specific action-chunk policy. [Object catalog](browser/bowl/objects.json) · [Bowl policy and evaluation](browser/bowl/README.md) · [PointNet project](https://stanford.edu/~rqi/pointnet/).
 

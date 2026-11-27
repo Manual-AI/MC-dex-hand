@@ -31,8 +31,7 @@ Open Model License yourself.
 - **CAD source:** the project-local `Quest_mount_assembly.SLDASM`, containing
   `01_Base`, `02_Hinged_cap` and `03_Receiver_8x9`.
 - **Author:** Roman (Manual Cognition), who confirmed that the new mount is his own design.
-- **Source / license:** original project design; no third-party attribution is required for
-  this mount. See the [hardware terms](../LICENSE-HARDWARE) and [ownership scope](../LICENSING.md) for the project design and any separately owned contributions.
+- **Source / license:** original MC-DexHand design under the [hardware terms](../hardware/LICENSE).
 - **Receiver modification:** four rectangular pads retained at 8 x 5 x 3 mm;
   centered edge-to-edge gaps changed from 6 x 11 mm to 8 x 9 mm.
 
