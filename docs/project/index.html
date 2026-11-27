@@ -19,8 +19,8 @@
   <meta property="og:description" content="MC-DexHand · Manual Cognition · Robot Learning Workshop at NeurIPS 2026">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://manual-ai.github.io/MC-dex-hand/">
-  <meta property="og:image" content="https://manual-ai.github.io/MC-dex-hand/media/prototype.jpg">
-  <meta property="og:image:alt" content="An MC-DexHand robot and its matching wearable glove on a workbench">
+  <meta property="og:image" content="https://manual-ai.github.io/MC-dex-hand/media/glove-and-hand.jpg">
+  <meta property="og:image:alt" content="The wearable glove and matched robot hand, annotated with corresponding contact surfaces, joints and wrist cameras">
   <link rel="canonical" href="https://manual-ai.github.io/MC-dex-hand/">
   <link rel="icon" href="data:,">
   <script>
@@ -70,11 +70,16 @@
     </section>
 
     <figure class="hero teaser">
-      <video controls muted loop playsinline preload="metadata" poster="media/prototype.jpg" width="1080" height="504" aria-label="The operator flexes the wearable glove and the robot hand mirrors the motion.">
-        <source src="media/prototype.mp4" type="video/mp4">
-        <a href="media/prototype.mp4">Watch the physical prototype video.</a>
-      </video>
-      <figcaption><strong>The MC-DexHand prototype.</strong> The robot hand on the left follows the operator’s glove on the right. Both use the same four finger linkages.</figcaption>
+      <div class="teaser-media">
+        <a href="media/glove-and-hand.jpg" aria-label="Enlarge the glove and robot hand diagram">
+          <img src="media/glove-and-hand.jpg" width="1099" height="816" alt="Wearable glove and matched robot hand with corresponding contact surfaces, joint angles, axes and wrist cameras labeled.">
+        </a>
+        <video controls muted loop playsinline preload="metadata" poster="media/prototype.jpg?full-frame" width="1080" height="1056" aria-label="The operator flexes the glove. The physical robot hand mirrors the motion, with the simulated hand visible on the monitor above.">
+          <source src="media/prototype.mp4?full-frame" type="video/mp4">
+          <a href="media/prototype.mp4?full-frame">Watch the prototype video.</a>
+        </video>
+      </div>
+      <figcaption><strong>The glove and its matched robot hand.</strong> The diagram shows how the contact surfaces, joint axes and wrist cameras line up. In the video, the physical and simulated hands follow the operator’s glove. <a href="media/glove-and-hand.jpg">Enlarge diagram</a></figcaption>
     </figure>
 
     <section class="paper-section abstract" id="abstract" aria-labelledby="abstract-title">
