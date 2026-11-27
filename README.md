@@ -45,6 +45,8 @@ We wanted to make MC-Dex as easy as possible to work with, so we’ve prepared a
 
 📣 [<img src="docs/assets/new-badge.svg" alt="New!" width="42" height="20" align="middle"> Try the interactive browser policy](https://manual-ai.github.io/MC-dex-hand/bowl/). Throw an object onto the table, push it during the reach, or drag it back out of the bowl. The simulation and policy run in your browser. [Controls, results and offline version](simulation/browser/bowl/README.md).
 
+Initial results with SuperMimic suggest MC-DexHand is a good fit for reinforcement learning in simulation. Across 16 object shapes, the policy alone placed the object in the bowl in 77% of undisturbed trials and 73% of trials with a push or drag (512 trials per condition, with retries).
+
 <a id="meet-the-glove-and-robot-hand"></a>
 
 ## Hardware
