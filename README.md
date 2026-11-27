@@ -75,7 +75,7 @@ firmware, a verified servo-bus driver and synchronized camera and wrist-pose cap
 
 ## Contact
 
-For any questions about the glove, reach out to [amir@manualcognition.ai](mailto:amir@manualcognition.ai)
+For any questions about the glove, reach out to [aaron@manualcognition.ai](mailto:aaron@manualcognition.ai)
 
 ## License
 
