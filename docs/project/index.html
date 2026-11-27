@@ -60,7 +60,7 @@
               <p class="affiliation">Manual Cognition</p>
               <div class="publication-links">
                 <a class="button is-rounded is-dark" href="paper/mc-dex-hand-neurips2026.pdf">Read the paper <span class="format">PDF</span></a>
-                <a class="button is-rounded" href="https://github.com/Manual-AI/MC-dex-hand">Code &amp; hardware</a>
+                <a class="button is-rounded" href="https://github.com/Manual-AI/MC-dex-hand">Hardware &amp; simulation</a>
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@
 
     <section class="paper-section abstract" id="abstract" aria-labelledby="abstract-title">
       <h2 id="abstract-title" class="title is-3">Abstract</h2>
-      <p>Collecting demonstrations by teleoperation occupies the target robot and can be substantially slower than natural human manipulation. MC-DexHand pairs a wearable sensing glove with a robot hand that has eight active degrees of freedom. The glove records wrist-camera images, wrist motion and finger angles while an operator handles objects directly. The glove components cost about $80, or $430 with the Quest tracking kit.</p>
+      <p>Collecting demonstrations by teleoperation occupies the target robot and can be substantially slower than natural human manipulation. MC-DexHand pairs a wearable sensing glove with a robot hand that has eight active degrees of freedom. The glove records wrist-camera images, wrist motion and finger angles while an operator handles objects directly. The paper estimates the glove components at about $80, or $430 with the Quest tracking kit.</p>
       <p>We adapt these recordings offline by recoloring exposed skin and aligning the timing to the target arm. Each new demonstration can then enter the training set without a physical replay. On two real-robot tasks, policies trained from 150 glove demonstrations per task achieved 75–80% success across ACT and GR00T.</p>
     </section>
 
@@ -92,7 +92,7 @@
       <p>Two measured joint angles per finger group map to the corresponding actuators on the robot hand. A wrist camera and a six-degree-of-freedom tracker capture what the operator sees from the wrist and how the hand moves.</p>
       <figure class="method-figure">
         <a href="media/method.webp" aria-label="View Figure 1 at full resolution"><img src="media/method.webp" loading="lazy" width="1512" height="566" alt="The glove’s contact pads, finger mechanisms, wrist camera and tracker, alongside an example of skin recoloring and a plot of temporal alignment."></a>
-        <figcaption><strong>Figure 1.</strong> The wearable hardware and demonstration-processing pipeline. <a href="media/method.webp">Enlarge figure</a></figcaption>
+        <figcaption><strong>Figure 1.</strong> The paper prototype and its demonstration-processing pipeline. <a href="media/method.webp">Enlarge figure</a></figcaption>
       </figure>
       <p>Ten teleoperated trajectories calibrate execution speed once per arm. The same time transformation is applied to video, wrist poses and finger actions so they stay synchronized. These calibration trajectories are separate from the demonstrations used to train the policies.</p>
     </section>

@@ -4,4 +4,4 @@ Amir Belder (corresponding author), Omri Berman, Roman Rabinovich, Navot Oz, Nir
 
 The paper is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
-[Paper project page](https://manual-ai.github.io/MC-dex-hand/) · [Camera-ready paper (PDF)](mc-dex-hand-neurips2026.pdf) · [8th Robot Learning Workshop at NeurIPS 2026](https://www.robot-learning.ml/2026/) · [BibTeX](../../README.md#citation)
+[Paper project page](https://manual-ai.github.io/MC-dex-hand/) · [Workshop paper (PDF)](mc-dex-hand-neurips2026.pdf) · [8th Robot Learning Workshop at NeurIPS 2026](https://www.robot-learning.ml/2026/) · [BibTeX](../../README.md#citation)

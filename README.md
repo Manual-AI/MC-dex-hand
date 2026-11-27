@@ -19,12 +19,14 @@ Teleoperation requires continuous access to the target robot and can be substant
 natural human manipulation. MC-DexHand is a co-designed glove and robot gripper intended to
 facilitate data-efficient robot learning from demonstrations collected without the target robot.
 
-During manipulation, the glove records synchronized wrist-camera images, six-degree-of-freedom
-wrist poses, and eight finger joint angles. The gripper has eight active degrees of freedom and
-shares the glove’s finger linkages and contact surfaces, so each calibrated glove angle maps
-directly to its corresponding gripper joint. Lightweight post-processing recolors visible skin
-to match the glove and aligns each demonstration with the robot’s execution speed. The estimated
-component cost is $80 for the glove, or $430 including the Quest wrist-tracking kit.
+In the paper’s prototype, the glove recorded synchronized wrist-camera images, six-degree-of-freedom
+wrist poses and eight finger joint angles. The gripper shares the glove’s finger linkages and contact
+surfaces, so each calibrated angle maps to one of its eight actuated joints. The authors recolored
+visible skin in the recordings and aligned each demonstration with the robot’s execution speed.
+They estimated glove components at about $80, or $430 with the Quest wrist-tracking kit.
+
+This release includes the designs, parts lists, simulation models and a LeRobot adapter.
+The [hardware integration guide](lerobot/HARDWARE.md) lists the firmware, wiring and calibration needed for physical operation.
 
 ## Paper
 
@@ -45,7 +47,7 @@ We wanted to make MC-Dex as easy as possible to work with, so we’ve prepared a
 
 📣 [<img src="docs/assets/new-badge.svg" alt="New!" width="42" height="20" align="middle"> Try the interactive browser policy](https://manual-ai.github.io/MC-dex-hand/bowl/). Throw an object onto the table, push it during the reach, or drag it back out of the bowl. The simulation and policy run in your browser. [Controls, results and offline version](simulation/browser/bowl/README.md).
 
-Initial results with SuperMimic suggest MC-DexHand is a good fit for reinforcement learning in simulation. Across 16 object shapes, the policy alone placed the object in the bowl in 77% of undisturbed trials and 73% of trials with a push or drag (512 trials per condition, with retries).
+In an initial reinforcement learning experiment, a [SuperMimic-based policy](simulation/NOTICE) controlled the simulated MC-DexHand using object geometry and pose from the simulator. Across 16 shapes, the policy alone placed the object in the bowl in 77% of undisturbed trials and 73% of trials with a push or drag (512 trials per condition, with retries).
 
 <a id="meet-the-glove-and-robot-hand"></a>
 
@@ -81,7 +83,7 @@ For any questions about the glove, reach out to [aaron@manualcognition.ai](mailt
 
 ## License
 
-The glove and hand designs use the [noncommercial hardware terms](hardware/LICENSE). See [licenses by component](LICENSING.md) or contact [Aaron](mailto:aaron@manualcognition.ai) for commercial licensing.
+See [licenses by component](LICENSING.md), including the [noncommercial hardware terms](hardware/LICENSE). For commercial licensing, contact [Aaron](mailto:aaron@manualcognition.ai).
 
 ## Citation
 

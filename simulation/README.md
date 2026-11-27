@@ -166,12 +166,9 @@ are checked against the unfused native MJCF. Collision meshes are separate water
 convex-hull stand-ins, not detailed validated contact surfaces. The original playback
 examples disable them; the native showcase enables robot/environment contacts.
 
-OpenArm's upstream assets are downloaded at the exact commit in `versions.json`; they
-are not silently replaced with whatever is on the upstream default branch. Its Apache-2.0
-license is copied into the generated package. See [THIRD_PARTY.md](THIRD_PARTY.md).
-The builder also includes the Manual-Dex hardware license and notice. Original tutorial
-code uses Apache-2.0; original hand models use CERN-OHL-P-2.0. See
-[the licensing scope](../LICENSING.md) before redistributing a mixed model package.
+The builder fetches the OpenArm assets at the revision in [versions.json](versions.json)
+and packages the OpenArm license with the [Manual-Dex model license](../models/manual_dex/LICENSE)
+and [notice](../models/manual_dex/NOTICE). [Simulation credits](THIRD_PARTY.md).
 
 ## 5. Existing environments and offline operation
 

@@ -11,8 +11,7 @@ The launcher downloads these assets into the ignored build directory. The builde
 removes the stock parallel-jaw gripper and controls, attaches Manual-Dex, adds inspection
 lighting and exports merged visual meshes and convex collision proxies. It copies the
 upstream license to `build/simulation/generated/OPENARM_LICENSE` and records the revision
-and mount configuration in `provenance.json`. Preserve the license and provenance when
-redistributing an assembled package; satisfy the upstream license's other requirements.
+and mount configuration in `provenance.json`.
 The standalone versioned Manual-Dex URDF does not contain OpenArm geometry.
 
 ## Manual-Dex
@@ -38,7 +37,7 @@ other engines. Using an existing accepted installation does not install or modif
 
 ## Browser demo
 
-The [interactive bowl scene](browser/bowl/scene.xml) uses the same pinned OpenArm and MC-Dex models described above. The browser package includes simplified CAD visual meshes, convex palm and finger collision meshes, actuator settings, a bench, a bowl and the object catalog. The [mesh archive](browser/assets/meshes.tar.gz) contains standard STL files. Retained notices accompany the package. [OpenArm license](browser/licenses/OPENARM_LICENSE) · [MC-Dex hardware license](browser/licenses/MANUAL_DEX_LICENSE) · [MC-Dex notice](browser/licenses/MANUAL_DEX_NOTICE).
+The [interactive bowl scene](browser/bowl/scene.xml) uses the same pinned OpenArm and MC-Dex models described above. The browser package includes simplified CAD visual meshes, convex palm and finger collision meshes, actuator settings, a bench, a bowl and the object catalog. The [mesh archive](browser/assets/meshes.tar.gz) contains standard STL files. Retained notices accompany the package. [OpenArm license](browser/licenses/OPENARM_LICENSE) · [MC-Dex model license (CERN-OHL-P-2.0)](browser/licenses/MANUAL_DEX_LICENSE) · [MC-Dex notice](browser/licenses/MANUAL_DEX_NOTICE).
 
 The vertical pedestal uses the six torso visual parts and the right shoulder transform from the pinned OpenArm bimanual model. The simplified torso meshes retain their upstream black and silver material groups. The worktable height, pedestal position relative to the table and inverse-kinematics calibration are specific to this task. [Upstream bimanual assembly](https://github.com/enactic/openarm_mujoco/blob/a8c979629f2591ad035d99d338ce114969e6cddc/v1/openarm_bimanual.xml).
 

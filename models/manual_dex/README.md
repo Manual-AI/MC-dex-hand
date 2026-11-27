@@ -1,8 +1,7 @@
 # Manual-Dex robot models
 
-Original model definitions, meshes and part/joint records are licensed under
-[CERN-OHL-P-2.0](LICENSE). Keep the [notice](NOTICE) with redistributed model packages;
-see the [repository licensing guide](../../LICENSING.md) for scope and exceptions.
+The Manual-Dex model package carries [CERN-OHL-P-2.0](LICENSE) and its [notice](NOTICE).
+See the [hardware credits](../../bom/THIRD_PARTY.md#purchased-components-in-the-cad) for purchased components represented in the meshes.
 
 These are the **actual MJCF models and mesh assets used by the paired visualization**.
 They were generated directly from the released STEP assemblies, not from URDF files.
