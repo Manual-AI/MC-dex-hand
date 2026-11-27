@@ -1,9 +1,8 @@
 MC-DexHand
 Copyright 2026 Manual Cognition
+Required Notice: MC-DexHand by Manual Cognition and the MC-DexHand contributors (https://github.com/Manual-AI/MC-dex-hand).
 
-Software and firmware: Apache-2.0 (https://www.apache.org/licenses/LICENSE-2.0)
-Hardware designs and bills of materials: CERN-OHL-P-2.0 (https://spdx.org/licenses/CERN-OHL-P-2.0.html)
-Paper-release documentation and media: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
-
-Manual-Dex simulation, teleoperation and CAD-derived models, where included
+Manual-Dex simulation, teleoperation and CAD-derived models
 Copyright 2026 Manual-Dex contributors
+
+Licenses by component: LICENSING.md

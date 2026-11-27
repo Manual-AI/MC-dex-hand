@@ -178,5 +178,5 @@ env PYTHONPATH= PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 
 The unit suite uses fake devices only. See [VALIDATION.md](VALIDATION.md) for actual
 engine tests and [RESEARCH.md](RESEARCH.md) for the APIs inspected. Original adapter
-code/configuration/tutorials use the [Apache-2.0 license](LICENSE); models
+code/configuration/tutorials use the [LeRobot adapter’s Apache-2.0 license](LICENSE); models
 retain their [separate hardware and upstream terms](../LICENSING.md).

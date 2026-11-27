@@ -79,7 +79,7 @@ For any questions about the glove, reach out to [aaron@manualcognition.ai](mailt
 
 ## License
 
-See the [licenses and attribution](NOTICE).
+The glove and hand designs use the [noncommercial hardware terms](hardware/LICENSE). See [licenses by component](LICENSING.md) or contact [Aaron](mailto:aaron@manualcognition.ai) for commercial licensing.
 
 ## Citation
 

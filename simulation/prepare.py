@@ -225,14 +225,14 @@ def main():
     assert {model.joint(i).name for i in range(model.njnt)} == set(JOINT_NAMES)
     export_urdf(fused_model(assembled), PACKAGE, "openarm_manual_dex")
     shutil.copy2(source.parents[1] / "LICENSE", PACKAGE / "OPENARM_LICENSE")
-    shutil.copy2(ROOT / "hardware/LICENSE", PACKAGE / "MANUAL_DEX_LICENSE")
-    shutil.copy2(ROOT / "hardware/NOTICE", PACKAGE / "MANUAL_DEX_NOTICE")
+    shutil.copy2(ROOT / "models/manual_dex/LICENSE", PACKAGE / "MANUAL_DEX_LICENSE")
+    shutil.copy2(ROOT / "models/manual_dex/NOTICE", PACKAGE / "MANUAL_DEX_NOTICE")
     if args.publish_hand:
         hand = hand_tree()
         write_xml(hand, PACKAGE / "manual_dex.xml")
         export_urdf(fused_model(hand), ROOT / "models/manual_dex/urdf", "manual_dex")
         for filename in ("LICENSE", "NOTICE"):
-            shutil.copy2(ROOT / "hardware" / filename, ROOT / "models/manual_dex/urdf" / filename)
+            shutil.copy2(ROOT / "models/manual_dex" / filename, ROOT / "models/manual_dex/urdf" / filename)
     (PACKAGE / "provenance.json").write_text(json.dumps({
         "versions": json.loads((ROOT / "simulation/versions.json").read_text()),
         "mount": json.loads((ROOT / "simulation/mount.json").read_text()),

@@ -35,8 +35,8 @@ def check_assets(path, expected_joints):
 
 def main():
     for published, original in (("MANUAL_DEX_LICENSE", "LICENSE"), ("MANUAL_DEX_NOTICE", "NOTICE")):
-        assert (PACKAGE / published).read_bytes() == (ROOT / "hardware" / original).read_bytes()
-        assert (ROOT / "models/manual_dex/urdf" / original).read_bytes() == (ROOT / "hardware" / original).read_bytes()
+        assert (PACKAGE / published).read_bytes() == (ROOT / "models/manual_dex" / original).read_bytes()
+        assert (ROOT / "models/manual_dex/urdf" / original).read_bytes() == (ROOT / "models/manual_dex" / original).read_bytes()
     urdf_path = PACKAGE / "openarm_manual_dex.urdf"
     check_assets(urdf_path, 15)
     check_assets(ROOT / "models/manual_dex/urdf/manual_dex.urdf", 8)

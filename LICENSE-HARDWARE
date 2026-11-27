@@ -1,0 +1,35 @@
+MC-DexHand Noncommercial Hardware Terms 1.0
+Copyright 2026 Manual Cognition
+
+Coverage. These terms cover Manual Cognition's original design files and bills
+of materials. Component-specific licenses are listed in LICENSING.md.
+
+Design files. Manual Cognition licenses its copyright in the covered design
+files under Creative Commons Attribution-NonCommercial 4.0 International
+(https://creativecommons.org/licenses/by-nc/4.0/legalcode). That license
+governs copying, adapting and sharing those files, including its attribution
+and change-notice requirements.
+
+Making hardware. To the extent that its permission is necessary, Manual
+Cognition also grants you a worldwide, royalty-free, nonexclusive permission
+to make, use, modify and distribute physical implementations of the covered
+designs for noncommercial purposes. This includes patent claims Manual
+Cognition controls that are necessarily practiced by the covered design
+as supplied. Noncommercial means not primarily intended for or directed
+towards commercial advantage or monetary compensation.
+
+When distributing physical implementations under this additional permission,
+include the credit below, the project URL and a copy of or link to these
+terms with the product or its accompanying documentation. Identify any
+changes you made. A permanent marking on the hardware is optional.
+
+MC-DexHand by Manual Cognition and the MC-DexHand contributors
+https://github.com/Manual-AI/MC-dex-hand
+
+For commercial licensing, contact aaron@manualcognition.ai.
+
+These terms grant only rights Manual Cognition controls. They do not restrict
+rights you have independently and grant no trademark or endorsement rights.
+The additional hardware permission is provided as is, without warranty. To
+the extent permitted by law, Manual Cognition disclaims liability arising
+from designs or products used under that permission.
